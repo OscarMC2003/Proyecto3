@@ -1,16 +1,69 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-.montLight{
-  text-align: right;
-  color: gray;
-  font-size: 9px;
+.montBlack {
+  color: #000;
   font-family: "Montserrat", sans-serif;
-  font-weight: 300;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
 }
 
-.montBlack{
+.montSEMI{
+  color: #000;
   font-family: "Montserrat", sans-serif;
-  font-weight: 900;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  letter-spacing: 1.54px;
+  text-transform: uppercase;
+}
+
+.montExtra{
+  color: #000;
+  font-family: "Montserrat", sans-serif;
+  font-size: 46px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+}
+
+.montSEMI2{
+  color: #000;
+  font-family: "Montserrat", sans-serif;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.montSEMI3{
+  color: #000;
+  font-family: "Montserrat", sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.montRegular{
+  color: #000;
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  }
+
+.montLight{
+  color: #000;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
 }

@@ -1,9 +1,11 @@
-import Login from "@/components/login";
+import HomePage from "@/components/inicio/HomePage";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
-      <Login />
-    </main>
+    <>
+      <main className="flex min-h-screen flex-col items-center justify-between">
+        <HomePage />
+      </main>
+    </>
   );
 }
