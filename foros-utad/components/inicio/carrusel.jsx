@@ -16,26 +16,26 @@ const Carousel = ({ images }) => {
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full h-full"> {/* Utiliza h-full o max-h-[value] para controlar la altura */}
       <button 
         className="absolute left-0 z-10 h-full flex items-center px-4 focus:outline-none text-5xl text-blue-600" 
         onClick={goToPrevious}
       >
-        &#60; {/* HTML entity para '<' */}
+        &#60;
       </button>
       <button 
         className="absolute right-0 z-10 h-full flex items-center px-4 focus:outline-none text-5xl text-blue-600" 
         onClick={goToNext}
       >
-        &#62; {/* HTML entity para '>' */}
+        &#62;
       </button>
-      <div className="overflow-hidden w-auto h-auto">
+      <div className="overflow-hidden w-full h-full"> {/* Asegura que la altura y el ancho sean controlados */}
         <div className="whitespace-nowrap transition-transform duration-300" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
           {images.map((image, index) => (
             <img
               key={index}
               src={image}
-              className={`inline-block w-full h-auto`}
+              className="inline-block w-full h-full object-contain" 
               alt={`Slide ${index}`}
             />
           ))}
