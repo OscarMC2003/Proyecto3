@@ -9,10 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "fs": "^0.0.1-security",
+    "net": "^1.0.2",
     "next": "14.1.0",
     "nextjs-fonts": "^0.22.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "serverless-mysql": "^1.5.5",
+    "tls": "^0.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
