@@ -1,23 +1,22 @@
-const { db, dbConnect } = require('../db');
+import executeQuery from '../connection/db';
+import { NextResponse } from 'next/server'
 
-
-const loginController = async (req, res) => {
+const loginController = async (req) => {
     try {
-        await dbConnect(); // Asegúrate de que esta función maneje la lógica de conexión correctamente
-        const { email, password } = req.body;
+        const { email, password } = await req.json();
         
         const query = "SELECT * FROM usuarios WHERE email = ? AND clave = ?"; 
         
-        const result = await db.query(query, [email, password]);
+        const result = await executeQuery(query, [email, password]);
 
         if (result.length > 0) {
-            res.status(200).json({ message: "Inicio de sesión exitoso" });
+            return NextResponse.json({ message: 'Inicio de sesión exitoso' }, { status: 200 })
         } else {
-            res.status(401).json({ message: "Credenciales inválidas" });
+            return NextResponse.json({ message: 'Credenciales inválidas' }, { status: 401 })
         }
     } catch (error) {
         console.error("Error al verificar las credenciales en la base de datos:", error);
-        res.status(500).json({ message: "Error interno del servidor" });
+        return NextResponse.json({ message: 'Error interno del servidor' }, { status: 500 })
     }
 };
 

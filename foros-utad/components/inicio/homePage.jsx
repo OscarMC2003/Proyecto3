@@ -10,7 +10,7 @@ function Inicio() {
   //const [showLogin, setShowLogin] = useState(false);
 
   const imageUrls = [
-    '/images/foto1.png',
+    '/images/foto1.jpg',
     '/images/foto2.png',
     '/images/foto3.png',
   ];

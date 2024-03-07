@@ -11,15 +11,13 @@ async function loginHandler(user) {
     console.log(user); // Debería mostrarte la estructura del objeto
 
     try {
-        const response = await fetch('http://localhost:3000/login', {
+        const response = await fetch('/loginpost', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(user)
         });
-
-
 
         if (response.ok) {
             const data = await response.json();
