@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Usuario } = require("./models"); 
+const { Usuario } = require("../models"); 
 
 
 const loginCtrl = async (req, res) =>{

@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/sql'); // Asegúrate de que esta ruta sea correcta según la ubicación de tu archivo de configuración de Sequelize
+const sequelize = require('../../config/sql'); // Asegúrate de que esta ruta sea correcta según la ubicación de tu archivo de configuración de Sequelize
 
-const Usuario = sequelize.define('Usuario', {
+const Usuario = sequelize.define('usuario', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -44,7 +44,7 @@ const Usuario = sequelize.define('Usuario', {
   }
 }, {
   tableName: 'usuarios', // Nombre de la tabla en la base de datos
-  timestamps: false // Indica si Sequelize debe incluir automáticamente los campos de fecha de creación y actualización
+  timestamps: true // Indica si Sequelize debe incluir automáticamente los campos de fecha de creación y actualización
 });
 
 module.exports = Usuario;
