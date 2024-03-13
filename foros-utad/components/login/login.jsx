@@ -18,7 +18,7 @@ async function loginHandler(user, router) {
             },
             body: JSON.stringify(user)
         });
-        console.log(response)
+
         if (response.ok) {
             const data = await response.json();
             console.log(data);
@@ -52,7 +52,7 @@ export default function Login() {
         // alert(user.email)
         //alert(user.password)
 
-        loginHandler(user);
+        loginHandler(user, router);
 
         //LLamadas a base de datod
         //pedir si usuario exisiste

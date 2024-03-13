@@ -40,6 +40,8 @@ const loginCtrl = async (req, res) => {
 
         const hashPassword = user.password;
         console.log(hashPassword)
+        console.log(req.password)
+        console.log(user)
 
         if (hashPassword != req.password){
             handleHttpError(res, "INVALID_PASSWORD", 401)
