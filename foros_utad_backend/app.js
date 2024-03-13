@@ -1,29 +1,20 @@
-const express = require("express");
-const cors = require("cors");
-
+const express = require("express")
+const cors = require("cors")
 require('dotenv').config();
 
-const app = express();
+const app = express()
+const dbConnect = require('./config/mongo')
 
-app.use(cors());
-app.use(express.json());
+//Le decimos a la app de express() que use cors para evitar el error Cross-Domain (XD)
+app.use(cors())
+app.use(express.json())
+app.use("/api", require("./routes")) //Lee routes/index.js por defecto
+app.use(express.static("storage")) // http://localhost:3000/file.jpg
 
-const port = process.env.PORT_SERVER || 9000;
+const port = process.env.PORT || 3000
 
-// Inicia la conexión a la base de datos y guarda la instancia de Sequelize en una variable
-const sequelize = require('./config/sql');
+app.listen(port, () => {
+    console.log("Servidor escuchando en el puerto " + port)
+})
 
-// Una vez que la conexión se haya establecido, puedes iniciar tu servidor Express
-sequelize.authenticate().then(() => {
-    console.log('Conexión establecida correctamente con la base de datos.');
-    app.listen(port, () => {
-        console.log("Servidor escuchando en el puerto: " + port);
-    });
-}).catch(err => {
-    console.error('Error al conectar a la base de datos:', err);
-});
-
-app.use("/api", require('./routes'));
-app.use(express.static("storage"));
-
-
+dbConnect()

@@ -1,11 +1,161 @@
-###
-
-POST http://localhost:9000/api/login HTTP/1.1
+POST http://localhost:3000/api/users HTTP/1.1
 Content-Type: application/json
+//Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDA2MWQ1ODU0YWJlNWU2ODM2ZTU5ZGEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NzgxMjkyMjQsImV4cCI6MTY3ODEzNjQyNH0.aq8mBYiwj20lPXqkxaIKP_hazvGd1HnRzo_hiVRi9Tc
 
 {
-    "email" : "david@utad.live.com",
-    "clave" : "1234"
+    "name": "churumbe gitano",
+    "email": "churumbe@gitanofino.com",
+    "activo": true,
+    "password": "123",
+    "role": "alumno"
+}
+###
+
+GET http://localhost:3000/api/users
+
+###
+
+# TEST PARA COMPROBAR QUE SE CREA UNA CLASE
+POST http://localhost:3000/api/clases HTTP/1.1
+Content-Type: application/json
+//Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDA2MWQ1ODU0YWJlNWU2ODM2ZTU5ZGEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NzgxMjkyMjQsImV4cCI6MTY3ODEzNjQyNH0.aq8mBYiwj20lPXqkxaIKP_hazvGd1HnRzo_hiVRi9Tc
+
+{
+    "name": "Hacking etico",
+    "grupo": "A",
+    "grado": "INSO",
+    "curso": "3",
+    "tipoTitulacion": "grado",
+    "aula": {
+        "edificio": "madrid",
+        "numAula": "204"
+    }
 }
 
 
+POST http://localhost:3000/api/storage HTTP/1.1
+Content-Type: multipart/form-data; boundary=Boundry
+
+--Boundry
+Content-Disposition: form-data; name="image"; filename="img.png"
+Content-Type: image/png
+
+< ./img.png
+--Boundry--
+###
+
+POST http://localhost:3000/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Luis",
+    "email": "hola@test.com",
+    "activo": true,
+    "password": "HolaMundo.02",
+    "rol": "alumno"
+}
+
+###
+
+GET http://localhost:3000/api/users HTTP/1.1
+
+###
+
+GET http://localhost:3000/api/users/65d895228b0c4d2f0b340030 HTTP/1.1
+
+###
+
+POST http://localhost:3000/api/tracks HTTP/1.1
+Content-Type: application/json
+
+{
+    "dato": "basura",
+    "name": "Ric",
+    "album": "Album",
+    "cover": "http://mmmm.com",
+    "artist": {
+        "name": "Bas",
+        "nickname": "rsurname",
+        "nationality": "ES"
+    },
+    "duration": {
+        "start":1,
+        "end":2
+    },
+    "mediaId": "0123456789abcdef01234567"
+  
+}
+
+###
+
+POST http://localhost:3000/api/tracks HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYwMTE5ZjVkM2MxZWFkZTJkMjFhMzEiLCJlbWFpbCI6InRlc3RlbzJAZ21haWwuY29tIiwiaWF0IjoxNzEwMjMxOTY3LCJleHAiOjE3MTAyMzkxNjd9.er1r9k0bilGiuaOcJrDvItNpJSRewhFePapif4Lf2-8
+
+{
+    "dato": "iueskflitgsdrziugfb",
+    "name": "oñixzfivlzs",
+    "album": "piñdzxuyfgb",
+    "cover": "http://ñizxurgfzs.com",
+    "artist": {
+        "name": "ñlkzxighn",
+        "nickname": "oisdybñ",
+        "nationality": "ES"
+    },
+    "duration": {
+        "start":1,
+        "end":2
+    },
+    "mediaId": "23456789abcdef0123456789"
+  
+}
+
+###
+
+PUT http://localhost:3000/api/tracks/65d46354fadd263f55799d68 HTTP/1.1
+Content-Type: application/json
+
+
+{
+    "name": "AlbaClase",
+    "album": "Disco",
+    "cover": "http://pruebaPOST2.com",
+    "artist": {
+        "name": "BasuraXdd",
+        "nickname": "rsurname",
+        "nationality": "ES"
+    },
+    "duration": {
+        "start":1,
+        "end":5
+    },
+    "mediaId": "0123456789abcdef01234567"
+  
+}
+
+###
+
+DELETE http://localhost:3000/api/tracks/65d464d87ceb92d939c7788d
+
+###
+#soft delete
+DELETE http://localhost:3000/api/tracks/65e1d446db624ab6e04c2f68
+
+###
+POST  http://localhost:3000/api/auth/register HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYwMTE5ZjVkM2MxZWFkZTJkMjFhMzEiLCJlbWFpbCI6InRlc3RlbzJAZ21haWwuY29tIiwiaWF0IjoxNzEwMjMxOTY3LCJleHAiOjE3MTAyMzkxNjd9.er1r9k0bilGiuaOcJrDvItNpJSRewhFePapif4Lf2-8
+api_key: Api-publica-123
+
+{
+    "name": "testeo3",
+    "age": "40",
+    "email": "testeo2@gmail.com",
+    "password": "testeo22222"
+  
+}
+
+###
+
+GET http://localhost:3000/api/tracks
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYwMTE5ZjVkM2MxZWFkZTJkMjFhMzEiLCJlbWFpbCI6InRlc3RlbzJAZ21haWwuY29tIiwiaWF0IjoxNzEwMjMxOTY3LCJleHAiOjE3MTAyMzkxNjd9.er1r9k0bilGiuaOcJrDvItNpJSRewhFePapif4Lf2-8

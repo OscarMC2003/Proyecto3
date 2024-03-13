@@ -1,6 +1,7 @@
 const models = {
-    userModel : require('./sql/users')
+    usersModel: require('./nosql/users'),
+    tracksModel: require('./nosql/clases'),
+    storageModel: require('./nosql/storage')
 }
 
-
-module.exports = models;
+module.exports = models
