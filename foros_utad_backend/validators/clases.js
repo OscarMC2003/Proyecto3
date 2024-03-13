@@ -7,7 +7,7 @@ const validatorCreateItem = [
     check("grado").exists().notEmpty(),
     check("curso").exists().notEmpty(),
     check("tipoTitulacion").exists().notEmpty(),
-    //check("aula").exists().notEmpty(),
+    check("aula").exists().notEmpty(),
     (req, res, next) => validateResults(req, res, next) //captura peticion, coge la respuesta y la manda al siguiente
 ]
 
