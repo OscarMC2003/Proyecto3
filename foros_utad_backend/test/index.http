@@ -7,7 +7,7 @@ Content-Type: application/json
     "email": "churumbe@gitanofino.com",
     "activo": true,
     "password": "123",
-    "role": "alumno"
+    "role": "alumnos"
 }
 ###
 
@@ -58,17 +58,8 @@ POST http://localhost:3000/api/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "idCreador": "65f1862b504e9b9381e7488e",
-    "asunto": "comprobar actividades",
-    "objetivo": "inso",
-    "ambitoTitulacion": "3",
-    "documentoDescriptivo": "grado",
-    "asistentesRequeridos": ["65f1862b504e9b9381e7488e"],
-    "espacio": {
-        "tipo": "virtual"
-    },
-    "fecha": "2024-03-13T13:00:29.717Z",
-    "hora": "2024-03-13T13:00:29.717Z"
+    "email": "churumbe@gitanofino.com",
+    "password": "1233"
 }
 
 ###
