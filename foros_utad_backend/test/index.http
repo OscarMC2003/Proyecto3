@@ -1,6 +1,6 @@
 //Prueba de github
 
-POST http://localhost:3000/api/users HTTP/1.1
+POST http://localhost:9000/api/users HTTP/1.1
 Content-Type: application/json
 //Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDA2MWQ1ODU0YWJlNWU2ODM2ZTU5ZGEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NzgxMjkyMjQsImV4cCI6MTY3ODEzNjQyNH0.aq8mBYiwj20lPXqkxaIKP_hazvGd1HnRzo_hiVRi9Tc
 
@@ -13,10 +13,10 @@ Content-Type: application/json
 }
 ###
 
-GET http://localhost:3000/api/users
+GET http://localhost:9000/api/users
 
 ###
-POST http://localhost:3000/api/clases HTTP/1.1
+POST http://localhost:9000/api/clases HTTP/1.1
 Content-Type: application/json
 
 {
@@ -32,16 +32,17 @@ Content-Type: application/json
 }
 ###
 
-GET http://localhost:3000/api/clases HTTP/1.1
+GET http://localhost:9000/api/clases HTTP/1.1
 
 ###
-POST http://localhost:3000/api/actividades HTTP/1.1
+POST http://localhost:9000/api/actividades HTTP/1.1
 Content-Type: application/json
 
 {
     "idCreador": "65f1862b504e9b9381e7488e",
     "asunto": "comprobar actividades",
     "objetivo": "inso",
+    "tipoActividad": ["coordinacion"],
     "ambitoTitulacion": "3",
     "documentoDescriptivo": "grado",
     "asistentesRequeridos": ["65f1862b504e9b9381e7488e"],
@@ -53,29 +54,13 @@ Content-Type: application/json
 }
 ###
 
-GET http://localhost:3000/api/actividades HTTP/1.1
-###
-
-POST http://localhost:3000/api/foro HTTP/1.1
-Content-Type: application/json
-
-{
-    "name": "Malaga",
-    "descripcion": "La bella",
-    "mensaje": {
-        "idUsuario": "65f1862b504e9b9381e7488e",
-        "titulo": "Churumbe",
-        "texto": "Booom",
-        "etiquetas": "churumbe"
-    }
-}
-
+GET http://localhost:9000/api/actividades HTTP/1.1
 ###
 GET http://localhost:3000/api/foro HTTP/1.1
 ###
 
 
-POST http://localhost:3000/api/storage HTTP/1.1
+POST http://localhost:9000/api/storage HTTP/1.1
 Content-Type: multipart/form-data; boundary=Boundry
 
 --Boundry
@@ -86,7 +71,7 @@ Content-Type: image/png
 --Boundry--
 ###
 
-POST http://localhost:3000/api/users HTTP/1.1
+POST http://localhost:9000/api/users HTTP/1.1
 Content-Type: application/json
 
 {
@@ -99,15 +84,15 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/api/users HTTP/1.1
+GET http://localhost:9000/api/users HTTP/1.1
 
 ###
 
-GET http://localhost:3000/api/users/65d895228b0c4d2f0b340030 HTTP/1.1
+GET http://localhost:9000/api/users/65d895228b0c4d2f0b340030 HTTP/1.1
 
 ###
 
-POST http://localhost:3000/api/tracks HTTP/1.1
+POST http://localhost:9000/api/tracks HTTP/1.1
 Content-Type: application/json
 
 {
@@ -130,7 +115,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:3000/api/tracks HTTP/1.1
+POST http://localhost:9000/api/tracks HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYwMTE5ZjVkM2MxZWFkZTJkMjFhMzEiLCJlbWFpbCI6InRlc3RlbzJAZ21haWwuY29tIiwiaWF0IjoxNzEwMjMxOTY3LCJleHAiOjE3MTAyMzkxNjd9.er1r9k0bilGiuaOcJrDvItNpJSRewhFePapif4Lf2-8
 
@@ -154,7 +139,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYwMTE5Z
 
 ###
 
-PUT http://localhost:3000/api/tracks/65d46354fadd263f55799d68 HTTP/1.1
+PUT http://localhost:9000/api/tracks/65d46354fadd263f55799d68 HTTP/1.1
 Content-Type: application/json
 
 
@@ -177,14 +162,14 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/api/tracks/65d464d87ceb92d939c7788d
+DELETE http://localhost:9000/api/tracks/65d464d87ceb92d939c7788d
 
 ###
 #soft delete
-DELETE http://localhost:3000/api/tracks/65e1d446db624ab6e04c2f68
+DELETE http://localhost:9000/api/tracks/65e1d446db624ab6e04c2f68
 
 ###
-POST  http://localhost:3000/api/auth/register HTTP/1.1
+POST  http://localhost:9000/api/auth/register HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYwMTE5ZjVkM2MxZWFkZTJkMjFhMzEiLCJlbWFpbCI6InRlc3RlbzJAZ21haWwuY29tIiwiaWF0IjoxNzEwMjMxOTY3LCJleHAiOjE3MTAyMzkxNjd9.er1r9k0bilGiuaOcJrDvItNpJSRewhFePapif4Lf2-8
 api_key: Api-publica-123
@@ -199,5 +184,5 @@ api_key: Api-publica-123
 
 ###
 
-GET http://localhost:3000/api/tracks
+GET http://localhost:9000/api/tracks
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYwMTE5ZjVkM2MxZWFkZTJkMjFhMzEiLCJlbWFpbCI6InRlc3RlbzJAZ21haWwuY29tIiwiaWF0IjoxNzEwMjMxOTY3LCJleHAiOjE3MTAyMzkxNjd9.er1r9k0bilGiuaOcJrDvItNpJSRewhFePapif4Lf2-8

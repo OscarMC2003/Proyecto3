@@ -3,6 +3,7 @@ const { tokenSign } = require("../utils/handleJwt")
 const { encrypt, compare } = require("../utils/handlePassword")
 const {handleHttpError} = require("../utils/handleError")
 const {usersModel} = require("../models")
+const { hash } = require("bcryptjs")
 
 const registerCtrl = async (req, res) => {
     try {
@@ -31,17 +32,16 @@ const loginCtrl = async (req, res) => {
     try {
         req = matchedData(req)
         const user = await usersModel.findOne({ email: req.email }).select("password name role email")
-
+        console.log(user)
         if(!user){
             handleHttpError(res, "USER_NOT_EXISTS", 404)
             return
         }
 
         const hashPassword = user.password;
+        console.log(hashPassword)
 
-        if (hashPassword === req.password){
-
-        }else{
+        if (hashPassword != req.password){
             handleHttpError(res, "INVALID_PASSWORD", 401)
             return
         }

@@ -18,7 +18,7 @@ async function loginHandler(user, router) {
             },
             body: JSON.stringify(user)
         });
-
+        console.log(response)
         if (response.ok) {
             const data = await response.json();
             console.log(data);
