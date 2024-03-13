@@ -1,6 +1,6 @@
 import React from 'react';
 
-function RectangleList() {
+function RectangleList(foros) {
   const activities = [
     { title: 'Actividad 1', subtitle: 'Descripción de la actividad 1' },
     { title: 'Actividad 2', subtitle: 'Descripción de la actividad 2' },
@@ -9,7 +9,7 @@ function RectangleList() {
 
   return (
     <div style={{ width: '100%' }}>
-      {activities.map((activity, index) => (
+      {foros.map((foros, index) => (
         <div key={index} style={{
           backgroundColor: 'white',
           padding: '20px',
@@ -17,8 +17,8 @@ function RectangleList() {
           borderRadius: '8px',
           width: '100%', // Hacer que cada caja ocupe todo el ancho disponible
         }}>
-          <h2>{activity.title}</h2>
-          <p>{activity.subtitle}</p>
+          <h2>{foros.name}</h2>
+          <p>{foros.descripcion}</p>
         </div>
       ))}
     </div>
