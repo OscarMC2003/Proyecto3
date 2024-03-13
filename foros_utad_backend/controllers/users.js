@@ -35,6 +35,30 @@ const getItem = async (req, res) => {
         
 }
 
+// LOGIN
+const login = async (req, res) => {
+    try {
+        const {email, passsword} = matchedData(req)
+        const data = await usersModel.findByOne(email)
+
+        if(!user) {
+            return res.status(401).json({error: 'El usuario o contraseña no coinciden'})
+        }
+
+        // Verificación de contraseña
+        if (passsword === user.passsword) {
+            res.status(200).json({message : 'Logged in'})
+        }
+
+
+        res.send(data)
+    } catch (err) {
+        handleHttpError(res, 'ERROR_LOGIN_USERS')
+
+    }
+}
+
+
 // CREACIÓN DE USUARIO
 const createItem = async (req, res) => {
     try {
@@ -73,5 +97,6 @@ const deleteItem = async (req, res) => {
         handleHttpError(res, 'ERROR_DELETE_ITEM_USERS')
     }
 }
+
 
 module.exports = { getItems, getItem, createItem, updateItem, deleteItem };
