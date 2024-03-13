@@ -22,6 +22,25 @@ const Actividades = () => {
 
     const [contenidoVisible, setContenidoVisible] = useState("Texto 1");
 
+    let [foros, setForos] = useState([]);
+
+
+
+    useEffect(() => {
+        async function LlamadaForos() {
+    
+          try {
+              const response = await fetch('http://localhost:9000/api/foro');
+              setForos(response)
+          } catch (error) {
+              console.log("Error al llamar a las actividades")
+          }
+        }
+    
+        
+        LlamadaForos()
+      }, [foros]);
+
     return (
         <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
             <header style={{ position: 'fixed', top: 0, left: 0, width: '100%', background: '#888888', padding: '10px', textAlign: 'center', zIndex: 1000, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -138,7 +157,7 @@ const Actividades = () => {
                         <p className="montBlack" style={{ cursor: 'pointer', color: contenidoVisible === "Texto 2" ? 'black' : 'black', textDecoration: contenidoVisible === "Texto 2" ? 'underline' : 'none' }} onClick={() => setContenidoVisible("Texto 2")}>Nuevos foros</p>          </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
                         {/* Estructura para mostrar actividades */}
-                        <Lista/>
+                        <Lista foros={foros}/>
 
                     </div>
                 </div>
