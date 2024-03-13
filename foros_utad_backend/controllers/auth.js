@@ -25,6 +25,8 @@ const registerCtrl = async (req, res) => {
     }
 }
 
+
+
 const loginCtrl = async (req, res) => {
     try {
         req = matchedData(req)
@@ -34,10 +36,19 @@ const loginCtrl = async (req, res) => {
             handleHttpError(res, "USER_NOT_EXISTS", 404)
             return
         }
-        
-        const hashPassword = user.password;
-        const check = await compare(req.password, hashPassword)
 
+        const hashPassword = user.password;
+
+        if (hashPassword === req.password){
+
+        }else{
+            handleHttpError(res, "INVALID_PASSWORD", 401)
+            return
+        }
+
+        // Añadir token de sesion y comparar contraseñás hasheadas
+        /*
+        const check = await compare(req.password, hashPassword)
         if(!check){
             handleHttpError(res, "INVALID_PASSWORD", 401)
             return
@@ -49,8 +60,9 @@ const loginCtrl = async (req, res) => {
             token: await tokenSign(user),
             user
         }
+        */
 
-        res.send(data)
+        res.send(user)
 
     }catch(err){
         console.log(err)

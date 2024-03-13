@@ -6,12 +6,12 @@ import { useState } from 'react'
 
 
 
-async function loginHandler(user) {
+async function loginHandler(user, router) {
 
     console.log(user); // Debería mostrarte la estructura del objeto
 
     try {
-        const response = await fetch('/loginpost', {
+        const response = await fetch('http://localhost:9000/api/auth', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -22,7 +22,7 @@ async function loginHandler(user) {
         if (response.ok) {
             const data = await response.json();
             console.log(data);
-            //router.push('/');
+            router.push('/actividades');
         } else {
             console.error('Respuesta no exitosa del servidor');
             const text = await response.text(); // Esto te dará el cuerpo de la respuesta
