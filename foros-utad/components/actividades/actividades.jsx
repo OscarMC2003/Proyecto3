@@ -5,7 +5,7 @@ import Link from 'next/link';
 const Actividades = () => {
 
   //esto lo tendra que recibir del backend
-  const [actividades, setActividades] = useState([]);
+  let [actividades, setActividades] = useState([]);
 
   //ya filtrados por tipo de activuidades
   const [actividadesCoord, setActividadesCoord] = useState([]);
@@ -31,27 +31,37 @@ const Actividades = () => {
 
 
   useEffect(() => {
+    async function LlamadaActividades() {
+
+      try {
+          const response = await fetch('http://localhost:9000/api/actividades');
+          setActividades(response)
+      } catch (error) {
+          console.log("Error al llamar a las actividades")
+      }
+    }
+
     const filterActividadCoord = () => {
       //cuando este la base de datos hay que ver que parametro guarda el tipo de actividad que es
-      const filteredCoordinacion = actividades.filter((actividades) => actividades.tipo.toLowerCase().includes("coordinacion")
+      const filteredCoordinacion = actividades.filter((actividades) => actividades.tipoActividad.toLowerCase().includes("coordinacion")
       );
       setActividadesCoord(filteredCoordinacion);
     };
 
     const filterActividadAlum = () => {
       //cuando este la base de datos hay que ver que parametro guarda el tipo de actividad que es
-      const filteredAlumnos = actividades.filter((actividades) => actividades.tipo.toLowerCase().includes("alumnos")
+      const filteredAlumnos = actividades.filter((actividades) => actividades.tipoActividad.toLowerCase().includes("alumnos")
       );
       setActividadesAlum(filteredAlumnos);
     };
 
     const filterActividadPriv = () => {
       //cuando este la base de datos hay que ver que parametro guarda el tipo de actividad que es
-      const filteredPrivadas = actividades.filter((actividades) => actividades.tipo.toLowerCase().includes("privadas")
+      const filteredPrivadas = actividades.filter((actividades) => actividades.tipoActividad.toLowerCase().includes("privadas")
       );
       setActividadesPriv(filteredPrivadas);
     };
-
+    LlamadaActividades()
     filterActividadPriv();
     filterActividadAlum();
     filterActividadCoord();
@@ -168,8 +178,8 @@ const Actividades = () => {
                   <li key={uuidv4()} className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-8">
                     <div key={index} style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
                       <img src={`${actividades.imagen}`} alt={`Actividad ${index + 1}`} style={{ width: '100%', height: 'auto' }} />
-                      <p className="montRegular" style={{ color: '#333' }}>{actividades.titulo}</p>
-                      <p className="montLight" style={{ color: '#333' }}>{actividades.descripcion}</p>
+                      <p className="montRegular" style={{ color: '#333' }}>{actividades.asunto}</p>
+                      <p className="montLight" style={{ color: '#333' }}>{actividades.objetivo}</p>
                     </div>
                   </li>
                 ))}
@@ -198,8 +208,8 @@ const Actividades = () => {
                     <li key={uuidv4()} className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-8">
                       <div key={index} style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
                         <img src={`${actividades.imagen}`} alt={`Actividad ${index + 1}`} style={{ width: '100%', height: 'auto' }} />
-                        <p className="montRegular" style={{ color: '#333' }}>{actividades.titulo}</p>
-                        <p className="montLight" style={{ color: '#333' }}>{actividades.descripcion}</p>
+                        <p className="montRegular" style={{ color: '#333' }}>{actividades.asunto}</p>
+                        <p className="montLight" style={{ color: '#333' }}>{actividades.objetivo}</p>
                       </div>
                     </li>
                   ))}
@@ -221,8 +231,8 @@ const Actividades = () => {
                   <li key={uuidv4()} className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-8">
                     <div key={index} style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
                       <img src={`${actividades.imagen}`} alt={`Actividad ${index + 1}`} style={{ width: '100%', height: 'auto' }} />
-                      <p className="montRegular" style={{ color: '#333' }}>{actividades.titulo}</p>
-                      <p className="montLight" style={{ color: '#333' }}>{actividades.descripcion}</p>
+                      <p className="montRegular" style={{ color: '#333' }}>{actividades.asunto}</p>
+                      <p className="montLight" style={{ color: '#333' }}>{actividades.objetivo}</p>
                     </div>
                   </li>
                 ))}
