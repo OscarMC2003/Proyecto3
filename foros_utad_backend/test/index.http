@@ -9,7 +9,7 @@ Content-Type: application/json
     "email": "churumbe@gitanofino.com",
     "activo": true,
     "password": "123",
-    "role": "alumno"
+    "role": "alumnos"
 }
 ###
 
