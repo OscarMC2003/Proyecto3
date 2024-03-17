@@ -31,7 +31,7 @@ const Actividades = () => {
     
           try {
               const response = await fetch(window.location.origin.slice(0,-5) + ':9000/api/foro');
-              setForos(response)
+              setForos(await response.json())
           } catch (error) {
               console.log("Error al llamar a las actividades")
           }
