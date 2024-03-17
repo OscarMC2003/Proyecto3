@@ -11,7 +11,7 @@ async function loginHandler(user, router) {
     console.log(user); // Debería mostrarte la estructura del objeto
 
     try {
-        const response = await fetch('http://localhost:9000/api/auth', {
+        const response = await fetch('/api/auth', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
