@@ -9,7 +9,7 @@ function RectangleList(foros) {
 
   return (
     <div style={{ width: '100%' }}>
-      {foros.map((foros, index) => (
+      {foros.foros.map((foros, index) => (
         <div key={index} style={{
           backgroundColor: 'white',
           padding: '20px',

@@ -2,6 +2,17 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
+async function response_to_array(resp) {
+  if (resp && resp.json) {
+    const data = await resp.json();
+    for (var i = 0; i < data.length; i++) {
+      console.log(data[i])
+    }
+    return data;
+  }
+  return [];
+}
+
 const Actividades = () => {
 
   //esto lo tendra que recibir del backend
@@ -31,40 +42,43 @@ const Actividades = () => {
 
 
   useEffect(() => {
-    async function LlamadaActividades() {
+    const syncasync = async () => {
+      async function LlamadaActividades() {
 
-      try {
-          const response = await fetch('http://localhost:9000/api/actividades');
-          setActividades(response)
-      } catch (error) {
-          console.log("Error al llamar a las actividades")
+        try {
+            const response = await fetch(window.location.origin.slice(0,-5) + ':9000/api/actividades');
+            setActividades(response)
+        } catch (error) {
+            console.log("Error al llamar a las actividades")
+        }
       }
+
+      async function filterActividadCoord() {
+        //cuando este la base de datos hay que ver que parametro guarda el tipo de actividad que es
+        actividades = await response_to_array(actividades);
+        const filteredCoordinacion = actividades.filter((actividad) => actividad.tipoActividad.includes("coordinacion"));
+        setActividadesCoord(filteredCoordinacion);
+      };
+
+      async function filterActividadAlum() {
+        //cuando este la base de datos hay que ver que parametro guarda el tipo de actividad que es
+        actividades = await response_to_array(actividades);
+        const filteredAlumnos = actividades.filter((actividad) => actividad.tipoActividad.includes("alumnos"));
+        setActividadesAlum(filteredAlumnos);
+      };
+
+      async function filterActividadPriv() {
+        //cuando este la base de datos hay que ver que parametro guarda el tipo de actividad que es
+        actividades = await response_to_array(actividades);
+        const filteredPrivadas = actividades.filter((actividad) => actividad.tipoActividad.includes("privadas"));
+        setActividadesPriv(filteredPrivadas);
+      };
+      await LlamadaActividades()
+      await filterActividadPriv();
+      await filterActividadAlum();
+      await filterActividadCoord();
     }
-
-    const filterActividadCoord = () => {
-      //cuando este la base de datos hay que ver que parametro guarda el tipo de actividad que es
-      const filteredCoordinacion = actividades.filter((actividades) => actividades.tipoActividad.toLowerCase().includes("coordinacion")
-      );
-      setActividadesCoord(filteredCoordinacion);
-    };
-
-    const filterActividadAlum = () => {
-      //cuando este la base de datos hay que ver que parametro guarda el tipo de actividad que es
-      const filteredAlumnos = actividades.filter((actividades) => actividades.tipoActividad.toLowerCase().includes("alumnos")
-      );
-      setActividadesAlum(filteredAlumnos);
-    };
-
-    const filterActividadPriv = () => {
-      //cuando este la base de datos hay que ver que parametro guarda el tipo de actividad que es
-      const filteredPrivadas = actividades.filter((actividades) => actividades.tipoActividad.toLowerCase().includes("privadas")
-      );
-      setActividadesPriv(filteredPrivadas);
-    };
-    LlamadaActividades()
-    filterActividadPriv();
-    filterActividadAlum();
-    filterActividadCoord();
+    syncasync();
   }, [actividades]);
 
 

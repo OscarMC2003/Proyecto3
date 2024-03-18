@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Buscador from '../buscador/buscador'
 import Lista from '../lista/lista'
 
@@ -30,8 +30,8 @@ const Actividades = () => {
         async function LlamadaForos() {
     
           try {
-              const response = await fetch('http://localhost:9000/api/foro');
-              setForos(response)
+              const response = await fetch(window.location.origin.slice(0,-5) + ':9000/api/foro');
+              setForos(await response.json())
           } catch (error) {
               console.log("Error al llamar a las actividades")
           }

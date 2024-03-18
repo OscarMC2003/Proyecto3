@@ -13,7 +13,7 @@ const ActividadesScheme = new mongoose.Schema(
             type: String
         },
         tipoActividad: {
-            type: ["coordinacion", "alumnos", "privado"]
+            type: String
         },
         ambitoTitulacion: {
             titulacion: {
