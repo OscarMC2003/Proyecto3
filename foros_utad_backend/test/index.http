@@ -40,9 +40,9 @@ Content-Type: application/json
 
 {
     "idCreador": "65f1862b504e9b9381e7488e",
-    "asunto": "comprobar actividades",
-    "objetivo": "inso",
-    "tipoActividad": ["coordinacion"],
+    "asunto": "ver que no se superpongan",
+    "objetivo": "Como sergio use css puro de nuevo le corto los huevos, por favor usa tailwind, por cada vez que uses css puro vas a suspender otro examen de conducir",
+    "tipoActividad": "coordinacion",
     "ambitoTitulacion": "3",
     "documentoDescriptivo": "grado",
     "asistentesRequeridos": ["65f1862b504e9b9381e7488e"],

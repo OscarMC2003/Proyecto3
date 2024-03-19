@@ -6,6 +6,7 @@ const validatorCreateItem = [
     check("asunto").exists().notEmpty(),
     check("objetivo").exists().notEmpty(),
     check("ambitoTitulacion").exists().notEmpty(),
+    check("tipoActividad").exists().notEmpty(),
     check("documentoDescriptivo").exists().notEmpty(),
     check("asistentesRequeridos").exists().notEmpty(),
     check("espacio").exists().notEmpty(),
