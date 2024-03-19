@@ -42,43 +42,32 @@ const Actividades = () => {
 
 
   useEffect(() => {
-    const syncasync = async () => {
-      async function LlamadaActividades() {
-
-        try {
-            const response = await fetch(window.location.origin.slice(0,-5) + ':9000/api/actividades');
-            setActividades(response)
-        } catch (error) {
-            console.log("Error al llamar a las actividades")
-        }
+    const fetchData = async () => {
+      try {
+        const response = await fetch(window.location.origin.slice(0, -5) + ':9000/api/actividades');
+        const data = await response_to_array(response);
+        setActividades(data);
+      } catch (error) {
+        console.log("Error al llamar a las actividades:", error);
       }
+    };
+    
+    fetchData();
+  }, []);
 
-      async function filterActividadCoord() {
-        //cuando este la base de datos hay que ver que parametro guarda el tipo de actividad que es
-        actividades = await response_to_array(actividades);
-        const filteredCoordinacion = actividades.filter((actividad) => actividad.tipoActividad.includes("coordinacion"));
-        setActividadesCoord(filteredCoordinacion);
-      };
+  useEffect(() => {
+    const filterActividades = () => {
+      const filteredCoord = actividades.filter(actividad => actividad.tipoActividad.includes("coordinacion"));
+      setActividadesCoord(filteredCoord);
+      
+      const filteredAlum = actividades.filter(actividad => actividad.tipoActividad.includes("alumnos"));
+      setActividadesAlum(filteredAlum);
+      
+      const filteredPriv = actividades.filter(actividad => actividad.tipoActividad.includes("privadas"));
+      setActividadesPriv(filteredPriv);
+    };
 
-      async function filterActividadAlum() {
-        //cuando este la base de datos hay que ver que parametro guarda el tipo de actividad que es
-        actividades = await response_to_array(actividades);
-        const filteredAlumnos = actividades.filter((actividad) => actividad.tipoActividad.includes("alumnos"));
-        setActividadesAlum(filteredAlumnos);
-      };
-
-      async function filterActividadPriv() {
-        //cuando este la base de datos hay que ver que parametro guarda el tipo de actividad que es
-        actividades = await response_to_array(actividades);
-        const filteredPrivadas = actividades.filter((actividad) => actividad.tipoActividad.includes("privadas"));
-        setActividadesPriv(filteredPrivadas);
-      };
-      await LlamadaActividades()
-      await filterActividadPriv();
-      await filterActividadAlum();
-      await filterActividadCoord();
-    }
-    syncasync();
+    filterActividades();
   }, [actividades]);
 
 
@@ -189,11 +178,13 @@ const Actividades = () => {
 
 
                 {Array.isArray(actividadesCoord) && actividadesCoord.map((actividades) => (
-                  <li key={uuidv4()} className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-8">
-                    <div key={index} style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
-                      <img src={`${actividades.imagen}`} alt={`Actividad ${index + 1}`} style={{ width: '100%', height: 'auto' }} />
-                      <p className="montRegular" style={{ color: '#333' }}>{actividades.asunto}</p>
-                      <p className="montLight" style={{ color: '#333' }}>{actividades.objetivo}</p>
+                  <li class="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md">
+                    <div class="flex flex-col items-center justify-center">
+                      <img src="images/cuadrado.png" alt="Actividad 1" class="w-full h-auto max-w-md rounded-lg shadow-md" />
+                      <div class="mt-4 text-center">
+                        <h2 class="text-xl font-bold">{actividades.asunto}</h2>
+                        <p class="text-gray-700">{actividades.objetivo}</p>
+                      </div>
                     </div>
                   </li>
                 ))}
@@ -218,10 +209,10 @@ const Actividades = () => {
                     <p className="montLight" style={{ color: '#333' }}>Texto mas largo que los demas para ver si se ajusta al tamaño de la actividad, para cumplir con los requisitos de los de didi</p>
                   </div> */}
 
-                {Array.isArray(actividadesAlum) && actividadesAlum.map((actividades) => (
-                    <li key={uuidv4()} className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-8">
-                      <div key={index} style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
-                        <img src={`${actividades.imagen}`} alt={`Actividad ${index + 1}`} style={{ width: '100%', height: 'auto' }} />
+                  {Array.isArray(actividadesAlum) && actividadesAlum.map((actividades) => (
+                    <li className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-8">
+                      <div style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
+                        <img src="images/cuadrado.png" alt={`Actividad`} style={{ width: '100%', height: 'auto' }} />
                         <p className="montRegular" style={{ color: '#333' }}>{actividades.asunto}</p>
                         <p className="montLight" style={{ color: '#333' }}>{actividades.objetivo}</p>
                       </div>
@@ -241,15 +232,22 @@ const Actividades = () => {
                 ))} */}
 
 
-                {Array.isArray(actividadesPriv) && actividadesPriv.map((actividades) => (
-                  <li key={uuidv4()} className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-8">
-                    <div key={index} style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
-                      <img src={`${actividades.imagen}`} alt={`Actividad ${index + 1}`} style={{ width: '100%', height: 'auto' }} />
-                      <p className="montRegular" style={{ color: '#333' }}>{actividades.asunto}</p>
-                      <p className="montLight" style={{ color: '#333' }}>{actividades.objetivo}</p>
-                    </div>
-                  </li>
-                ))}
+                  {Array.isArray(actividadesPriv) && actividadesPriv.map((actividades) => (
+                    <li className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-8">
+                      {/* <div style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
+                        <img src="images/cuadrado.png" alt={`Actividad`} style={{ width: '100%', height: 'auto' }} />
+                        <p className="montRegular" style={{ color: '#333' }}>{actividades.asunto}</p>
+                        <p className="montLight" style={{ color: '#333' }}>{actividades.objetivo}</p>
+                      </div> */}
+                      <div class="flex flex-col items-center justify-center">
+                        <img src="images/cuadrado.png" alt="Actividad 1" class="w-full h-auto max-w-md rounded-lg shadow-md"></img>
+                          <div class="mt-4 text-center">
+                            <h2 class="text-xl font-bold">{actividades.asunto}</h2>
+                            <p class="text-gray-700">{actividades.objetivo}</p>
+                          </div>
+                      </div>
+                    </li>
+                  ))}
               </>
             )}
           </div>
