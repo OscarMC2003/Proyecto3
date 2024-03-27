@@ -1,14 +1,14 @@
 //Prueba de github
 
-POST http://localhost:9000/api/users HTTP/1.1
+POST http://localhost:9000/api/auths/register HTTP/1.1
 Content-Type: application/json
 //Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDA2MWQ1ODU0YWJlNWU2ODM2ZTU5ZGEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NzgxMjkyMjQsImV4cCI6MTY3ODEzNjQyNH0.aq8mBYiwj20lPXqkxaIKP_hazvGd1HnRzo_hiVRi9Tc
 
 {
-    "name": "churumbe gitano",
-    "email": "churumbe@gitanofino.com",
+    "name": "test",
+    "email": "test@test.com",
     "activo": true,
-    "password": "123",
+    "password": "test1234",
     "role": "alumno"
 }
 ###
@@ -40,8 +40,8 @@ Content-Type: application/json
 
 {
     "idCreador": "65f1862b504e9b9381e7488e",
-    "asunto": "ver que no se superpongan",
-    "objetivo": "Como sergio use css puro de nuevo le corto los huevos, por favor usa tailwind, por cada vez que uses css puro vas a suspender otro examen de conducir",
+    "asunto": "ver que no se superpongan pt5",
+    "objetivo": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
     "tipoActividad": "coordinacion",
     "ambitoTitulacion": "3",
     "documentoDescriptivo": "grado",
@@ -183,3 +183,6 @@ api_key: Api-publica-123
 
 GET http://localhost:9000/api/tracks
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYwMTE5ZjVkM2MxZWFkZTJkMjFhMzEiLCJlbWFpbCI6InRlc3RlbzJAZ21haWwuY29tIiwiaWF0IjoxNzEwMjMxOTY3LCJleHAiOjE3MTAyMzkxNjd9.er1r9k0bilGiuaOcJrDvItNpJSRewhFePapif4Lf2-8
+
+
+

@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation'
 
 async function response_to_array(resp) {
   if (resp && resp.json) {
@@ -13,7 +14,9 @@ async function response_to_array(resp) {
   return [];
 }
 
-const Actividades = () => {
+const Actividades = ({IdUserIniciado}) => {
+
+  const router = useRouter()
 
   //esto lo tendra que recibir del backend
   let [actividades, setActividades] = useState([]);
@@ -41,7 +44,12 @@ const Actividades = () => {
   const [contenidoVisible, setContenidoVisible] = useState("Texto 1");
 
 
+
+
+
+
   useEffect(() => {
+    
     const fetchData = async () => {
       try {
         const response = await fetch(window.location.origin.slice(0, -5) + ':9000/api/actividades');
@@ -70,6 +78,14 @@ const Actividades = () => {
     filterActividades();
   }, [actividades]);
 
+  const handleCambioAForos = () =>{
+    router.push(`/foroAlumnos?id=${IdUserIniciado}`);
+  }
+
+  const handleIrActividad = (identificadorActividad) =>{
+    router.push(`/actividad?id=${IdUserIniciado}&acti=${identificadorActividad}`)
+      
+  }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
@@ -82,7 +98,7 @@ const Actividades = () => {
 
         {/* Botón seguido de otra imagen a la derecha */}
         <div style={{ display: 'flex', alignItems: 'center' }}>
-            <button style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Comunidad de Alumnos</button>
+            <button onClick={handleCambioAForos} style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Comunidad de Alumnos</button>
           <img src="/images/userVacio.png" alt="Imagen Derecha" style={{ width: '50px', height: 'auto' }} />
         </div>
       </header>
@@ -178,14 +194,16 @@ const Actividades = () => {
 
 
                 {Array.isArray(actividadesCoord) && actividadesCoord.map((actividades) => (
-                  <li class="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md">
-                    <div class="flex flex-col items-center justify-center">
-                      <img src="images/cuadrado.png" alt="Actividad 1" class="w-full h-auto max-w-md rounded-lg shadow-md" />
-                      <div class="mt-4 text-center">
-                        <h2 class="text-xl font-bold">{actividades.asunto}</h2>
-                        <p class="text-gray-700">{actividades.objetivo}</p>
+                  <li class="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md grid-cols-2 gap-4">
+                    <button onClick={() => handleIrActividad(actividades._id)}>
+                      <div class="flex flex-col items-center justify-center">
+                        <img src="images/cuadrado.png" alt="Actividad 1" class="w-full h-auto max-w-md rounded-lg shadow-md col-span-2" />
+                        <div class="text-center col-span-2">
+                          <h2 class="text-xl font-bold">{actividades.asunto}</h2>
+                          <p class="text-gray-700">{actividades.objetivo}</p>
+                        </div>
                       </div>
-                    </div>
+                    </button>
                   </li>
                 ))}
 
@@ -210,12 +228,16 @@ const Actividades = () => {
                   </div> */}
 
                   {Array.isArray(actividadesAlum) && actividadesAlum.map((actividades) => (
-                    <li className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-8">
-                      <div style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
-                        <img src="images/cuadrado.png" alt={`Actividad`} style={{ width: '100%', height: 'auto' }} />
-                        <p className="montRegular" style={{ color: '#333' }}>{actividades.asunto}</p>
-                        <p className="montLight" style={{ color: '#333' }}>{actividades.objetivo}</p>
-                      </div>
+                    <li class="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md grid-cols-2 gap-4">
+                      <button onClick={() => handleIrActividad(actividades._id)}>
+                        <div class="flex flex-col items-center justify-center">
+                          <img src="images/cuadrado.png" alt="Actividad 1" class="w-full h-auto max-w-md rounded-lg shadow-md col-span-2" />
+                          <div class="text-center col-span-2">
+                            <h2 class="text-xl font-bold">{actividades.asunto}</h2>
+                            <p class="text-gray-700">{actividades.objetivo}</p>
+                          </div>
+                        </div>
+                      </button>
                     </li>
                   ))}
               </>
@@ -233,19 +255,16 @@ const Actividades = () => {
 
 
                   {Array.isArray(actividadesPriv) && actividadesPriv.map((actividades) => (
-                    <li className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-8">
-                      {/* <div style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
-                        <img src="images/cuadrado.png" alt={`Actividad`} style={{ width: '100%', height: 'auto' }} />
-                        <p className="montRegular" style={{ color: '#333' }}>{actividades.asunto}</p>
-                        <p className="montLight" style={{ color: '#333' }}>{actividades.objetivo}</p>
-                      </div> */}
-                      <div class="flex flex-col items-center justify-center">
-                        <img src="images/cuadrado.png" alt="Actividad 1" class="w-full h-auto max-w-md rounded-lg shadow-md"></img>
-                          <div class="mt-4 text-center">
+                    <li class="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md grid-cols-2 gap-4">
+                      <button onClick={() => handleIrActividad(actividades._id)}>
+                        <div class="flex flex-col items-center justify-center">
+                          <img src="images/cuadrado.png" alt="Actividad 1" class="w-full h-auto max-w-md rounded-lg shadow-md col-span-2" />
+                          <div class="text-center col-span-2">
                             <h2 class="text-xl font-bold">{actividades.asunto}</h2>
                             <p class="text-gray-700">{actividades.objetivo}</p>
                           </div>
-                      </div>
+                        </div>
+                      </button>
                     </li>
                   ))}
               </>
