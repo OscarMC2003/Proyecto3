@@ -20,9 +20,10 @@ async function loginHandler(user, router) {
         });
 
         if (response.ok) {
+            //necesitamos un controller que devuelva el id del usuario en funcion de su correo
             const data = await response.json();
-            console.log(data);
-            router.push('/actividades');
+            alert(data._id);
+            router.push(`/actividades?id=${data._id}`);
         } else {
             console.error('Respuesta no exitosa del servidor');
             const text = await response.text(); // Esto te dará el cuerpo de la respuesta
@@ -49,18 +50,10 @@ export default function Login() {
             email: email,
             password: password,
         }
-        // alert(user.email)
-        //alert(user.password)
+        
 
         loginHandler(user, router);
 
-        //LLamadas a base de datod
-        //pedir si usuario exisiste
-        //obetenr contraseña
-        //comparar con la dada
-        //en caso de que sea correcto inicia sesion como usuario
-        //caso contrario, manda mesaje de contraseña errornea o usuario no valido
-        //(mirar modos de mostar el error de forma ams graficamente agradable que con un alert)
     }
 
 

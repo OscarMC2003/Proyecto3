@@ -1,7 +1,43 @@
 "use client"
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Actividad = () => {
+const Actividad = ({IDs}) => {
+
+  const { identificadorUser, identificadorActi } = IDs;
+  const { actividad, setActividad } = useState();
+
+  async function response_to_array(resp) {
+    if (resp && resp.json) {
+      const data = await resp.json();
+      for (var i = 0; i < data.length; i++) {
+        console.log(data[i])
+      }
+      return data;
+    }
+    return [];
+  }
+
+
+  useEffect(() => {
+    alert(identificadorActi)
+    const fetchData = async () => {
+      try {
+        const response = await fetch(window.location.origin.slice(0, -5) + `:9000/api/actividades/${identificadorActi}`);
+        console.log("Respuesta de la API:", response);
+        const data = await response.json();
+        //console.log("Respuesta de la API2:", data);
+        setActividad(data);
+        
+      } catch (error) {
+        console.log("Error al llamar a las actividades:", error);
+      }
+    };
+    
+    fetchData();
+  }, [identificadorActi]);
+
+
+
   return (
     <div className="flex flex-col h-screen">
       <header style={{ 

@@ -2,8 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import Buscador from '../buscador/buscador'
 import Lista from '../lista/lista'
+import { useRouter } from 'next/navigation'
 
-const Actividades = () => {
+const Foros = ({IdUserIniciado}) => {
+
+    const router = useRouter()
     // Estados para manejar la visibilidad de las opciones
     const [mostrarTitulacion, setMostrarTitulacion] = useState(false);
     const [mostrarCurso, setMostrarCurso] = useState(false);
@@ -41,6 +44,10 @@ const Actividades = () => {
         LlamadaForos()
       }, [foros]);
 
+      const handleCambiaActividades = () =>{
+        router.push(`/actividades?id=${IdUserIniciado}`);
+      }
+
     return (
         <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
             <header style={{ position: 'fixed', top: 0, left: 0, width: '100%', background: '#888888', padding: '10px', textAlign: 'center', zIndex: 1000, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -52,7 +59,7 @@ const Actividades = () => {
 
                 {/* Botón seguido de otra imagen a la derecha */}
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <button style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Comunidad de Alumnos</button>
+                    <button onClick={handleCambiaActividades} style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Actividades</button>
                     <img src="/images/userVacio.png" alt="Imagen Derecha" style={{ width: '50px', height: 'auto' }} />
                 </div>
             </header>
@@ -166,4 +173,4 @@ const Actividades = () => {
     );
 };
 
-export default Actividades;
+export default Foros;
