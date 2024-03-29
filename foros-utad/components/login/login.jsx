@@ -11,7 +11,7 @@ async function loginHandler(user, router) {
     console.log(user); // Debería mostrarte la estructura del objeto
 
     try {
-        const response = await fetch(window.location.origin.slice(0,-5) + ':9000/api/auth', {
+        const response = await fetch(window.location.origin.slice(0, -5) + ':9000/api/auth', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -22,6 +22,20 @@ async function loginHandler(user, router) {
         if (response.ok) {
             //necesitamos un controller que devuelva el id del usuario en funcion de su correo
             const data = await response.json();
+            //se guarda el token en el almacenamiento local del navegador cliente
+            localStorage.setItem('token', data.token);
+
+
+            /*       Para recoger el id en cualquier momento       
+            
+                const token = localStorage.getItem('token');
+                const decodedToken = jwt_decode(token);     
+                const userId = decodedToken._id;
+
+                console.log(userId);
+                  * */
+
+
             alert(data._id);
             router.push(`/actividades?id=${data._id}`);
         } else {
@@ -50,7 +64,7 @@ export default function Login() {
             email: email,
             password: password,
         }
-        
+
 
         loginHandler(user, router);
 
