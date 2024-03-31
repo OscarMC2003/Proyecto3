@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
+import check_token from '../notoken_redirect/notoken_redirect'
 
 async function response_to_array(resp) {
   if (resp && resp.json) {

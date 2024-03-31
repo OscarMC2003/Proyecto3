@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
+import check_token from '../notoken_redirect/notoken_redirect';
 
 const Actividad = ({IDs}) => {
 
