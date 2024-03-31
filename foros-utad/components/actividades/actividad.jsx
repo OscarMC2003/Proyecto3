@@ -25,7 +25,7 @@ const Actividad = ({IDs}) => {
         const response = await fetch(window.location.origin.slice(0, -5) + `:9000/api/actividades/${identificadorActi}`);
         console.log("Respuesta de la API:", response);
         const data = await response.json();
-        //console.log("Respuesta de la API2:", data);
+        console.log("Respuesta de la API2:", data);
         setActividad(data);
         
       } catch (error) {
