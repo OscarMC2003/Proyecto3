@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from 'react';
+import check_token from '../notoken_redirect/notoken_redirect'
 
 const Perfil = () => {
   const [contenidoVisible, setContenidoVisible] = useState("Texto 1");

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 //import Login from '../login/login'; // Asegúrate de que la ruta de importación es correcta
 import Carousel from './carrusel';
 import Link from 'next/link'
+import check_token from '../notoken_redirect/notoken_redirect'
 
 // components/inicio.jsx
 function Inicio() {

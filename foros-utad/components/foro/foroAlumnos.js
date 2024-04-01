@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Buscador from '../buscador/buscador'
 import Lista from '../lista/lista'
 import { useRouter } from 'next/navigation'
+import check_token from '../notoken_redirect/notoken_redirect'
 
 const Foros = ({IdUserIniciado}) => {
 
