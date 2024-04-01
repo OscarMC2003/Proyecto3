@@ -3,6 +3,21 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { getUserId } from '@/utils/user'
+
+const fetchUserId = async (token) => {
+    try {
+      const userId = await getUserId(token);
+      console.log('UserID:', userId);
+      alert(userId)
+
+      return userId;
+
+    } catch (error) {
+        console.error('Respuesta no exitosa del servidor');
+        console.error(error); 
+    }
+  };
 
 
 
@@ -25,18 +40,10 @@ async function loginHandler(user, router) {
             //se guarda el token en el almacenamiento local del navegador cliente
             localStorage.setItem('token', data.token);
 
+            //obtenemos el id del usuario
+            //lo asignamos a una variable por si se quiere tratar con él
+            const userId = await fetchUserId(data.token);
 
-            /*       Para recoger el id en cualquier momento       
-            
-                const token = localStorage.getItem('token');
-                const decodedToken = jwt_decode(token);     
-                const userId = decodedToken._id;
-
-                console.log(userId);
-                  * */
-
-
-            alert(data._id);
             router.push(`/actividades?id=${data._id}`);
         } else {
             console.error('Respuesta no exitosa del servidor');

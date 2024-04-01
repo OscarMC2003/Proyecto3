@@ -74,5 +74,9 @@ const deleteItem = async (req, res) => {
     }
 }
 
+const getId = async (req, res) => {
+    res.json({ id: req.user._id });
+}
 
-module.exports = { getItems, getItem, createItem, updateItem, deleteItem };
+
+module.exports = { getItems, getItem, createItem, updateItem, deleteItem, getId };
