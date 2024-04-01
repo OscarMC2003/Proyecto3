@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
+import Actividad from "@/components/actividades/actividad";
 
 async function response_to_array(resp) {
   if (resp && resp.json) {
@@ -43,7 +44,15 @@ const Actividades = ({IdUserIniciado}) => {
 
   const [contenidoVisible, setContenidoVisible] = useState("Texto 1");
 
+  const [showPopup, setShowPopup] = useState(false);
 
+  // const togglePopup = () => {
+  //   setShowPopup(!showPopup);
+  // };
+
+  const togglePopup = (actividadId) => {
+    setShowPopup(actividadId === showPopup ? null : actividadId);
+  };
 
 
 
@@ -82,14 +91,14 @@ const Actividades = ({IdUserIniciado}) => {
     router.push(`/foroAlumnos?id=${IdUserIniciado}`);
   }
 
-  const handleIrActividad = (identificadorActividad) =>{
+  /*const handleIrActividad = (identificadorActividad) =>{
     router.push(`/actividad?id=${IdUserIniciado}&acti=${identificadorActividad}`)
       
-  }
+  }*/
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-      <header style={{ position: 'fixed', top: 0, left: 0, width: '100%', background: '#888888', padding: '10px', textAlign: 'center', zIndex: 1000, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <header style={{ position: 'fixed', top: 0, left: 0, width: '100%', background: '#888888', padding: '10px', textAlign: 'center', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         {/* Imagen a la izquierda */}
         <img src="/images/cuadrado.png" alt="Imagen Izquierda" style={{ width: '75px', height: 'auto' }} />
 
@@ -193,19 +202,22 @@ const Actividades = ({IdUserIniciado}) => {
                 ))} */}
 
 
-                {Array.isArray(actividadesCoord) && actividadesCoord.map((actividades) => (
-                  <li class="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md grid-cols-2 gap-4">
-                    <button onClick={() => handleIrActividad(actividades._id)}>
-                      <div class="flex flex-col items-center justify-center">
-                        <img src="images/cuadrado.png" alt="Actividad 1" class="w-full h-auto max-w-md rounded-lg shadow-md col-span-2" />
-                        <div class="text-center col-span-2">
-                          <h2 class="text-xl font-bold">{actividades.asunto}</h2>
-                          <p class="text-gray-700">{actividades.objetivo}</p>
+              {Array.isArray(actividadesCoord) && actividadesCoord.map((actividades) => (
+                  <li key={actividades._id} className="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md grid-cols-2 gap-4">
+                    <div>
+                      <button onClick={() => togglePopup(actividades._id)}>
+                        <div className="flex flex-col items-center justify-center">
+                          <img src="images/cuadrado.png" alt="Actividad 1" className="w-full h-auto max-w-md rounded-lg shadow-md col-span-2" />
+                          <div className="text-center col-span-2">
+                            <h2 className="text-xl font-bold">{actividades.asunto}</h2>
+                            <p className="text-gray-700">{actividades.objetivo}</p>
+                          </div>
                         </div>
-                      </div>
-                    </button>
+                      </button>
+                      {showPopup === actividades._id && <Actividad handleClose={() => togglePopup(actividades._id)} show={showPopup} id={actividades._id} />}
+                    </div>
                   </li>
-                ))}
+              ))}
 
 
 
@@ -227,7 +239,7 @@ const Actividades = ({IdUserIniciado}) => {
                     <p className="montLight" style={{ color: '#333' }}>Texto mas largo que los demas para ver si se ajusta al tamaño de la actividad, para cumplir con los requisitos de los de didi</p>
                   </div> */}
 
-                  {Array.isArray(actividadesAlum) && actividadesAlum.map((actividades) => (
+                  {/* {Array.isArray(actividadesAlum) && actividadesAlum.map((actividades) => (
                     <li class="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md grid-cols-2 gap-4">
                       <button onClick={() => handleIrActividad(actividades._id)}>
                         <div class="flex flex-col items-center justify-center">
@@ -239,7 +251,7 @@ const Actividades = ({IdUserIniciado}) => {
                         </div>
                       </button>
                     </li>
-                  ))}
+                  ))} */}
               </>
             )}
 
@@ -254,7 +266,7 @@ const Actividades = ({IdUserIniciado}) => {
                 ))} */}
 
 
-                  {Array.isArray(actividadesPriv) && actividadesPriv.map((actividades) => (
+                  {/* {Array.isArray(actividadesPriv) && actividadesPriv.map((actividades) => (
                     <li class="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md grid-cols-2 gap-4">
                       <button onClick={() => handleIrActividad(actividades._id)}>
                         <div class="flex flex-col items-center justify-center">
@@ -266,7 +278,7 @@ const Actividades = ({IdUserIniciado}) => {
                         </div>
                       </button>
                     </li>
-                  ))}
+                  ))} */}
               </>
             )}
           </div>

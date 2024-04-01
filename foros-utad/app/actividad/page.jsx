@@ -1,4 +1,4 @@
-"use client"
+/*"use client"
 import Actividad from "@/components/actividades/actividad";
 import { useSearchParams } from "next/navigation";
 
@@ -12,4 +12,4 @@ export default function Home() {
       <Actividad IDs={{identificadorUser, identificadorActi}}/> 
     </main>
   );
-}
+}*/
