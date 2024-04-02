@@ -44,7 +44,7 @@ async function loginHandler(user, router) {
             //lo asignamos a una variable por si se quiere tratar con él
             const userId = await fetchUserId(data.token);
 
-            router.push(`/actividades?id=${data._id}`);
+            router.push(`/actividades?id=${userId}`);
         } else {
             console.error('Respuesta no exitosa del servidor');
             const text = await response.text(); // Esto te dará el cuerpo de la respuesta

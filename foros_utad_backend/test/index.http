@@ -65,7 +65,7 @@ Content-Type: application/json
     "hora": "2024-03-13T13:00:29.717Z"
 }
 ###
-GET http://localhost:3000/api/foro HTTP/1.1
+GET http://localhost:9000/api/foro HTTP/1.1
 ###
 
 

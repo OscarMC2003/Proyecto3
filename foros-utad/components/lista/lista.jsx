@@ -1,24 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import ForoInterior from '../foro/foroInterior';
 
-function RectangleList(foros) {
-  const activities = [
-    { title: 'Actividad 1', subtitle: 'Descripción de la actividad 1' },
-    { title: 'Actividad 2', subtitle: 'Descripción de la actividad 2' },
-    { title: 'Actividad 3', subtitle: 'Descripción de la actividad 3' },
-  ];
+function RectangleList({ foros }) { // Se agrega destructuración para recibir el prop correctamente
+
+  const [showPopup, setShowPopup] = useState(null); // Se inicializa con null
+
+  const togglePopup = (foroId) => {
+    setShowPopup(foroId === showPopup ? null : foroId);
+  };
 
   return (
     <div style={{ width: '100%' }}>
-      {foros.foros.map((foros, index) => (
-        <div key={index} style={{
+      {foros.map((foro, index) => ( // Se cambia el nombre de la variable para evitar conflicto de nombres
+        <div key={index} style={{ // Se mueve el key al contenedor div
           backgroundColor: 'white',
           padding: '20px',
           marginBottom: '25px',
           borderRadius: '8px',
           width: '100%', // Hacer que cada caja ocupe todo el ancho disponible
         }}>
-          <h2>{foros.name}</h2>
-          <p>{foros.descripcion}</p>
+          <button style={{ width: '100%' }} onClick={() => togglePopup(foro._id)}>
+            <h2>{foro.name}</h2>
+            <p>{foro.descripcion}</p>
+          </button>
+          {showPopup === foro._id && <ForoInterior handleClose={() => togglePopup(foro._id)} show={showPopup} id={foro._id} />}
         </div>
       ))}
     </div>
