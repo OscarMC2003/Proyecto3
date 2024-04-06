@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
-import check_token from '../notoken_redirect/notoken_redirect'
+import user from '../notoken_redirect/notoken_redirect'
 import Actividad from "@/components/actividades/actividad"; // Mantener la importación del componente Actividad
 
 async function response_to_array(resp) {

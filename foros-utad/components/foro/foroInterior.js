@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from 'react';
+import user from '../notoken_redirect/notoken_redirect'
 
 function ForoInterior({ handleClose, show, id }) {
 

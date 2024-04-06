@@ -14,6 +14,9 @@ function check_token() {
 		if (token == null || decodedToken == null || decodedToken.exp == null || decodedToken.exp < Math.floor(Date.now() / 1000)) {
 			window.location.replace("/login");
 		}
+		else {
+			return decodedToken;
+		}
 		
 	}
 	else {

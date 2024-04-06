@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
+import user from '../notoken_redirect/notoken_redirect'
 
 const Actividad = ({ handleClose, show, id }) => {
   const [actividad, setActividad] = useState();
@@ -14,7 +15,11 @@ const Actividad = ({ handleClose, show, id }) => {
   };
 
   useEffect(() => {
-    if (!id) return; // Manejar el caso donde id es null o undefined
+    // if (!id) return; // Manejar el caso donde id es null o undefined
+    if (user) { // cuando no esta logeado, user es null
+    	console.log(user._id);
+    	// parametros disponibles: _id, email, iat (fecha de login), exp (fecha de expiracion)
+    }
 
     const fetchData = async () => {
       try {
