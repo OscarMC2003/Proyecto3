@@ -99,7 +99,7 @@ export default function Login() {
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium">Contraseña</label>
                                 <div className="ml-3">
                                     {/* Introducir Link a sitio de recuperacion de contraseña */}
-                                    <Link href="https://www.youtube.com/" className="montLight">¿Has olvidado tu contraseña?</Link>
+                                    <Link href="/recu" className="montLight">¿Has olvidado tu contraseña?</Link>
                                 </div>
                             </div>
                             <input type="password" onChange={(e) => setPassword(e.target.value)} id="password" name="password" className="shadow-sm border-gray-300 rounded-md w-full py-2 px-4 mb-8 bg-gray-100" placeholder="••••••••" />
