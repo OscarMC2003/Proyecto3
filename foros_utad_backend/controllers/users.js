@@ -7,6 +7,7 @@
 const { usersModel } = require("../models")
 const { matchedData } = require('express-validator')
 const { handleHttpError } = require('../utils/handleError')
+const { compare, encrypt } = require("../utils/handlePassword");
 
 // COGER TODOS USERS QUE EXISTEN 
 const getItems = async (req, res) => {
@@ -50,13 +51,28 @@ const createItem = async (req, res) => {
     }
 }
 
+
 // ACTUALIZAR / CAMBIAR DATOS
 const updateItem = async (req, res) => {
     try {
-        const {id, ...body} = matchedData(req) //Extrae el id y el resto lo asigna a la constante body
-        const data = await usersModel.findOneAndUpdate(id, body)
+        const email = Buffer.from(req.params.email, 'base64').toString('utf-8'); //Decodifica el email
+        console.log(email)
+        const body = req.body; //Obtiene el cuerpo de la solicitud
+        console.log(body)
+        console.log(body.password);
+        const passwordCrypt = await encrypt(body.password);
+        console.log(passwordCrypt) // Imprime la contraseña cifrada
+        body.password = passwordCrypt;
+        const user = await usersModel.findOne({email: email}); //Busca por email
+
+        if (!user) {
+            return res.status(404).send({error: 'Usuario no encontrado'});
+        }
+
+        const data = await usersModel.findOneAndUpdate({email: email}, body, {new: true}) //Actualiza
         res.send(data)
-    }catch(err){
+    } catch(err) {
+        console.error(err);
         handleHttpError(res, 'ERROR_UPDATE_ITEMS_USERS')
     }
 }
