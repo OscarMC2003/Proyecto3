@@ -1,6 +1,11 @@
 "use client"
+<<<<<<< Updated upstream
 import React, { useState } from 'react';
 import user from '../notoken_redirect/notoken_redirect'
+=======
+import { data } from 'autoprefixer';
+import React, { useEffect, useState } from 'react';
+>>>>>>> Stashed changes
 
 function ForoInterior({ handleClose, show, id }) {
 
@@ -8,11 +13,50 @@ function ForoInterior({ handleClose, show, id }) {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
 
-    const handleSendMessage = () => {
-        if (newMessage.trim() !== '') {
-            setMessages([...messages, newMessage]);
-            setNewMessage('');
+    useEffect(() => {
+        const getMessages = async () => {
+            try {
+                const respuesta = await fetch(`/api/foro/${id}/mensajes`)
+
+                if (respuesta.ok) {
+                    const datos = await respuesta.json()
+                    setMessages(data)
+                } else {
+                    console.error("Error obteniendo los mensajes")
+                }
+            } catch (error) {
+                console.log("Error obteniendo mensajes del foro")
+            }
+        };
+
+        if (show) {
+            getMessages()
         }
+    }, [id, show]);
+
+    const handleSendMessage = async () => {
+        if (newMessage.trim() !== '') {
+            try {
+                // setMessages([...messages, newMessage]);
+                // setNewMessage('');
+                const respuesta = await fetch(`/api/foro/${id}/mensaje`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ mensaje: newMessage })
+                });
+                if (respuesta.ok) {
+                    // Actualización de los mensajes locales solo si el mensaje se envió con éxito
+                    setMessages([...messages, newMessage]);
+                    setNewMessage('');
+                } else {
+                    console.error('Error al enviar el mensaje:', respuesta.statusText);
+                }
+            } catch {
+                console.error('error al enviar el mensaje', error);
+            }
+        };
     };
 
     const showHideClassName = show ? "fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 overflow-y-auto" : "hidden";
@@ -27,7 +71,7 @@ function ForoInterior({ handleClose, show, id }) {
     return (
         <>
             <div className={`${showHideClassName} ${animationClassName}`} onClick={handleCloseOutside}>
-                <div className="bg-opacity-25 p-8 rounded shadow-lg min-w-[300px] max-w-screen-lg w-full h-screen my-8 mx-auto flex flex-col justify-between" style={{marginTop: '20vh'}}> {/* Ajustes en el contenedor principal */}
+                <div className="bg-opacity-25 p-8 rounded shadow-lg min-w-[300px] max-w-screen-lg w-full h-screen my-8 mx-auto flex flex-col justify-between" style={{ marginTop: '20vh' }}> {/* Ajustes en el contenedor principal */}
                     <div className="bg-white p-6 flex flex-col md:flex-row flex-1 overflow-y-auto rounded"> {/* Agregado redondeo a los bordes */}
                         <div className="flex flex-col h-full w-full"> {/* Ajustado para ocupar todo el ancho */}
                             <div className="flex-1 overflow-y-auto">

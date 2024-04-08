@@ -50,6 +50,60 @@ const createItem = async (req, res) => {
     }
 }
 
+// AÑADIR MENSAJE
+const createMessage = async (req, res) => {
+    try {
+        // Obtener el ID del foro al que se desea agregar el mensaje
+        const { id } = req.params;
+        // Obtener los datos del mensaje del cuerpo de la solicitud
+        const mensajeData = req.body.mensaje;
+
+        // Buscar el foro por su ID
+        const foro = await forosModel.findById(id);
+        if (!foro) {
+            return res.status(404).json({ error: 'Foro no encontrado' });
+        }
+
+        // Agregar el mensaje al campo 'mensaje' del foro
+        foro.mensaje.push(mensajeData);
+
+        // Guardar los cambios en el foro
+        await foro.save();
+
+        // Enviar la respuesta con los datos del foro actualizados
+        res.status(200).json(foro);
+    }catch(err){
+        console.log(err)
+        handleHttpError(res, 'ERROR_CREATE_FORO_MESSAGE')
+    }
+}
+
+//OBTENER MENSAJES
+const obtainMessage = async (req, res) => {
+    console.log("entrado")
+    try {
+        // ID del foro
+        const { id } = req.params;
+        console.log(id)
+       
+        // Buscar el foro por su ID
+        const foro = await forosModel.findById(id);
+        if (!foro) {
+            return res.status(404).json({ error: 'Foro no encontrado' });
+        }
+
+        const mensajes = foro.mensaje;
+
+        console.log(mensajes)
+
+        // Enviar la respuesta con los datos del foro actualizados
+        res.status(200).json(mensajes);
+    }catch(err){
+        console.log(err)
+        handleHttpError(res, 'ERROR_OBTAINING_FORO_MESSAGES')
+    }
+}    
+
 // ACTUALIZAR / CAMBIAR DATOS
 const updateItem = async (req, res) => {
     try {
@@ -74,4 +128,4 @@ const deleteItem = async (req, res) => {
     }
 }
 
-module.exports = { getItems, getItem, createItem, updateItem, deleteItem };
+module.exports = { getItems, getItem, createItem, createMessage, obtainMessage, updateItem, deleteItem };
