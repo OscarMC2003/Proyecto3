@@ -1,11 +1,7 @@
 "use client"
-<<<<<<< Updated upstream
 import React, { useState } from 'react';
 import user from '../notoken_redirect/notoken_redirect'
-=======
-import { data } from 'autoprefixer';
-import React, { useEffect, useState } from 'react';
->>>>>>> Stashed changes
+
 
 function ForoInterior({ handleClose, show, id }) {
 
