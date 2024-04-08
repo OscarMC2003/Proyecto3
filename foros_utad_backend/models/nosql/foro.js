@@ -9,7 +9,7 @@ const foroScheme = new mongoose.Schema(
         descripcion: {
             type: String
         },
-        mensaje: {
+        mensaje: [{
             idUsuario: {
                 type: [{ type : mongoose.Schema.Types.ObjectId, ref: 'users' }]
             },
@@ -20,9 +20,9 @@ const foroScheme = new mongoose.Schema(
                 type: String
             },
             etiquetas: {
-                type: String
+                type: [String]
             }
-        }
+        }]
     },
     {
         timestamp: true, // TODO createdAt, updatedAt
