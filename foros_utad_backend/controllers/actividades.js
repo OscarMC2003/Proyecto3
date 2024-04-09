@@ -24,7 +24,7 @@ const getItems = async (req, res) => {
 const getItem = async (req, res) => {
     try{
         // MATCHED DATA PARA EL VALIDADOR Y COGE EL ID (QUE PASAMOS)
-        const {id} = matchedData(req)
+        const id = req.params.id;
         // LLAMADA AL MODELO Y FILTRA POR ID
         const data = await actividadesModel.findById(id)
         // SI LO ENCUENTRA MANDA DATOS DE ESE USUARIO, SI NO ERROR EN CATCH

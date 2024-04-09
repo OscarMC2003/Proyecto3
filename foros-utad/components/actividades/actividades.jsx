@@ -1,8 +1,24 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation'
+import user from '../notoken_redirect/notoken_redirect'
+import Actividad from "@/components/actividades/actividad"; // Mantener la importación del componente Actividad
 
-const Actividades = () => {
+async function response_to_array(resp) {
+  if (resp && resp.json) {
+    const data = await resp.json();
+    for (var i = 0; i < data.length; i++) {
+      console.log(data[i])
+    }
+    return data;
+  }
+  return [];
+}
+
+const Actividades = ({IdUserIniciado}) => {
+
+  const router = useRouter()
 
   //esto lo tendra que recibir del backend
   let [actividades, setActividades] = useState([]);
@@ -29,48 +45,61 @@ const Actividades = () => {
 
   const [contenidoVisible, setContenidoVisible] = useState("Texto 1");
 
+  const [showPopup, setShowPopup] = useState(false);
+
+  // const togglePopup = () => {
+  //   setShowPopup(!showPopup);
+  // };
+
+  const togglePopup = (actividadId) => {
+    setShowPopup(actividadId === showPopup ? null : actividadId);
+  };
+
+
+
 
   useEffect(() => {
-    async function LlamadaActividades() {
-
+    
+    const fetchData = async () => {
       try {
-          const response = await fetch('http://localhost:9000/api/actividades');
-          setActividades(response)
+        const response = await fetch(window.location.origin.slice(0, -5) + ':9000/api/actividades');
+        const data = await response_to_array(response);
+        setActividades(data);
       } catch (error) {
-          console.log("Error al llamar a las actividades")
+        console.log("Error al llamar a las actividades:", error);
       }
-    }
+    };
+    
+    fetchData();
+  }, []);
 
-    const filterActividadCoord = () => {
-      //cuando este la base de datos hay que ver que parametro guarda el tipo de actividad que es
-      const filteredCoordinacion = actividades.filter((actividades) => actividades.tipoActividad.toLowerCase().includes("coordinacion")
-      );
-      setActividadesCoord(filteredCoordinacion);
+  useEffect(() => {
+    const filterActividades = () => {
+      const filteredCoord = actividades.filter(actividad => actividad.tipoActividad.includes("coordinacion"));
+      setActividadesCoord(filteredCoord);
+      
+      const filteredAlum = actividades.filter(actividad => actividad.tipoActividad.includes("alumnos"));
+      setActividadesAlum(filteredAlum);
+      
+      const filteredPriv = actividades.filter(actividad => actividad.tipoActividad.includes("privadas"));
+      setActividadesPriv(filteredPriv);
     };
 
-    const filterActividadAlum = () => {
-      //cuando este la base de datos hay que ver que parametro guarda el tipo de actividad que es
-      const filteredAlumnos = actividades.filter((actividades) => actividades.tipoActividad.toLowerCase().includes("alumnos")
-      );
-      setActividadesAlum(filteredAlumnos);
-    };
-
-    const filterActividadPriv = () => {
-      //cuando este la base de datos hay que ver que parametro guarda el tipo de actividad que es
-      const filteredPrivadas = actividades.filter((actividades) => actividades.tipoActividad.toLowerCase().includes("privadas")
-      );
-      setActividadesPriv(filteredPrivadas);
-    };
-    LlamadaActividades()
-    filterActividadPriv();
-    filterActividadAlum();
-    filterActividadCoord();
+    filterActividades();
   }, [actividades]);
 
+  const handleCambioAForos = () =>{
+    router.push(`/foroAlumnos?id=${IdUserIniciado}`);
+  }
+
+  /*const handleIrActividad = (identificadorActividad) =>{
+    router.push(`/actividad?id=${IdUserIniciado}&acti=${identificadorActividad}`)
+      
+  }*/
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-      <header style={{ position: 'fixed', top: 0, left: 0, width: '100%', background: '#888888', padding: '10px', textAlign: 'center', zIndex: 1000, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <header style={{ position: 'fixed', top: 0, left: 0, width: '100%', background: '#888888', padding: '10px', textAlign: 'center', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         {/* Imagen a la izquierda */}
         <img src="/images/cuadrado.png" alt="Imagen Izquierda" style={{ width: '75px', height: 'auto' }} />
 
@@ -79,7 +108,7 @@ const Actividades = () => {
 
         {/* Botón seguido de otra imagen a la derecha */}
         <div style={{ display: 'flex', alignItems: 'center' }}>
-            <button style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Comunidad de Alumnos</button>
+            <button onClick={handleCambioAForos} style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Comunidad de Alumnos</button>
           <img src="/images/userVacio.png" alt="Imagen Derecha" style={{ width: '50px', height: 'auto' }} />
         </div>
       </header>
@@ -174,15 +203,22 @@ const Actividades = () => {
                 ))} */}
 
 
-                {Array.isArray(actividadesCoord) && actividadesCoord.map((actividades) => (
-                  <li key={uuidv4()} className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-8">
-                    <div key={index} style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
-                      <img src={`${actividades.imagen}`} alt={`Actividad ${index + 1}`} style={{ width: '100%', height: 'auto' }} />
-                      <p className="montRegular" style={{ color: '#333' }}>{actividades.asunto}</p>
-                      <p className="montLight" style={{ color: '#333' }}>{actividades.objetivo}</p>
+              {Array.isArray(actividadesCoord) && actividadesCoord.map((actividades) => (
+                  <li key={actividades._id} className="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md grid-cols-2 gap-4">
+                    <div>
+                      <button onClick={() => togglePopup(actividades._id)}>
+                        <div className="flex flex-col items-center justify-center">
+                          <img src="images/cuadrado.png" alt="Actividad 1" className="w-full h-auto max-w-md rounded-lg shadow-md col-span-2" />
+                          <div className="text-center col-span-2">
+                            <h2 className="text-xl font-bold">{actividades.asunto}</h2>
+                            <p className="text-gray-700">{actividades.objetivo}</p>
+                          </div>
+                        </div>
+                      </button>
+                      {showPopup === actividades._id && <Actividad handleClose={() => togglePopup(actividades._id)} show={showPopup} id={actividades._id} />}
                     </div>
                   </li>
-                ))}
+              ))}
 
 
 
@@ -204,15 +240,19 @@ const Actividades = () => {
                     <p className="montLight" style={{ color: '#333' }}>Texto mas largo que los demas para ver si se ajusta al tamaño de la actividad, para cumplir con los requisitos de los de didi</p>
                   </div> */}
 
-                {Array.isArray(actividadesAlum) && actividadesAlum.map((actividades) => (
-                    <li key={uuidv4()} className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-8">
-                      <div key={index} style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
-                        <img src={`${actividades.imagen}`} alt={`Actividad ${index + 1}`} style={{ width: '100%', height: 'auto' }} />
-                        <p className="montRegular" style={{ color: '#333' }}>{actividades.asunto}</p>
-                        <p className="montLight" style={{ color: '#333' }}>{actividades.objetivo}</p>
-                      </div>
+                  {/* {Array.isArray(actividadesAlum) && actividadesAlum.map((actividades) => (
+                    <li class="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md grid-cols-2 gap-4">
+                      <button onClick={() => handleIrActividad(actividades._id)}>
+                        <div class="flex flex-col items-center justify-center">
+                          <img src="images/cuadrado.png" alt="Actividad 1" class="w-full h-auto max-w-md rounded-lg shadow-md col-span-2" />
+                          <div class="text-center col-span-2">
+                            <h2 class="text-xl font-bold">{actividades.asunto}</h2>
+                            <p class="text-gray-700">{actividades.objetivo}</p>
+                          </div>
+                        </div>
+                      </button>
                     </li>
-                  ))}
+                  ))} */}
               </>
             )}
 
@@ -227,15 +267,19 @@ const Actividades = () => {
                 ))} */}
 
 
-                {Array.isArray(actividadesPriv) && actividadesPriv.map((actividades) => (
-                  <li key={uuidv4()} className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-8">
-                    <div key={index} style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
-                      <img src={`${actividades.imagen}`} alt={`Actividad ${index + 1}`} style={{ width: '100%', height: 'auto' }} />
-                      <p className="montRegular" style={{ color: '#333' }}>{actividades.asunto}</p>
-                      <p className="montLight" style={{ color: '#333' }}>{actividades.objetivo}</p>
-                    </div>
-                  </li>
-                ))}
+                  {/* {Array.isArray(actividadesPriv) && actividadesPriv.map((actividades) => (
+                    <li class="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md grid-cols-2 gap-4">
+                      <button onClick={() => handleIrActividad(actividades._id)}>
+                        <div class="flex flex-col items-center justify-center">
+                          <img src="images/cuadrado.png" alt="Actividad 1" class="w-full h-auto max-w-md rounded-lg shadow-md col-span-2" />
+                          <div class="text-center col-span-2">
+                            <h2 class="text-xl font-bold">{actividades.asunto}</h2>
+                            <p class="text-gray-700">{actividades.objetivo}</p>
+                          </div>
+                        </div>
+                      </button>
+                    </li>
+                  ))} */}
               </>
             )}
           </div>

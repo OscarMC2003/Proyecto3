@@ -1,5 +1,5 @@
 "use client"
-import Foros from "@/components/foro/foroAlumnos";
+import Actividades from "@/components/actividades/actividades";
 import { useSearchParams } from "next/navigation";
 
 export default function Home() {
@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-      <Foros IdUserIniciado={identificador}/>
+      <Actividades IdUserIniciado={identificador}/>
     </main>
   );
 }

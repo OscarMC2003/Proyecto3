@@ -1,9 +1,13 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Buscador from '../buscador/buscador'
 import Lista from '../lista/lista'
+import { useRouter } from 'next/navigation'
+import user from '../notoken_redirect/notoken_redirect'
 
-const Actividades = () => {
+const Foros = ({IdUserIniciado}) => {
+
+    const router = useRouter()
     // Estados para manejar la visibilidad de las opciones
     const [mostrarTitulacion, setMostrarTitulacion] = useState(false);
     const [mostrarCurso, setMostrarCurso] = useState(false);
@@ -30,8 +34,8 @@ const Actividades = () => {
         async function LlamadaForos() {
     
           try {
-              const response = await fetch('http://localhost:9000/api/foro');
-              setForos(response)
+              const response = await fetch(window.location.origin.slice(0,-5) + ':9000/api/foro');
+              setForos(await response.json())
           } catch (error) {
               console.log("Error al llamar a las actividades")
           }
@@ -40,6 +44,10 @@ const Actividades = () => {
         
         LlamadaForos()
       }, [foros]);
+
+      const handleCambiaActividades = () =>{
+        router.push(`/actividades?id=${IdUserIniciado}`);
+      }
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
@@ -52,7 +60,7 @@ const Actividades = () => {
 
                 {/* Botón seguido de otra imagen a la derecha */}
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <button style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Comunidad de Alumnos</button>
+                    <button onClick={handleCambiaActividades} style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Actividades</button>
                     <img src="/images/userVacio.png" alt="Imagen Derecha" style={{ width: '50px', height: 'auto' }} />
                 </div>
             </header>
@@ -166,4 +174,4 @@ const Actividades = () => {
     );
 };
 
-export default Actividades;
+export default Foros;

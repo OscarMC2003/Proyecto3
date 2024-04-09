@@ -3,6 +3,21 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { getUserId } from '@/utils/user'
+
+const fetchUserId = async (token) => {
+    try {
+      const userId = await getUserId(token);
+      console.log('UserID:', userId);
+      alert(userId)
+
+      return userId;
+
+    } catch (error) {
+        console.error('Respuesta no exitosa del servidor');
+        console.error(error); 
+    }
+  };
 
 
 
@@ -11,7 +26,7 @@ async function loginHandler(user, router) {
     console.log(user); // Debería mostrarte la estructura del objeto
 
     try {
-        const response = await fetch('http://localhost:9000/api/auth', {
+        const response = await fetch(window.location.origin.slice(0, -5) + ':9000/api/auth', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -20,9 +35,16 @@ async function loginHandler(user, router) {
         });
 
         if (response.ok) {
+            //necesitamos un controller que devuelva el id del usuario en funcion de su correo
             const data = await response.json();
-            console.log(data);
-            router.push('/actividades');
+            //se guarda el token en el almacenamiento local del navegador cliente
+            localStorage.setItem('token', data.token);
+
+            //obtenemos el id del usuario
+            //lo asignamos a una variable por si se quiere tratar con él
+            const userId = await fetchUserId(data.token);
+
+            router.push(`/actividades?id=${userId}`);
         } else {
             console.error('Respuesta no exitosa del servidor');
             const text = await response.text(); // Esto te dará el cuerpo de la respuesta
@@ -49,18 +71,10 @@ export default function Login() {
             email: email,
             password: password,
         }
-        // alert(user.email)
-        //alert(user.password)
+
 
         loginHandler(user, router);
 
-        //LLamadas a base de datod
-        //pedir si usuario exisiste
-        //obetenr contraseña
-        //comparar con la dada
-        //en caso de que sea correcto inicia sesion como usuario
-        //caso contrario, manda mesaje de contraseña errornea o usuario no valido
-        //(mirar modos de mostar el error de forma ams graficamente agradable que con un alert)
     }
 
 
@@ -85,7 +99,7 @@ export default function Login() {
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium">Contraseña</label>
                                 <div className="ml-3">
                                     {/* Introducir Link a sitio de recuperacion de contraseña */}
-                                    <Link href="https://www.youtube.com/" className="montLight">¿Has olvidado tu contraseña?</Link>
+                                    <Link href="/recu" className="montLight">¿Has olvidado tu contraseña?</Link>
                                 </div>
                             </div>
                             <input type="password" onChange={(e) => setPassword(e.target.value)} id="password" name="password" className="shadow-sm border-gray-300 rounded-md w-full py-2 px-4 mb-8 bg-gray-100" placeholder="••••••••" />
