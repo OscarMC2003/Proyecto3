@@ -28,11 +28,8 @@ const Foros = ({IdUserIniciado}) => {
 
     let [foros, setForos] = useState([]);
 
-
-
     useEffect(() => {
         async function LlamadaForos() {
-    
           try {
               const response = await fetch(window.location.origin.slice(0,-5) + ':9000/api/foro');
               setForos(await response.json())
@@ -165,7 +162,7 @@ const Foros = ({IdUserIniciado}) => {
                         <p className="montBlack" style={{ cursor: 'pointer', color: contenidoVisible === "Texto 2" ? 'black' : 'black', textDecoration: contenidoVisible === "Texto 2" ? 'underline' : 'none' }} onClick={() => setContenidoVisible("Texto 2")}>Nuevos foros</p>          </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
                         {/* Estructura para mostrar actividades */}
-                        <Lista foros={foros}/>
+                        <Lista foros={foros} idUserIniciado={IdUserIniciado}/>
 
                     </div>
                 </div>

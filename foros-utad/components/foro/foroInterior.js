@@ -1,59 +1,68 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import user from '../notoken_redirect/notoken_redirect'
 
-
-function ForoInterior({ handleClose, show, id }) {
-
-    // Estados para manejar la visibilidad de las opciones
+function ForoInterior({ handleClose, show, id, idUserIniciado }) {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
-
+    
     useEffect(() => {
-        const getMessages = async () => {
+        const getMensajes = async () => {
             try {
-                const respuesta = await fetch(`/api/foro/${id}/mensajes`)
-
+                const respuesta = await fetch(`http://localhost:9000/api/foro/${id}/mensajes`);
                 if (respuesta.ok) {
-                    const datos = await respuesta.json()
-                    setMessages(data)
+                    const datos = await respuesta.json();
+                    const mensajes = datos.map(mensaje => mensaje.texto);
+                    // Mostrar mensajes consola a modo comprobación
+                    console.log(mensajes)
+                    setMessages(mensajes);
                 } else {
-                    console.error("Error obteniendo los mensajes")
+                    console.error("Error obteniendo los mensajes");
                 }
             } catch (error) {
-                console.log("Error obteniendo mensajes del foro")
+                console.error("Error obteniendo mensajes del foro", error);
             }
         };
 
+        const intervalo = setInterval(() => {
+            if(show) {
+                getMensajes();
+            }
+        }, 1000);
+
         if (show) {
-            getMessages()
+            getMensajes();
         }
+
+        return () => clearInterval(intervalo)
     }, [id, show]);
 
     const handleSendMessage = async () => {
         if (newMessage.trim() !== '') {
             try {
-                // setMessages([...messages, newMessage]);
-                // setNewMessage('');
-                const respuesta = await fetch(`/api/foro/${id}/mensaje`, {
+                const respuesta = await fetch(`http://localhost:9000/api/foro/${id}/mensaje`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ mensaje: newMessage })
+                    body: JSON.stringify({
+                        mensaje: {
+                            idUsuario: [idUserIniciado],
+                            texto: newMessage
+                        }
+                    })
                 });
                 if (respuesta.ok) {
-                    // Actualización de los mensajes locales solo si el mensaje se envió con éxito
-                    setMessages([...messages, newMessage]);
                     setNewMessage('');
                 } else {
                     console.error('Error al enviar el mensaje:', respuesta.statusText);
                 }
-            } catch {
-                console.error('error al enviar el mensaje', error);
+            } catch (error) {
+                console.error('Error al enviar el mensaje', error);
             }
-        };
+        }
     };
+    
 
     const showHideClassName = show ? "fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 overflow-y-auto" : "hidden";
     const animationClassName = show ? "animated-fadeIn" : "animated-fadeOut";
@@ -63,7 +72,6 @@ function ForoInterior({ handleClose, show, id }) {
             handleClose();
         }
     };
-
     return (
         <>
             <div className={`${showHideClassName} ${animationClassName}`} onClick={handleCloseOutside}>
@@ -74,7 +82,7 @@ function ForoInterior({ handleClose, show, id }) {
                                 {messages.map((message, index) => (
                                     <div key={index} className="p-2">
                                         <div className="bg-gray-200 p-2 rounded-lg inline-block">
-                                            {message}
+                                            <span className="backend-message">{message}</span>            
                                         </div>
                                     </div>
                                 ))}
