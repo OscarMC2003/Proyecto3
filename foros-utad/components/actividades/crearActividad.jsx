@@ -227,8 +227,6 @@ const CrearActividad = () => {
                         Crear
                       </button>
                     </div>
-                    
-    
                   </div>
                 </div>
               </div>
