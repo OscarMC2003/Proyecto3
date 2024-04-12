@@ -8,7 +8,7 @@ const { actividadesModel } = require("../models")
 const { matchedData } = require('express-validator')
 const { handleHttpError } = require('../utils/handleError')
 
-// COGER TODOS USERS QUE EXISTEN 
+// COGER TODAS LAS ACTIVIDADES QUE EXISTEN 
 const getItems = async (req, res) => {
     try{
         const data = await actividadesModel.find({})
@@ -20,7 +20,7 @@ const getItems = async (req, res) => {
         
 }
 
-// DEVUELVE USUARIO CON ESE ID
+// DEVUELVE CON ESE ID
 const getItem = async (req, res) => {
     try{
         // MATCHED DATA PARA EL VALIDADOR Y COGE EL ID (QUE PASAMOS)
@@ -35,7 +35,7 @@ const getItem = async (req, res) => {
         
 }
 
-// CREACIÓN DE USUARIO
+// CREACIÓN
 const createItem = async (req, res) => {
     try {
         // COGE INFO DE LA PETICION MANDADA, ESTA BIEN PQ ANTES HEMOS PASADO X EL VALIDADOR.
@@ -61,7 +61,7 @@ const updateItem = async (req, res) => {
     }
 }
 
-// BORRAR USER
+// BORRAR
 const deleteItem = async (req, res) => {
     try {
         // PILLA ID Y LO BORRA
