@@ -11,7 +11,7 @@ router.get("/:id", getItem) //HARA FUNCIÓN QUE ESTA DEIFINA EN EL CONTROLADOR (
 
 
 // RUTA PARA CREAR CLASE
-router.post("/", validatorCreateItem, createItem)
+router.post("/createActivities", validatorCreateItem, createItem)
 // SI HAY QUE AÑADIR MIDDLE WARE -> DEFINIDO EN LOS VALIDATORS, SI NO ESTAN LOS
 // EL MIDDLEWARE CONTIENE => AUTENTIFICACIÓN, PRIMERO HACER PRUEBA SIN TOKEN Y SI NOS DA TIEMPO LO AÑADIMOS
 //router.post("/", MIDDELWARE, createItem)
