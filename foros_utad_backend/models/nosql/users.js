@@ -17,7 +17,17 @@ const UserScheme = new mongoose.Schema(
         role: {
             type: ["coordinador", "representanteDeAlumnos", "delegado", "tutor", "profesor", "alumno"], // es el enum de SQL
             default: "alumno"
-        }
+        },
+        foros: [{
+            id: {
+                type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'foro' }]
+            }
+        }],
+        actividades: [{
+            id: {
+                type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'actividades' }]
+            }
+        }]     
     },
     {
         timestamp: true, // TODO createdAt, updatedAt
