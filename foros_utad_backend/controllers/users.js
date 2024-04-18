@@ -94,6 +94,11 @@ const getId = async (req, res) => {
     res.json({ id: req.user._id });
 }
 
+// ADD ACTIVIDADES A USUARIOS
 
+
+
+
+// ADD FOROS A USUARIOS
 
 module.exports = { getItems, getItem, createItem, updateItem, deleteItem, getId };
