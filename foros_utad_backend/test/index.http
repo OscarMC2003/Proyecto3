@@ -229,11 +229,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYwMTE5Z
 api_key: Api-publica-123
 
 {
-    "name": "testeo3",
-    "age": "40",
+    "name": "testeo5",
     "email": "testeo2@gmail.com",
-    "password": "testeo22222"
-  
+    "age": "40",
+    "password": "testeo22222",
+    "role": "admin"
 }
 
 ###
