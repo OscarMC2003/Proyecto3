@@ -5,8 +5,10 @@
 */
 
 const { actividadesModel } = require("../models")
+const { usersModel } = require("../models")
 const { matchedData } = require('express-validator')
 const { handleHttpError } = require('../utils/handleError')
+const { getId } = require("../controllers/users")
 
 // COGER TODAS LAS ACTIVIDADES QUE EXISTEN 
 const getItems = async (req, res) => {
@@ -74,4 +76,21 @@ const deleteItem = async (req, res) => {
     }
 }
 
-module.exports = { getItems, getItem, createItem, updateItem, deleteItem };
+const addActivityUser = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const { _id } = matchedData(req)
+
+        const data = await usersModel.findOneAndUpdate(
+            { _id: userId },
+            { $push: { actividades: _id } },
+            { new: true }
+        );
+
+        res.send(data);
+    } catch (err) {
+        handleHttpError(res, 'ERROR_ADDING_ACTIVITY_TO_USERS_PROFILE');
+    }
+};
+
+module.exports = { getItems, getItem, createItem, updateItem, deleteItem, addActivityUser };

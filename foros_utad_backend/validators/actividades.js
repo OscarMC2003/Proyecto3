@@ -22,4 +22,11 @@ const validatorGetItem = [
     }
 ]
 
-module.exports = { validatorCreateItem, validatorGetItem }
+const validatorAddActivity = [
+    check("_id").exists().notEmpty().isMongoId(),
+    (req, res, next) => {
+        return validateResults(req, res, next)
+    }
+]
+
+module.exports = { validatorCreateItem, validatorGetItem, validatorAddActivity }

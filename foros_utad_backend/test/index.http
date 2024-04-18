@@ -5,7 +5,7 @@ Content-Type: application/json
 
 {
     "name": "proyecto3",
-    "email": "proyectos3utad@gmail.com",
+    "email": "proyectos3@gmail.com",
     "activo": true,
     "password": "333",
     "role": "alumno"
@@ -120,8 +120,8 @@ POST http://localhost:9000/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "proyecto3",
-    "email": "proyectos3utad@gmail.com",
+    "name": "proyecto2",
+    "email": "proyecto@gmail.com",
     "activo": true,
     "password": "333",
     "rol": "alumno"
@@ -225,14 +225,13 @@ DELETE http://localhost:9000/api/tracks/65e1d446db624ab6e04c2f68
 ###
 POST  http://localhost:9000/api/auth/register HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYwMTE5ZjVkM2MxZWFkZTJkMjFhMzEiLCJlbWFpbCI6InRlc3RlbzJAZ21haWwuY29tIiwiaWF0IjoxNzEwMjMxOTY3LCJleHAiOjE3MTAyMzkxNjd9.er1r9k0bilGiuaOcJrDvItNpJSRewhFePapif4Lf2-8
 api_key: Api-publica-123
 
 {
     "name": "testeo5",
     "email": "testeo2@gmail.com",
     "age": "40",
-    "password": "testeo22222",
+    "password": "123",
     "role": "admin"
 }
 
@@ -243,3 +242,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYwMTE5Z
 
 
 
+### 
+
+# AÑADIR ACTIVIDAD A PERFIL DE USUARIO
+PATCH http://localhost:9000/api/actividades/6618e9de2321f5c76c1ea2cb HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYxOGIyYjIxNDk4YmFhZDQwZDAwODUiLCJlbWFpbCI6ImNodXJ1bWJlQGdpdGFub2Zpbm8uY29tIiwiaWF0IjoxNzEzNDYwMTI0LCJleHAiOjE3MTM0NjczMjR9.L_eLnZ6St5QChVARyVx5Vx5c0dDGJJNm9TcoPQuJNyY
+Content-Type: application/json
+
+{
+    "id": "6618e9de2321f5c76c1ea2cb"
+}

@@ -11,7 +11,7 @@ const UserScheme = new mongoose.Schema(
         activo: {
             type: Boolean
         },
-        password:{
+        password: {
             type: String // TODO Guardaremos el hash
         },
         role: {
@@ -19,15 +19,11 @@ const UserScheme = new mongoose.Schema(
             default: "alumno"
         },
         foros: [{
-            id: {
-                type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'foro' }]
-            }
+            type: String
         }],
         actividades: [{
-            id: {
-                type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'actividades' }]
-            }
-        }]     
+            type: String
+        }]
     },
     {
         timestamp: true, // TODO createdAt, updatedAt
