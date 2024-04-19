@@ -7,7 +7,7 @@ const authMiddleware = require("../middleware/session")
 
 
 // RUTA PARA INICIAR SESION
-router.post("/", validatorLogin,  loginCtrl, authMiddleware)
+router.post("/", validatorLogin,  loginCtrl)
 router.post("/register", validatorRegister, registerCtrl)
 
 module.exports = router

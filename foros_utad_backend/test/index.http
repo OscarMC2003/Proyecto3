@@ -35,10 +35,9 @@ Content-Type: application/json
 
 POST http://localhost:3000/api/login
 Content-Type: application/json
-Authorization: Barear 
 
 {
-    "email": "test@test.com",
+    "email": "jorgemartinez@live.u-tad.com",
     "password": "test123"
 }
 
@@ -245,10 +244,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYwMTE5Z
 ### 
 
 # AÑADIR ACTIVIDAD A PERFIL DE USUARIO
-PATCH http://localhost:9000/api/actividades/6618e9de2321f5c76c1ea2cb HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYxOGIyYjIxNDk4YmFhZDQwZDAwODUiLCJlbWFpbCI6ImNodXJ1bWJlQGdpdGFub2Zpbm8uY29tIiwiaWF0IjoxNzEzNDYwMTI0LCJleHAiOjE3MTM0NjczMjR9.L_eLnZ6St5QChVARyVx5Vx5c0dDGJJNm9TcoPQuJNyY
+PATCH http://localhost:9000/api/actividades/6618ea582321f5c76c1ea2d7 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYxOGIyYjIxNDk4YmFhZDQwZDAwODUiLCJlbWFpbCI6ImpvcmdlbWFydGluZXpAbGl2ZS51LXRhZC5jb20iLCJpYXQiOjE3MTM1MTk2NjIsImV4cCI6MTcxMzUyNjg2Mn0.3eVXPAmCv0v4F0Kw4gH8s8PgCmNEGPoos9mZ3a0c6mk
 Content-Type: application/json
 
 {
-    "id": "6618e9de2321f5c76c1ea2cb"
+    "id": "6618ea582321f5c76c1ea2d7"
 }
