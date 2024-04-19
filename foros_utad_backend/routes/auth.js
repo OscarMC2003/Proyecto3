@@ -5,7 +5,6 @@ const { loginCtrl, registerCtrl } = require("../controllers/auth") // SI VAMOS A
 const { validatorLogin, validatorRegister } = require("../validators/auth")
 // const authMiddleware = require("../middleware/session")
 
-
 // RUTA PARA INICIAR SESION
 router.post("/", validatorLogin, loginCtrl)
 router.post("/register", validatorRegister, registerCtrl)
