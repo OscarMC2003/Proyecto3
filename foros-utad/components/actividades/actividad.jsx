@@ -9,10 +9,22 @@ const Actividad = ({ handleClose, show, id }) => {
   const animationClassName = show ? "animated-fadeIn" : "animated-fadeOut";
 
   const [messages, setMessages] = useState([]);
+
+  const deleteactividad = async (id) => {
+  	console.log("deleteactividad " + id);
+  	const respuesta = await fetch(window.location.origin.slice(0, -5) + ':9000/api/actividades/' + id, {method: "DELETE"});
+  	if (respuesta) {
+      const datos = await respuesta.text();
+      console.log(datos);
+      window.location.reload(false);
+    } else {
+      console.error("borrado no ok");
+    }
+  }
   useEffect(() => {
     const getMensajes = async () => {
       try {
-        const respuesta = await fetch(`http://localhost:9000/api/foro/65f1dab639b3ca6de3a667ad/mensajes`);
+        const respuesta = await fetch(window.location.origin.slice(0, -5) + ':9000/api/foro/65f1dab639b3ca6de3a667ad/mensajes');
         if (respuesta.ok) {
           const datos = await respuesta.json();
           const mensajes = datos.map(mensaje => mensaje.texto);
@@ -105,6 +117,9 @@ const Actividad = ({ handleClose, show, id }) => {
                   </div>
                   <div className="w-full md:w-1/3 pt-4 md:pt-0 md:pl-6  flex flex-col items-center justify-center">
                     <div className="flex space-x-2 mt-10 mb-10 justify-center">
+                      <button onClick={() => deleteactividad(id)} aria-label="Delete" className="p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400">
+                        <img src="/images/Borrar.png" alt="Delete" />
+                      </button>
                       <button aria-label="Calendario" className="p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400">
                         <img src="/images/Calendario.png" alt="Calendario" />
                       </button>
