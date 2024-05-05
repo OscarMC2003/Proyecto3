@@ -1,0 +1,23 @@
+# PETICIONES CLASES
+
+# OBTENER TODAS LAS CLASES
+GET http://localhost:9000/api/clases HTTP/1.1
+###
+
+# CREAR CLASE
+POST http://localhost:9000/api/clases HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "hacking",
+    "grupo": "A",
+    "grado": "inso",
+    "curso": "3",
+    "tipoTitulacion": "grado",
+    "aula": {
+        "edificio": "madrid",
+        "numAula": "203"
+    }
+}
+###
+

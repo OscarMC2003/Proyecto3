@@ -11,7 +11,7 @@ const foroScheme = new mongoose.Schema(
         },
         mensaje: [{
             idUsuario: {
-                type: [{ type : mongoose.Schema.Types.ObjectId, ref: 'users' }]
+                type: mongoose.Schema.Types.ObjectId, ref: 'users'
             },
             titulo: {
                 type: String
@@ -19,16 +19,16 @@ const foroScheme = new mongoose.Schema(
             texto: {
                 type: String
             },
-            etiquetas: {
-                type: [String]
-            }
+            etiquetas: [{
+                type: String
+            }]
         }]
     },
     {
-        timestamp: true, // TODO createdAt, updatedAt
+        timestamp: true,
         versionKey: false
     }
 )
 
 foroScheme.plugin(mongooseDelete, {overrideMethods: "all"})
-module.exports = mongoose.model("foro", foroScheme) // Nombre de la colección (o de la tabla en SQL)
+module.exports = mongoose.model("foro", foroScheme)
