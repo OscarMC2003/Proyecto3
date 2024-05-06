@@ -15,7 +15,7 @@ router.get("/:id", authMiddleware, getItem)
 // RUTA PARA CREAR USUARIO
 router.post("/", authMiddleware, validatorCreateItem, createItem)
 
-// RUTA PARA ACTUALIZAR DATOS USUARIO
-router.put("/:email", authMiddleware, updateItem)
+router.put("/cambios/:id", updateItem)
+
 
 module.exports = router

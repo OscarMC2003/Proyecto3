@@ -28,6 +28,10 @@ const Foros = ({IdUserIniciado}) => {
 
     let [foros, setForos] = useState([]);
 
+    const handleCambioAUsuario = () =>{
+        router.push(`/perfil?id=${IdUserIniciado}`);
+    }
+
     useEffect(() => {
         async function LlamadaForos() {
           try {
@@ -50,15 +54,16 @@ const Foros = ({IdUserIniciado}) => {
         <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
             <header style={{ position: 'fixed', top: 0, left: 0, width: '100%', background: '#888888', padding: '10px', textAlign: 'center', zIndex: 1000, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 {/* Imagen a la izquierda */}
-                <img src="/images/cuadrado.png" alt="Imagen Izquierda" style={{ width: '75px', height: 'auto' }} />
-
+                    <img src="/images/cuadrado.png" alt="Imagen Izquierda" style={{ width: '75px', height: 'auto' }} />
                 {/* Contenedor vacío en el centro */}
                 <div style={{ flex: 1 }}></div>
 
                 {/* Botón seguido de otra imagen a la derecha */}
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <button onClick={handleCambiaActividades} style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Actividades</button>
-                    <img src="/images/userVacio.png" alt="Imagen Derecha" style={{ width: '50px', height: 'auto' }} />
+                    <button onClick={handleCambioAUsuario}>
+                        <img src="/images/userVacio.png" alt="Imagen Derecha" style={{ width: '50px', height: 'auto' }} />
+                    </button>
                 </div>
             </header>
 
