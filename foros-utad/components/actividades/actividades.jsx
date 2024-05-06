@@ -55,14 +55,19 @@ const Actividades = ({IdUserIniciado}) => {
     setShowPopup(actividadId === showPopup ? null : actividadId);
   };
 
-
-
-
   useEffect(() => {
     
     const fetchData = async () => {
       try {
-        const response = await fetch(window.location.origin.slice(0, -5) + ':9000/api/actividades');
+        const token = localStorage.getItem('token')
+        const options = {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
+
+        const response = await fetch(window.location.origin.slice(0, -5) + ':9000/api/actividades', options);
+        
         console.log("response actividades" + response);
         const data = await response_to_array(response);
         setActividades(data);
