@@ -12,10 +12,10 @@ const UserScheme = new mongoose.Schema(
             type: Boolean
         },
         password: {
-            type: String // TODO Guardaremos el hash
+            type: String
         },
         role: {
-            type: ["coordinador", "representanteDeAlumnos", "delegado", "tutor", "profesor", "alumno"], // es el enum de SQL
+            type: ["coordinador", "representanteDeAlumnos", "delegado", "tutor", "profesor", "alumno"],
             default: "alumno"
         },
         foros: [{
@@ -26,8 +26,8 @@ const UserScheme = new mongoose.Schema(
         }]
     },
     {
-        timestamp: true, // TODO createdAt, updatedAt
+        timestamp: true,
         versionKey: false
     }
 )
-module.exports = mongoose.model("users", UserScheme) // “users” es el nombre de la colección en mongoDB (o de la tabla en SQL)
+module.exports = mongoose.model("users", UserScheme)

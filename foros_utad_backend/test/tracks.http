@@ -1,0 +1,83 @@
+//Prueba de github
+
+GET http://localhost:9000/api/tracks
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYwMTE5ZjVkM2MxZWFkZTJkMjFhMzEiLCJlbWFpbCI6InRlc3RlbzJAZ21haWwuY29tIiwiaWF0IjoxNzEwMjMxOTY3LCJleHAiOjE3MTAyMzkxNjd9.er1r9k0bilGiuaOcJrDvItNpJSRewhFePapif4Lf2-8
+
+### 
+
+POST http://localhost:9000/api/tracks HTTP/1.1
+Content-Type: application/json
+
+{
+    "dato": "basura",
+    "name": "Ric",
+    "album": "Album",
+    "cover": "http://mmmm.com",
+    "artist": {
+        "name": "Bas",
+        "nickname": "rsurname",
+        "nationality": "ES"
+    },
+    "duration": {
+        "start":1,
+        "end":2
+    },
+    "mediaId": "0123456789abcdef01234567"
+  
+}
+
+###
+
+POST http://localhost:9000/api/tracks HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYwMTE5ZjVkM2MxZWFkZTJkMjFhMzEiLCJlbWFpbCI6InRlc3RlbzJAZ21haWwuY29tIiwiaWF0IjoxNzEwMjMxOTY3LCJleHAiOjE3MTAyMzkxNjd9.er1r9k0bilGiuaOcJrDvItNpJSRewhFePapif4Lf2-8
+
+{
+    "dato": "iueskflitgsdrziugfb",
+    "name": "oñixzfivlzs",
+    "album": "piñdzxuyfgb",
+    "cover": "http://ñizxurgfzs.com",
+    "artist": {
+        "name": "ñlkzxighn",
+        "nickname": "oisdybñ",
+        "nationality": "ES"
+    },
+    "duration": {
+        "start":1,
+        "end":2
+    },
+    "mediaId": "23456789abcdef0123456789"
+  
+}
+
+###
+
+PUT http://localhost:9000/api/tracks/65d46354fadd263f55799d68 HTTP/1.1
+Content-Type: application/json
+
+
+{
+    "name": "AlbaClase",
+    "album": "Disco",
+    "cover": "http://pruebaPOST2.com",
+    "artist": {
+        "name": "BasuraXdd",
+        "nickname": "rsurname",
+        "nationality": "ES"
+    },
+    "duration": {
+        "start":1,
+        "end":5
+    },
+    "mediaId": "0123456789abcdef01234567"
+  
+}
+###
+
+# DELETE
+DELETE http://localhost:9000/api/tracks/65d464d87ceb92d939c7788d
+###
+
+# SOFT DELETE
+DELETE http://localhost:9000/api/tracks/65e1d446db624ab6e04c2f68
+###

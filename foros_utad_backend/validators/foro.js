@@ -2,18 +2,18 @@ const { check } = require("express-validator")
 const validateResults = require("../utils/handleValidator")
 
 const validatorCreateItem = [
-    check("name").exists().notEmpty(), //.isLength(min:5, max:90)
+    check("name").exists().notEmpty(),
     check("descripcion").exists().notEmpty(),
     check("mensaje").exists().notEmpty(),
-    (req, res, next) => validateResults(req, res, next) //captura peticion, coge la respuesta y la manda al siguiente
+    (req, res, next) => validateResults(req, res, next)
 ]
 
 const validatorCreateMensaje = [
-    check("idUsuario").exists().notEmpty(), //.isLength(min:5, max:90)
+    check("idUsuario").exists().notEmpty(),
     check("titulo").exists().notEmpty(),
     check("texto").exists().notEmpty(),
-    check("etiquetas").exists(),
-    (req, res, next) => validateResults(req, res, next) //captura peticion, coge la respuesta y la manda al siguiente
+    check("etiquetas").optional(),
+    (req, res, next) => validateResults(req, res, next)
 ]
 
 const validatorGetItem = [

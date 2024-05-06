@@ -3,23 +3,21 @@ const router = express.Router()
 
 const { getItems, getItem, createItem, createMessage, obtainMessage} = require("../controllers/foro")
 const { validatorCreateItem, validatorCreateMensaje } = require("../validators/foro")
+const authMiddleware = require("../middleware/session")
 
-router.get("/", getItems)
+// RUTA PARA OBTENER TODOS LOS FOROS
+router.get("/", authMiddleware, getItems)
 
 // RUTA PARA BUSCAR POR ID
-router.get("/:id", getItem)
+router.get("/:id", authMiddleware, getItem)
 
 // RUTA PARA OBTENER TODOS LOS MENSAJES
-router.get("/:id/mensajes", obtainMessage)
+router.get("/:id/mensajes", authMiddleware, obtainMessage)
 
 // RUTA PARA CREAR FORO
-router.post("/", validatorCreateItem, createItem)
+router.post("/", authMiddleware, validatorCreateItem, createItem)
 
 // RUTA PARA CREAR MENSAJES
-router.post("/:id/mensaje", createMessage)
+router.post("/:id/mensaje", authMiddleware, validatorCreateMensaje, createMessage)
 
-// SI HAY QUE AÑADIR MIDDLE WARE -> DEFINIDO EN LOS VALIDATORS, SI NO ESTAN LOS
-// EL MIDDLEWARE CONTIENE => AUTENTIFICACIÓN, PRIMERO HACER PRUEBA SIN TOKEN Y SI NOS DA TIEMPO LO AÑADIMOS
-//router.post("/", MIDDELWARE, createItem)
-// TENER EN CUENTA EL TIPO DE PETICION QUE HACE
 module.exports = router

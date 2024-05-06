@@ -67,7 +67,8 @@ const updateItem = async (req, res) => {
 const deleteItem = async (req, res) => {
     try {
         // PILLA ID Y LO BORRA
-        const {id} = matchedData(req)
+        const id = req.url.substring(1); // hack de mierda porque el matchedData no le apetece leer de un delete
+        console.log("borrando id " + id);
         const data = await actividadesModel.delete({_id:id}); //borrado fisico
         //const data = await tracksModel.deleteOne({_id:id}); //borrado logico
         res.send(data)    

@@ -1,0 +1,26 @@
+# PETICIONES ACTIVIDADES
+
+# OBTENER TODAS LAS ACTIVIADADES DE LA BBDD
+GET http://localhost:9000/api/actividades HTTP/1.1
+###
+
+# CREAR NUEVA ACTIVIDAD
+POST http://localhost:9000/api/actividades/createActivities HTTP/1.1
+Content-Type: application/json
+
+{
+    "idCreador": "65f18b2b21498baad40d0085",
+    "asunto": "U-TAD Photography Challenge",
+    "objetivo": "1st U-tad photography contest",
+    "tipoActividad": "coordinacion",
+    "ambitoTitulacion": "3",
+    "documentoDescriptivo": "grado",
+    "asistentesRequeridos": ["65f1862b504e9b9381e7488e"],
+    "espacio": {
+        "tipo": "virtual"
+    },
+    "fecha": "{{$datetime rfc1123}}",
+    "hora": "{{$datetime rfc1123}}"
+}
+###
+
