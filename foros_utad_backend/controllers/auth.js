@@ -39,7 +39,7 @@ const loginCtrl = async (req, res) => {
             return;
         }
 
-        dataUser.set('password', undefined, { strict: false });
+        user.set('password', undefined, { strict: false });
 
         // Si las credenciales son válidas, genera el token JWT
         const token = await tokenSign(user);

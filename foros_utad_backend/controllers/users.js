@@ -58,12 +58,15 @@ const createItem = async (req, res) => {
 // ACTUALIZAR / CAMBIAR DATOS
 const updateItem = async (req, res) => {
     try {
-        //const {id, ...body} = matchedData(req) //Extrae el id y el resto lo asigna a la constante body
         const id = req.params.id
         const body = req.body
-        console.log(id)
-        console.log(body)
-        const data = await usersModel.findOneAndUpdate({_id: id}, body, {new: true})
+        
+        const password = await encrypt(body.password)
+        
+        console.log(password)
+        
+        // const data = await usersModel.findOneAndUpdate({_id: id}, body, {new: true})
+        const data = await usersModel.findOneAndUpdate({_id: id}, {password: password})
         res.send(data)
     }catch(err){
         handleHttpError(res, 'ERROR_UPDATE_ITEMS_USERS')

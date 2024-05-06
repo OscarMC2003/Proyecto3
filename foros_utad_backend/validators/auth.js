@@ -6,7 +6,7 @@ const validatorRegister = [
     check("email").exists().notEmpty().isEmail(),
     check("password").exists().notEmpty().isLength( {min:1, max: 99} ),
     check("role").exists().notEmpty(),
-    //check("role").optional(),
+    check("activo").optional(),
     (req, res, next) => {
         return validateResults(req, res, next)
     }

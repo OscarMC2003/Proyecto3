@@ -1,10 +1,10 @@
 const express = require("express")
 const router = express.Router()
 
-const { loginCtrl, registerCtrl } = require("../controllers/auth") // SI VAMOS AÑADIENDO FUNCIONES, LAS PONEMOS AQUI EN LOS CORCHETES
+const { loginCtrl, registerCtrl } = require("../controllers/auth")
 const { validatorLogin, validatorRegister } = require("../validators/auth")
 
-// RUTA PARA INICIAR SESION
+// RUTA PARA INICIAR SESIÓN
 router.post("/", validatorLogin, loginCtrl)
 // RUTA PARA REGISTRAR USUARIO
 router.post("/register", validatorRegister, registerCtrl)
