@@ -8,7 +8,7 @@ const { clasesModel } = require("../models")
 const { matchedData } = require('express-validator')
 const { handleHttpError } = require('../utils/handleError')
 
-// COGER TODOS USERS QUE EXISTEN 
+// DEVUELVE TODAS LAS CLASES
 const getItems = async (req, res) => {
     try{
         const data = await clasesModel.find({})
@@ -20,57 +20,55 @@ const getItems = async (req, res) => {
         
 }
 
-// DEVUELVE USUARIO CON ESE ID
+// DEVUELVE CLASE CON UN ID ESPECÍFICO
 const getItem = async (req, res) => {
     try{
-        // MATCHED DATA PARA EL VALIDADOR Y COGE EL ID (QUE PASAMOS)
         const {id} = matchedData(req)
-        // LLAMADA AL MODELO Y FILTRA POR ID
+    
         const data = await clasesModel.findById(id)
-        // SI LO ENCUENTRA MANDA DATOS DE ESE USUARIO, SI NO ERROR EN CATCH
+        
         res.send(data)
-    }catch (err){
-        handleHttpError(res, 'ERROR_GET_ITEM_USERS', 403)
+    } catch (err){
+        handleHttpError(res, 'ERROR_GETTING_CLASSROOM', 403)
     }
         
 }
 
-// CREACIÓN DE USUARIO
+// CREA UNA NUEVA CLASE
 const createItem = async (req, res) => {
     try {
-        // COGE INFO DE LA PETICION MANDADA, ESTA BIEN PQ ANTES HEMOS PASADO X EL VALIDADOR.
         const body = matchedData(req)
-         //El dato filtrado por el modelo (probar con body=req)
-        // VA AL MODEL Y CREA USER CON LA INFO PASADA
         const data = await clasesModel.create(body)
+        
         res.send(data)
-    }catch(err){
+    } catch(err){
         console.log(err)
-        handleHttpError(res, 'ERROR_CREATE_ITEMS_CLASES')
+        handleHttpError(res, 'ERROR_CREATING_NEW_CLASSROOM')
     }
 }
 
-// ACTUALIZAR / CAMBIAR DATOS
+// ACTUALIZAR / CAMBIAR DATOS DE LA CLASE
 const updateItem = async (req, res) => {
     try {
-        const {id, ...body} = matchedData(req) //Extrae el id y el resto lo asigna a la constante body
-        const data = await clasesModel.findOneAndUpdate(id, body)
+        const {id, ...body} = matchedData(req)
+
+        const data = await clasesModel.findOneAndUpdate({_id: id }, body, { new: true })
+
         res.send(data)
-    }catch(err){
-        handleHttpError(res, 'ERROR_UPDATE_ITEMS_USERS')
+    } catch(err){
+        handleHttpError(res, 'ERROR_UPDATING_CLASSROOM')
     }
 }
 
-// BORRAR USER
+// BORRAR CLASE
 const deleteItem = async (req, res) => {
     try {
-        // PILLA ID Y LO BORRA
         const {id} = matchedData(req)
-        const data = await clasesModel.delete({_id:id}); //borrado fisico
-        //const data = await tracksModel.deleteOne({_id:id}); //borrado logico
+        const data = await clasesModel.deleteOne({_id:id});
+
         res.send(data)    
-    }catch(err){
-        handleHttpError(res, 'ERROR_DELETE_ITEM_USERS')
+    } catch(err){
+        handleHttpError(res, 'ERROR_DELETING_CLASSROOM')
     }
 }
 
