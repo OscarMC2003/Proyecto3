@@ -63,6 +63,7 @@ const Actividades = ({IdUserIniciado}) => {
     const fetchData = async () => {
       try {
         const response = await fetch(window.location.origin.slice(0, -5) + ':9000/api/actividades');
+        console.log("response actividades" + response);
         const data = await response_to_array(response);
         setActividades(data);
       } catch (error) {
@@ -92,6 +93,10 @@ const Actividades = ({IdUserIniciado}) => {
     router.push(`/foroAlumnos?id=${IdUserIniciado}`);
   }
 
+  const handleCambioAUsuario = () =>{
+    router.push(`/perfil?id=${IdUserIniciado}`);
+  }
+
   /*const handleIrActividad = (identificadorActividad) =>{
     router.push(`/actividad?id=${IdUserIniciado}&acti=${identificadorActividad}`)
       
@@ -109,7 +114,9 @@ const Actividades = ({IdUserIniciado}) => {
         {/* Botón seguido de otra imagen a la derecha */}
         <div style={{ display: 'flex', alignItems: 'center' }}>
             <button onClick={handleCambioAForos} style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Comunidad de Alumnos</button>
-          <img src="/images/userVacio.png" alt="Imagen Derecha" style={{ width: '50px', height: 'auto' }} />
+            <button onClick={handleCambioAUsuario}>
+              <img src="/images/userVacio.png" alt="Imagen Derecha" style={{ width: '50px', height: 'auto' }} />
+            </button> 
         </div>
       </header>
 
@@ -227,59 +234,43 @@ const Actividades = ({IdUserIniciado}) => {
 
             {contenidoVisible === "Texto 2" && (
               <>
-                {/* {Array.from({ length: 10 }, (_, index) => (
-                  <div key={index} style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
-                    <img src="/images/cuadrado.png" alt={`Actividad ${index + 1}`} style={{ width: '100%', height: 'auto' }} />
-                    <p className="montRegular" style={{ color: '#333' }}>Actividad {index + 1}</p>
-                    <p className="montLight" style={{ color: '#333' }}>Código explicativo</p>
-                  </div>
-                ))}
-                <div style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
-                    <img src="/images/cuadrado.png" alt={`Actividad`} style={{ width: '100%', height: 'auto' }} />
-                    <p className="montRegular" style={{ color: '#333' }}>Actividad Prueba</p>
-                    <p className="montLight" style={{ color: '#333' }}>Texto mas largo que los demas para ver si se ajusta al tamaño de la actividad, para cumplir con los requisitos de los de didi</p>
-                  </div> */}
-
-                  {/* {Array.isArray(actividadesAlum) && actividadesAlum.map((actividades) => (
-                    <li class="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md grid-cols-2 gap-4">
-                      <button onClick={() => handleIrActividad(actividades._id)}>
-                        <div class="flex flex-col items-center justify-center">
-                          <img src="images/cuadrado.png" alt="Actividad 1" class="w-full h-auto max-w-md rounded-lg shadow-md col-span-2" />
-                          <div class="text-center col-span-2">
-                            <h2 class="text-xl font-bold">{actividades.asunto}</h2>
-                            <p class="text-gray-700">{actividades.objetivo}</p>
+                {Array.isArray(actividadesAlum) && actividadesAlum.map((actividades) => (
+                  <li key={actividades._id} className="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md grid-cols-2 gap-4">
+                    <div>
+                      <button onClick={() => togglePopup(actividades._id)}>
+                        <div className="flex flex-col items-center justify-center">
+                          <img src="images/cuadrado.png" alt="Actividad 1" className="w-full h-auto max-w-md rounded-lg shadow-md col-span-2" />
+                          <div className="text-center col-span-2">
+                            <h2 className="text-xl font-bold">{actividades.asunto}</h2>
+                            <p className="text-gray-700">{actividades.objetivo}</p>
                           </div>
                         </div>
                       </button>
-                    </li>
-                  ))} */}
+                      {showPopup === actividades._id && <Actividad handleClose={() => togglePopup(actividades._id)} show={showPopup} id={actividades._id} />}
+                    </div>
+                  </li>
+              ))}
               </>
             )}
 
             {contenidoVisible === "Texto 3" && (
               <>
-                {/* {Array.from({ length: 10 }, (_, index) => (
-                  <div key={index} style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
-                    <img src="/images/cuadrado.png" alt={`Actividad ${index + 1}`} style={{ width: '100%', height: 'auto' }} />
-                    <p className="montRegular" style={{ color: '#333' }}>Actividad {index + 1}</p>
-                    <p className="montLight" style={{ color: '#333' }}>Código explicativo</p>
-                  </div>
-                ))} */}
-
-
-                  {/* {Array.isArray(actividadesPriv) && actividadesPriv.map((actividades) => (
-                    <li class="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md grid-cols-2 gap-4">
-                      <button onClick={() => handleIrActividad(actividades._id)}>
-                        <div class="flex flex-col items-center justify-center">
-                          <img src="images/cuadrado.png" alt="Actividad 1" class="w-full h-auto max-w-md rounded-lg shadow-md col-span-2" />
-                          <div class="text-center col-span-2">
-                            <h2 class="text-xl font-bold">{actividades.asunto}</h2>
-                            <p class="text-gray-700">{actividades.objetivo}</p>
+                {Array.isArray(actividadesPriv) && actividadesPriv.map((actividades) => (
+                  <li key={actividades._id} className="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md grid-cols-2 gap-4">
+                    <div>
+                      <button onClick={() => togglePopup(actividades._id)}>
+                        <div className="flex flex-col items-center justify-center">
+                          <img src="images/cuadrado.png" alt="Actividad 1" className="w-full h-auto max-w-md rounded-lg shadow-md col-span-2" />
+                          <div className="text-center col-span-2">
+                            <h2 className="text-xl font-bold">{actividades.asunto}</h2>
+                            <p className="text-gray-700">{actividades.objetivo}</p>
                           </div>
                         </div>
                       </button>
-                    </li>
-                  ))} */}
+                      {showPopup === actividades._id && <Actividad handleClose={() => togglePopup(actividades._id)} show={showPopup} id={actividades._id} />}
+                    </div>
+                  </li>
+              ))}
               </>
             )}
           </div>

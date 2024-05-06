@@ -1,28 +1,134 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import user from '../notoken_redirect/notoken_redirect'
+import Actividad from "@/components/actividades/actividad"; // Mantener la importación del componente Actividad
+import { useRouter } from 'next/navigation'
 
-const Perfil = () => {
+const Perfil = ({IdUserIniciado}) => {
+
   const [contenidoVisible, setContenidoVisible] = useState("Texto 1");
   const [searchTerm, setSearchTerm] = useState("");
-  const [nombre, setNombre] = useState("Nombre");
-  const [textoPrueba, setTextoPrueba] = useState("Texto Prueba");
+
+  const [nombre, setNombre] = useState("Nombre de usuario");
+  const [texto, setTexto] = useState("Texto de prueba");
+
   const [mostrarEditarPerfil, setMostrarEditarPerfil] = useState(false);
+
+  const [antibug, setAntibug] = useState(false);
+
+  const [actividad, setActividad] = useState([]);
+  const [user, setUser] = useState();
+
+  const router = useRouter()
+
+  const filterUser = () => {
+    if (user && user.actividades) {
+      console.log("usuarios:" + user.actividades);
+      console.log("usuarios:" + user.actividades.length);
+      for(var i = 0; i < user.actividades.length; i++){
+        fetchDataActividades(i);
+      }
+      console.log("actividades" + actividad.length);
+      
+      setNombre(user.name);
+      setTexto(user.email);
+    } else {
+      console.log("user o user.actividades no están definidos");
+    }
+  }
+
+  const handleCambioActividades = () =>{
+    router.push(`/actividades?id=${IdUserIniciado}`);
+  }
+
+  const handleCambioAForos = () =>{
+    router.push(`/foroAlumnos?id=${IdUserIniciado}`);
+  }
+
+  const fetchDataActividades = async (i) => {
+    try {
+      const response = await fetch(`${window.location.origin.slice(0, -5)}:9000/api/actividades/${user.actividades[i]}`); // Corregir la construcción de la URL
+      const data = await response.json();
+      //console.log("actividades" + data.asunto);
+      setActividad(prevActividad => [...prevActividad, data]);
+      //setActividad(...data);
+    } catch (error) {
+      console.log("Error al llamar a las actividades:", error);
+    }
+  };
+      
+  useEffect(() => {
+
+    
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${window.location.origin.slice(0, -5)}:9000/api/users/${IdUserIniciado}`); // Corregir la construcción de la URL
+        const data = await response.json();
+        setUser(data);
+        //filterUser();
+      } catch (error) {
+        console.log("Error al llamar a las actividades:", error);
+      }
+    };
+    fetchData();
+    //filterUser();
+  }, []);
+
+  useEffect(() => {
+    //se que es una aberración, pero no se me ocurre otra forma de evitar que se ejute dos veces
+    if (user) {
+      if(antibug == false){
+        filterUser();
+        setAntibug(true);
+      }
+    }
+  }, [user]);
 
   const handleEditarPerfil = () => {
     setMostrarEditarPerfil(!mostrarEditarPerfil);
   };
 
-  const handleChangeNombre = (e) => {
-    setNombre(e.target.value);
+
+  const handleEdit = (e) => {
+    e.preventDefault();
+    console.log("Se ha enviado el formulario");
+    setMostrarEditarPerfil(false);
+    // Aquí se enviaría la información al servidor
+    handleCambios(e);
   };
 
-  const handleChangeTextoPrueba = (e) => {
-    const texto = e.target.value;
-    if (texto.length <= 250) {
-      setTextoPrueba(texto);
-    }
-  };
+  const handleCambios = async (e) => {
+      try {
+        const response = await fetch(`${window.location.origin.slice(0, -5)}:9000/api/users/cambios/${IdUserIniciado}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: nombre,
+            email: texto
+          })
+        });
+        if (response.ok) {
+          console.log("Usuario modificado exitosamente");
+          // Aquí puedes realizar alguna acción adicional después de modificar el usuario
+        } else {
+          console.log("Error al modificar el usuario");
+        }
+      } catch (error) {
+        console.log("Error al llamar a la API:", error);
+      }
+    };
+
+    const [showPopup, setShowPopup] = useState(false);
+
+    // const togglePopup = () => {
+    //   setShowPopup(!showPopup);
+    // };
+  
+    const togglePopup = (actividadId) => {
+      setShowPopup(actividadId === showPopup ? null : actividadId);
+    };
 
 
   return (
@@ -31,8 +137,8 @@ const Perfil = () => {
         <img src="/images/cuadrado.png" alt="Imagen Izquierda" style={{ width: '75px', height: 'auto' }} />
         <div style={{ flex: 1 }}></div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <button style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Actividades</button>
-          <button style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Comunidad de Alumnos</button>
+          <button onClick={handleCambioActividades} style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Actividades</button>
+          <button onClick={handleCambioAForos} style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Comunidad de Alumnos</button>
         </div>
       </header>
 
@@ -42,13 +148,21 @@ const Perfil = () => {
       <div style={{ flex: '0 0 30%', padding: '20px', background: 'white', marginLeft: 0, position: 'fixed', left: 0, top: '60px', bottom: 0, width: '30%' }}>
           <img src="/images/userVacio.png" alt="Imagen Perfil" style={{ width: '45%', height: 'auto', margin: '0 auto' }} />
           <h1 className="montExtra" style={{ textAlign: 'center', marginBottom: '20px' }}>{nombre}</h1>
-          <p className="montSEMI2" style={{ color: '#333', textAlign: 'center' }}>{textoPrueba}</p>
+          <p className="montSEMI2" style={{ color: '#333', textAlign: 'center' }}>{texto}</p>
           <button style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginTop: '20px', width: '100%', display: 'block' }} onClick={handleEditarPerfil}>Editar perfil</button>
           {mostrarEditarPerfil && (
-            <div style={{ marginTop: '20px' }}>
-              <input type="text" placeholder="Nuevo nombre" value={nombre} onChange={handleChangeNombre} style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc', marginBottom: '10px' }} />
-              <input type="text" placeholder="Nuevo texto de prueba" value={textoPrueba} onChange={handleChangeTextoPrueba} style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc', marginBottom: '10px' }} />
-            </div>
+            <form onSubmit={handleEdit}>
+                <div className="mb-4">
+                    <label htmlFor="email" className="block mb-2 text-sm font-medium">Nombre de usuario:</label>
+                    <input onChange={(e) => setNombre(e.target.value)} id="email" name="email" className="shadow-sm border-gray-300 rounded-md w-full py-2 px-4  bg-gray-100" placeholder="Nuevo nombre" />
+                </div>
+                <div className="flex items-start">
+                    <label htmlFor="password" className="block mb-2 text-sm font-medium">Email</label>
+                </div>
+                <input type="email" onChange={(e) => setTexto(e.target.value)} id="password" name="password" className="shadow-sm border-gray-300 rounded-md w-full py-2 px-4 mb-8 bg-gray-100" placeholder="email" />
+                <button type="submit" className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-md w-full">Realizar cambios</button>
+            </form>
+              
           )}
         </div>
 
@@ -59,25 +173,26 @@ const Perfil = () => {
           </div>
           <div style={{ textAlign: 'center', marginBottom: '20px', display: 'flex', justifyContent: 'space-around' }}>
             <p className="montBlack" style={{ cursor: 'pointer', color: contenidoVisible === "Texto 1" ? 'black' : 'black', textDecoration: contenidoVisible === "Texto 1" ? 'underline' : 'none' }} onClick={() => setContenidoVisible("Texto 1")}>Actividades guardadas</p>
-            <p className="montBlack" style={{ cursor: 'pointer', color: contenidoVisible === "Texto 2" ? 'black' : 'black', textDecoration: contenidoVisible === "Texto 2" ? 'underline' : 'none' }} onClick={() => setContenidoVisible("Texto 2")}>Inscripciones</p>
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-            {contenidoVisible === "Texto 1" && (
               <>
-                {Array.from({ length: 10 }, (_, index) => {
-                  const actividad = `Actividad ${index + 1}`;
-                  if (!actividad.toLowerCase().includes(searchTerm.toLowerCase())) return null;
-
-                  return (
-                    <div key={index} style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
-                      <img src="/images/cuadrado.png" alt={actividad} style={{ width: '100%', height: 'auto' }} />
-                      <p className="montRegular" style={{ color: '#333' }}>{actividad}</p>
-                      <p className="montLight" style={{ color: '#333' }}>Código explicativo</p>
+               {Array.isArray(actividad) && actividad.filter(actividades => actividades.asunto.toLowerCase().includes(searchTerm.toLowerCase())).map((actividades) => (
+                  <li key={actividades._id} className="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md grid-cols-2 gap-4">
+                    <div>
+                      <button onClick={() => togglePopup(actividades._id)}>
+                        <div className="flex flex-col items-center justify-center">
+                          <img src="images/cuadrado.png" alt="Actividad 1" className="w-full h-auto max-w-md rounded-lg shadow-md col-span-2" />
+                          <div className="text-center col-span-2">
+                            <h2 className="text-xl font-bold">{actividades.asunto}</h2>
+                            <p className="text-gray-700">{actividades.objetivo}</p>
+                          </div>
+                        </div>
+                      </button>
+                      {showPopup === actividades._id && <Actividad handleClose={() => togglePopup(actividades._id)} show={showPopup} id={actividades._id} />}
                     </div>
-                  );
-                })}
+                  </li>
+              ))}
               </>
-            )}
           </div>
         </div>
       </div>

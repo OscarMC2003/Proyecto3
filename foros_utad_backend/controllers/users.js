@@ -25,9 +25,12 @@ const getItems = async (req, res) => {
 const getItem = async (req, res) => {
     try{
         // MATCHED DATA PARA EL VALIDADOR Y COGE EL ID (QUE PASAMOS)
-        const {id} = matchedData(req)
+        //const {id} = matchedData(req)
+        const id = req.params.id
+        console.log(id)
         // LLAMADA AL MODELO Y FILTRA POR ID
         const data = await usersModel.findById(id)
+        console.log(data)
         // SI LO ENCUENTRA MANDA DATOS DE ESE USUARIO, SI NO ERROR EN CATCH
         res.send(data)
     }catch (err){
@@ -55,24 +58,14 @@ const createItem = async (req, res) => {
 // ACTUALIZAR / CAMBIAR DATOS
 const updateItem = async (req, res) => {
     try {
-        const email = Buffer.from(req.params.email, 'base64').toString('utf-8'); //Decodifica el email
-        console.log(email)
-        const body = req.body; //Obtiene el cuerpo de la solicitud
+        //const {id, ...body} = matchedData(req) //Extrae el id y el resto lo asigna a la constante body
+        const id = req.params.id
+        const body = req.body
+        console.log(id)
         console.log(body)
-        console.log(body.password);
-        const passwordCrypt = await encrypt(body.password);
-        console.log(passwordCrypt) // Imprime la contraseña cifrada
-        body.password = passwordCrypt;
-        const user = await usersModel.findOne({email: email}); //Busca por email
-
-        if (!user) {
-            return res.status(404).send({error: 'Usuario no encontrado'});
-        }
-
-        const data = await usersModel.findOneAndUpdate({email: email}, body, {new: true}) //Actualiza
+        const data = await usersModel.findOneAndUpdate({_id: id}, body, {new: true})
         res.send(data)
-    } catch(err) {
-        console.error(err);
+    }catch(err){
         handleHttpError(res, 'ERROR_UPDATE_ITEMS_USERS')
     }
 }

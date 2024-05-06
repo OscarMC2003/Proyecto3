@@ -11,6 +11,6 @@ router.get("/:id", getItem)
 
 router.post("/", validatorCreateItem, createItem)
 
-router.put("/:email", updateItem)
+router.put("/cambios/:id", updateItem)
 
 module.exports = router
