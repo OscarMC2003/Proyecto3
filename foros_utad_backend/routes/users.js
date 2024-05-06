@@ -4,13 +4,18 @@ const router = express.Router()
 // FUNCIONES CONTROLLER USERS
 const { getItems, getItem, createItem, login, updateItem } = require("../controllers/users")
 const { validatorCreateItem } = require("../validators/users")
+const authMiddleware = require("../middleware/session")
 
-router.get("/", getItems)
+// RUTA PARA OBTENER TODOS LOS USUARIOS
+router.get("/", authMiddleware, getItems)
 
-router.get("/:id", getItem)
+// RUTA PARA OBTENER USUARIOS POR ID
+router.get("/:id", authMiddleware, getItem)
 
-router.post("/", validatorCreateItem, createItem)
+// RUTA PARA CREAR USUARIO
+router.post("/", authMiddleware, validatorCreateItem, createItem)
 
-router.put("/:email", updateItem)
+// RUTA PARA ACTUALIZAR DATOS USUARIO
+router.put("/:email", authMiddleware, updateItem)
 
 module.exports = router

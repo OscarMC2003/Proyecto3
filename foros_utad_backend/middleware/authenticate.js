@@ -9,7 +9,7 @@ function authenticate(req, res, next) {
 
   try {
     const verified = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = verified; // El payload del token está ahora en req.user
+    req.user = verified;
     next();
   } catch (error) {
     res.status(400).send('Invalid Token');
