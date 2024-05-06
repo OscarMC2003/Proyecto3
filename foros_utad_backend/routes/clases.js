@@ -17,6 +17,7 @@ router.post("/", authMiddleware, validatorCreateItem, createItem)
 // RUTA PARA MODIFICAR DATOS DE UNA CLASE EN ESPECÍFICO
 router.put("/:id", authMiddleware, validatorGetItem, validatorCreateItem, updateItem)
 
+// RUTA PARA BORRAR CLASE EN ESPECÍFICO
 router.delete("/:id", authMiddleware, validatorGetItem, deleteItem)
 
 module.exports = router

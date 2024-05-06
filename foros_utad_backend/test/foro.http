@@ -1,36 +1,67 @@
 # PETICIONES FORO
+# Todas las peticiones necesitan token JWT
+# Se ha probado todas las peticiones desde el back-end y todas funcionan.
 
+// OBTENER TODOS LOS FOROS (FUNCIONA CON VALIDACION TOKEN JWT)
 GET http://localhost:9000/api/foro HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjM4ZmFlNjNkNWM0OWYwMTJjODUzZDYiLCJlbWFpbCI6ImFuZHJlc3BlcmV6QGdtYWlsLmNvbSIsImlhdCI6MTcxNTAxMDQ1NiwiZXhwIjoxNzE1MDE3NjU2fQ.UMq7kDZpl_BULTNhdhMXaxN5BB2W-82LNYLnmobndrg
 ###
 
+// OBTENER FORO CON ID EN ESPECÍFICO (FUNCIONA CON VALIDACION TOKEN JWT)
+GET http://localhost:9000/api/foro/65f1dab639b3ca6de3a667ad HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjM4ZmFlNjNkNWM0OWYwMTJjODUzZDYiLCJlbWFpbCI6ImFuZHJlc3BlcmV6QGdtYWlsLmNvbSIsImlhdCI6MTcxNTAxMDQ1NiwiZXhwIjoxNzE1MDE3NjU2fQ.UMq7kDZpl_BULTNhdhMXaxN5BB2W-82LNYLnmobndrg
+###
+
+// CREAR NUEVO FORO (FUNCIONA CON VALIDACIÓN TOKEN JWT)
 POST http://localhost:9000/api/foro HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjM4ZmFlNjNkNWM0OWYwMTJjODUzZDYiLCJlbWFpbCI6ImFuZHJlc3BlcmV6QGdtYWlsLmNvbSIsImlhdCI6MTcxNTAxNzc2NywiZXhwIjoxNzE1MDI0OTY3fQ.2b-whHiEBI_m06n7zbjA7WCcco1sHgAFyTIGBZ40WW4
 
 {
-    "name": "el sisas",
-    "descripcion": "por q en la carcel hay mucha droga",
+    "name": "Coordinadores",
+    "descripcion": "Foro para coordinadores de grado",
     "mensaje": [{
-        "idUsuario": ["65f18b2b21498baad40d0085"],
-        "titulo": "Mensaje añadido 2",
-        "texto": "PA TOA LAS REKETONAS, Q LES VOY A PARTI TOAS LAS BRAGAS",
-        "etiquetas": ["churumbereketon", "churumbegitanofino0"]
+        "idUsuario": "6638fae63d5c49f012c853d6",
+        "titulo": "¡Bienvenido coordinadores!",
+        "texto": "Hemos creado este espacio para facilitar la comunicación entre todos vosotros.",
+        "etiquetas": ["coordinacion", "grado"]
     }]
 }
 ###
-POST http://localhost:9000/api/foro/660eeb66f708c083e7556e4c/mensaje HTTP/1.1
+
+// ACTUALIZAR DATOS DE UN FORO ESPECÍFICO (FUNCIONA CON VALIDACIÓN TOKEN JWT)
+PATCH http://localhost:9000/api/foro/660eeb66f708c083e7556e4c HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjM4ZmFlNjNkNWM0OWYwMTJjODUzZDYiLCJlbWFpbCI6ImFuZHJlc3BlcmV6QGdtYWlsLmNvbSIsImlhdCI6MTcxNTAxNzc2NywiZXhwIjoxNzE1MDI0OTY3fQ.2b-whHiEBI_m06n7zbjA7WCcco1sHgAFyTIGBZ40WW4
+
+{
+    "name": "Ciberseguridad/Cybersecurity",
+    "descripcion": "Foro para estudiantes de ciberseguridad de tercer y cuarto curso"
+}
+###
+
+// ENVIAR MENSAJE A UN FORO CON UN ID EN ESPECÍFICO (FUNCIONA CON VALIDACIÓN JWT)
+POST http://localhost:9000/api/foro/66391fa856391109a38091fe/mensaje HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjM4ZmFlNjNkNWM0OWYwMTJjODUzZDYiLCJlbWFpbCI6ImFuZHJlc3BlcmV6QGdtYWlsLmNvbSIsImlhdCI6MTcxNTAxNzc2NywiZXhwIjoxNzE1MDI0OTY3fQ.2b-whHiEBI_m06n7zbjA7WCcco1sHgAFyTIGBZ40WW4
 
 {
     "mensaje": {
-        "idUsuario": ["65f18b2b21498baad40d0085"],
-        "titulo": "Mensaje añadido 5",
-        "texto": "doz litroz, al día",
-        "etiquetas": ["churumbereketon", "churumbegitanofino0"]
+        "idUsuario": "6638fae63d5c49f012c853d6",
+        "titulo": "Resumen primera reunión",
+        "texto": "El pasado viernes 12 de Abril, tuvo lugar la primera reunión de coordinadores en la que se trataron temas como...",
+        "etiquetas": ["coordinacion", "grado"]
     }
 }
 
-# OBTENER MENSAJES DE UN FORO CON UN ID CONCRETO
+# OBTENER MENSAJES DE UN FORO CON UN ID CONCRETO (FUNCIONA CON VALIDACIÓN JWT)
 ###
-GET http://localhost:9000/api/foro/660eeb66f708c083e7556e4c/mensajes HTTP/1.1
 
+GET http://localhost:9000/api/foro/663917586807a7df5d892f1b/mensajes HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjM4ZmFlNjNkNWM0OWYwMTJjODUzZDYiLCJlbWFpbCI6ImFuZHJlc3BlcmV6QGdtYWlsLmNvbSIsImlhdCI6MTcxNTAxNzc2NywiZXhwIjoxNzE1MDI0OTY3fQ.2b-whHiEBI_m06n7zbjA7WCcco1sHgAFyTIGBZ40WW4
+###
+
+# ELIMINAR FORO (FUNCIONA CON VALIDACION TOKEN JWT)
+DELETE http://localhost:9000/api/foro/66391fa856391109a38091fe HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjM4ZmFlNjNkNWM0OWYwMTJjODUzZDYiLCJlbWFpbCI6ImFuZHJlc3BlcmV6QGdtYWlsLmNvbSIsImlhdCI6MTcxNTAxNzc2NywiZXhwIjoxNzE1MDI0OTY3fQ.2b-whHiEBI_m06n7zbjA7WCcco1sHgAFyTIGBZ40WW4
 ###

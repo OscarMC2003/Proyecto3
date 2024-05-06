@@ -49,7 +49,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjM4ZmFlN
 ###
 
 # ELIMINAR CLASE (FUNCIONA CON VALIDACION TOKEN JWT)
-DELETE http://localhost:9000/api/actividades/6639116905e862111f7cab1f HTTP/1.1
+DELETE http://localhost:9000/api/clases/6639116905e862111f7cab1f HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjM4ZmFlNjNkNWM0OWYwMTJjODUzZDYiLCJlbWFpbCI6ImFuZHJlc3BlcmV6QGdtYWlsLmNvbSIsImlhdCI6MTcxNTAxMDQ1NiwiZXhwIjoxNzE1MDE3NjU2fQ.UMq7kDZpl_BULTNhdhMXaxN5BB2W-82LNYLnmobndrg
-
+###

@@ -4,7 +4,7 @@ const validateResults = require("../utils/handleValidator")
 const validatorCreateItem = [
     check("name").exists().notEmpty(),
     check("descripcion").exists().notEmpty(),
-    check("mensaje").exists().notEmpty(),
+    check("mensaje").exists().notEmpty().optional(),
     (req, res, next) => validateResults(req, res, next)
 ]
 
