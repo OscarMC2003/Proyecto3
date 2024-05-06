@@ -55,11 +55,14 @@ const createItem = async (req, res) => {
 // ACTUALIZAR / CAMBIAR DATOS
 const updateItem = async (req, res) => {
     try {
-        const {id, ...body} = matchedData(req) //Extrae el id y el resto lo asigna a la constante body
-        const data = await actividadesModel.findOneAndUpdate(id, body)
+        const id = req.params._id
+        const { ...body } = matchedData(req)
+
+        const data = await actividadesModel.findOneAndUpdate({_id: id}, body, { new: true })
+
         res.send(data)
     }catch(err){
-        handleHttpError(res, 'ERROR_UPDATE_ITEMS_USERS')
+        handleHttpError(res, 'ERROR_UPDATING_ACTIVITY_INFO')
     }
 }
 
@@ -69,11 +72,11 @@ const deleteItem = async (req, res) => {
         // PILLA ID Y LO BORRA
         const id = req.url.substring(1); // hack de mierda porque el matchedData no le apetece leer de un delete
         console.log("borrando id " + id);
-        const data = await actividadesModel.delete({_id:id}); //borrado fisico
+        const data = await actividadesModel.deleteOne({_id:id}); //borrado fisico
         //const data = await tracksModel.deleteOne({_id:id}); //borrado logico
         res.send(data)    
     }catch(err){
-        handleHttpError(res, 'ERROR_DELETE_ITEM_USERS')
+        handleHttpError(res, 'ERROR_DELETING_ACTIVITY')
     }
 }
 

@@ -1,21 +1,30 @@
 # PETICIONES ACTIVIDADES
+# Todas las peticiones necesitan token JWT
+# Se ha probado todas las peticiones desde el back-end y todas funcionan.
 
-# OBTENER TODAS LAS ACTIVIADADES DE LA BBDD
+# OBTENER TODAS LAS ACTIVIDADES DE LA BBDD (FUNCIONA CON VALIDACION TOKEN JWT)
 GET http://localhost:9000/api/actividades HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjM4ZmFlNjNkNWM0OWYwMTJjODUzZDYiLCJlbWFpbCI6ImFuZHJlc3BlcmV6QGdtYWlsLmNvbSIsImlhdCI6MTcxNTAxMDQ1NiwiZXhwIjoxNzE1MDE3NjU2fQ.UMq7kDZpl_BULTNhdhMXaxN5BB2W-82LNYLnmobndrg
 ###
 
-# CREAR NUEVA ACTIVIDAD
+# OBTENER ACTIVIDAD DE LA BBDD CON ID ESPECIFICO (FUNCIONA CON VALIDACION TOKEN JWT)
+GET http://localhost:9000/api/actividades/66390a30d6cb65e4c5635e1f HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjM4ZmFlNjNkNWM0OWYwMTJjODUzZDYiLCJlbWFpbCI6ImFuZHJlc3BlcmV6QGdtYWlsLmNvbSIsImlhdCI6MTcxNTAxMDQ1NiwiZXhwIjoxNzE1MDE3NjU2fQ.UMq7kDZpl_BULTNhdhMXaxN5BB2W-82LNYLnmobndrg
+###
+
+# CREAR NUEVA ACTIVIDAD (FUNCIONA CON TOKEN JWT)
 POST http://localhost:9000/api/actividades/createActivities HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjM4ZmFlNjNkNWM0OWYwMTJjODUzZDYiLCJlbWFpbCI6ImFuZHJlc3BlcmV6QGdtYWlsLmNvbSIsImlhdCI6MTcxNTAxMDQ1NiwiZXhwIjoxNzE1MDE3NjU2fQ.UMq7kDZpl_BULTNhdhMXaxN5BB2W-82LNYLnmobndrg
 
 {
-    "idCreador": "65f18b2b21498baad40d0085",
-    "asunto": "U-TAD Photography Challenge",
-    "objetivo": "1st U-tad photography contest",
+    "idCreador": "6638fae63d5c49f012c853d6",
+    "asunto": "U-TAD Football Challenge",
+    "objetivo": "1st U-tad football championship",
     "tipoActividad": "coordinacion",
     "ambitoTitulacion": "3",
     "documentoDescriptivo": "grado",
-    "asistentesRequeridos": ["65f1862b504e9b9381e7488e"],
+    "asistentesRequeridos": ["6638fd296fa830516f520ae2"],
     "espacio": {
         "tipo": "virtual"
     },
@@ -24,3 +33,28 @@ Content-Type: application/json
 }
 ###
 
+# ACTUALIZAR ACTIVIDAD (FUNCIONA CON TOKEN JWT)
+PUT http://localhost:9000/api/actividades/updateActivities/66390a30d6cb65e4c5635e1f HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjM4ZmFlNjNkNWM0OWYwMTJjODUzZDYiLCJlbWFpbCI6ImFuZHJlc3BlcmV6QGdtYWlsLmNvbSIsImlhdCI6MTcxNTAxMDQ1NiwiZXhwIjoxNzE1MDE3NjU2fQ.UMq7kDZpl_BULTNhdhMXaxN5BB2W-82LNYLnmobndrg
+
+{
+    "idCreador": "6638fae63d5c49f012c853d6",
+    "asunto": "U-TAD 1ST WW Football Challenge",
+    "objetivo": "1st U-tad football championship",
+    "tipoActividad": "coordinacion",
+    "ambitoTitulacion": "3",
+    "documentoDescriptivo": "grado",
+    "asistentesRequeridos": ["6638fd296fa830516f520ae2"],
+    "espacio": {
+        "tipo": "virtual"
+    },
+    "fecha": "{{$datetime rfc1123}}",
+    "hora": "{{$datetime rfc1123}}"
+}
+###
+
+# ELIMINAR ACTIVIDAD (FUNCIONA CON VALIDACION TOKEN JWT)
+DELETE http://localhost:9000/api/actividades/662ad519fa930c15a1e48999 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjM4ZmFlNjNkNWM0OWYwMTJjODUzZDYiLCJlbWFpbCI6ImFuZHJlc3BlcmV6QGdtYWlsLmNvbSIsImlhdCI6MTcxNTAxMDQ1NiwiZXhwIjoxNzE1MDE3NjU2fQ.UMq7kDZpl_BULTNhdhMXaxN5BB2W-82LNYLnmobndrg

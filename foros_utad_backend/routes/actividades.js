@@ -11,16 +11,16 @@ router.get("/", authMiddleware, getItems)
 // RUTA PARA BUSCAR POR ID
 router.get("/:id", authMiddleware, getItem)
 
-// RUTA PARA BORRAR POR ID
-router.delete("/:id", authMiddleware, deleteItem)
-
-// RUTA PARA CREAR CLASE
+// RUTA PARA CREAR ACTIVIDAD
 router.post("/createActivities", authMiddleware, validatorCreateItem, createItem)
 
 // RUTA PARA ACTUALIZAR ACTIVIDAD
-router.post("/updateActivities", authMiddleware, validatorCreateItem, updateItem)
+router.put("/updateActivities/:_id", authMiddleware, validatorCreateItem, updateItem)
 
 // RUTA PARA AÑADIR UNA ACTIVIDAD A UN USUARIO
 router.patch("/:_id", authMiddleware, validatorAddActivity, addActivityUser)
+
+// RUTA PARA BORRAR POR ID
+router.delete("/:id", authMiddleware, deleteItem)
 
 module.exports = router
