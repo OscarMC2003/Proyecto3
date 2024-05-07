@@ -12,7 +12,13 @@ const Actividad = ({ handleClose, show, id }) => {
 
   const deleteactividad = async (id) => {
   	console.log("deleteactividad " + id);
-  	const respuesta = await fetch(window.location.origin.slice(0, -5) + ':9000/api/actividades/' + id, {method: "DELETE"});
+    const token = localStorage.getItem('token')
+    const options = {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }
+  	const respuesta = await fetch(window.location.origin.slice(0, -5) + ':9000/api/actividades/' + id, {method: "DELETE"}, options);
   	if (respuesta) {
       const datos = await respuesta.text();
       console.log(datos);
@@ -24,7 +30,13 @@ const Actividad = ({ handleClose, show, id }) => {
   useEffect(() => {
     const getMensajes = async () => {
       try {
-        const respuesta = await fetch(window.location.origin.slice(0, -5) + ':9000/api/foro/65f1dab639b3ca6de3a667ad/mensajes');
+        const token = localStorage.getItem('token')
+        const options = {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
+        const respuesta = await fetch(window.location.origin.slice(0, -5) + ':9000/api/foro/65f1dab639b3ca6de3a667ad/mensajes', options);
         if (respuesta.ok) {
           const datos = await respuesta.json();
           const mensajes = datos.map(mensaje => mensaje.texto);
@@ -66,7 +78,14 @@ const Actividad = ({ handleClose, show, id }) => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`${window.location.origin.slice(0, -5)}:9000/api/actividades/${id}`); // Corregir la construcción de la URL
+        const token = localStorage.getItem('token')
+        console.log(token);
+        const options = {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
+        const response = await fetch(`${window.location.origin.slice(0, -5)}:9000/api/actividades/${id}`, options); // Corregir la construcción de la URL
         const data = await response.json();
         setActividad(data);
       } catch (error) {
