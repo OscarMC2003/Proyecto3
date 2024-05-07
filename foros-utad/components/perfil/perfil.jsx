@@ -47,7 +47,13 @@ const Perfil = ({IdUserIniciado}) => {
 
   const fetchDataActividades = async (i) => {
     try {
-      const response = await fetch(`${window.location.origin.slice(0, -5)}:9000/api/actividades/${user.actividades[i]}`); // Corregir la construcción de la URL
+      const token = localStorage.getItem('token')
+      const options = {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+      const response = await fetch(`${window.location.origin.slice(0, -5)}:9000/api/actividades/${user.actividades[i]}`, options); // Corregir la construcción de la URL
       const data = await response.json();
       //console.log("actividades" + data.asunto);
       setActividad(prevActividad => [...prevActividad, data]);
@@ -62,7 +68,13 @@ const Perfil = ({IdUserIniciado}) => {
     
     const fetchData = async () => {
       try {
-        const response = await fetch(`${window.location.origin.slice(0, -5)}:9000/api/users/${IdUserIniciado}`); // Corregir la construcción de la URL
+        const token = localStorage.getItem('token')
+        const options = {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
+        const response = await fetch(`${window.location.origin.slice(0, -5)}:9000/api/users/${IdUserIniciado}`, options); // Corregir la construcción de la URL
         const data = await response.json();
         setUser(data);
         //filterUser();

@@ -35,7 +35,14 @@ const Foros = ({IdUserIniciado}) => {
     useEffect(() => {
         async function LlamadaForos() {
           try {
-              const response = await fetch(window.location.origin.slice(0,-5) + ':9000/api/foro');
+            const token = localStorage.getItem('token')
+            console.log(token);
+            const options = {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+            }
+              const response = await fetch(window.location.origin.slice(0,-5) + ':9000/api/foro', options);
               setForos(await response.json())
           } catch (error) {
               console.log("Error al llamar a las actividades")
