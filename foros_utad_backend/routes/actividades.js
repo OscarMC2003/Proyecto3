@@ -15,7 +15,7 @@ router.get("/:id", authMiddleware, getItem)
 router.post("/createActivities", authMiddleware, validatorCreateItem, createItem)
 
 // RUTA PARA ACTUALIZAR ACTIVIDAD
-router.put("/updateActivities/:_id", authMiddleware, validatorCreateItem, updateItem)
+router.put("/:_id", authMiddleware, updateItem)
 
 // RUTA PARA AÑADIR UNA ACTIVIDAD A UN USUARIO
 router.patch("/:_id", authMiddleware, validatorAddActivity, addActivityUser)

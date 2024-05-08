@@ -55,9 +55,9 @@ const createItem = async (req, res) => {
 // ACTUALIZAR / CAMBIAR DATOS
 const updateItem = async (req, res) => {
     try {
-        const id = req.params._id
-        const { ...body } = matchedData(req)
-
+        const id = req.params._id;
+        const body = req.body
+        console.log(body);
         const data = await actividadesModel.findOneAndUpdate({_id: id}, body, { new: true })
 
         res.send(data)

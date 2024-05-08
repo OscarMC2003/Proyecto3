@@ -27,6 +27,36 @@ const Actividad = ({ handleClose, show, id }) => {
       console.error("borrado no ok");
     }
   }
+  const editactividad = () => {
+    document.getElementById("actividad_asunto").setAttribute("contenteditable","true");
+    document.getElementById("actividad_objetivo").setAttribute("contenteditable","true");
+    document.getElementById("btn_edit_actividad").style.display="none";
+    document.getElementById("btn_edit_save_actividad").style.display="block";
+  }
+  const saveeditactividad = async (id) => {
+    var asunto = document.getElementById("actividad_asunto").innerHTML;
+    var objetivo = document.getElementById("actividad_objetivo").innerHTML;
+    const token = localStorage.getItem('token')
+    const activity = {
+      'asunto': asunto,
+      'objetivo': objetivo
+    }
+    const respuesta = await fetch(window.location.origin.slice(0, -5) + ':9000/api/actividades/' + id, {
+      method: 'put',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(activity)
+    });
+    if (respuesta) {
+      const datos = await respuesta.text();
+      console.log(datos);
+      window.location.reload(false);
+    } else {
+      console.error("borrado no ok");
+    }
+  }
   useEffect(() => {
     const getMensajes = async () => {
       try {
@@ -109,8 +139,8 @@ const Actividad = ({ handleClose, show, id }) => {
                 <img src="/images/cuadrado.png" alt="Actividad" className="w-full object-cover" style={{ height: '250px' }} />
                 <div className="bg-white p-6 flex flex-col md:flex-row">
                   <div className="flex-grow w-2/3">
-                    <h1 className="text-2xl font-bold mb-4 montBlack">{actividad.asunto}</h1>
-                    <p className="text-gray-700 max-w-2/3" style={{ wordWrap: 'break-word' }}>{actividad.objetivo}</p> {/* Modificación aquí */}
+                    <h1 contenteditable="false" id="actividad_asunto" className="text-2xl font-bold mb-4 montBlack">{actividad.asunto}</h1>
+                    <p contenteditable="false" id="actividad_objetivo" className="text-gray-700 max-w-2/3" style={{ wordWrap: 'break-word' }}>{actividad.objetivo}</p>
                     <div className="mt-4 border-t pt-4">
                       <h2 className="font-semibold mb-2">Documentos adjuntos:</h2>
                       <div className="flex flex-wrap gap-4">
@@ -136,6 +166,12 @@ const Actividad = ({ handleClose, show, id }) => {
                   </div>
                   <div className="w-full md:w-1/3 pt-4 md:pt-0 md:pl-6  flex flex-col items-center justify-center">
                     <div className="flex space-x-2 mt-10 mb-10 justify-center">
+                      <button id="btn_edit_save_actividad" onClick={() => saveeditactividad(id)} aria-label="Save" style={{display:"none"}} className="p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400">
+                        <img src="/images/GuardarModificaciones.png" alt="Save" />
+                      </button>
+                      <button id="btn_edit_actividad" onClick={() => editactividad()} aria-label="Edit" className="p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400">
+                        <img src="/images/Modificar.png" alt="Edit" />
+                      </button>
                       <button onClick={() => deleteactividad(id)} aria-label="Delete" className="p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400">
                         <img src="/images/Borrar.png" alt="Delete" />
                       </button>
