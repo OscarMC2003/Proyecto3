@@ -1,10 +1,21 @@
 const mongoose = require("mongoose")
 const mongooseDelete = require("mongoose-delete")
 
+const asistenteSchema = new mongoose.Schema({
+    label: {
+        type: String,
+        required: true
+    },
+    value: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+        required: true
+    }
+});
 const ActividadesScheme = new mongoose.Schema(
     {
         idCreador: {
-            type: [{ type : mongoose.Schema.Types.ObjectId, ref: 'users' }]
+            type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'users' }]
         },
         asunto: {
             type: String
@@ -30,35 +41,23 @@ const ActividadesScheme = new mongoose.Schema(
             // TODO
             type: String
         },
-        asistentesRequeridos: {
-            type: [{ type : mongoose.Schema.Types.ObjectId, ref: 'users' }]
-        },
-        espacio: {
+        asistentesRequeridos: 
+            [asistenteSchema],
+        lugar: {
             tipo: {
                 type: String,
-                enum: ['fisico', 'virtual'], // Acepta solo los valores 'fisico' o 'virtual'
                 required: true
             },
-            edificio: {
-                type: String,
-                enum: ['madrid', 'berlin', 'londres'],
-                required: function () {
-                    return this.espacio.tipo === 'fisico'; // Requerido si el tipo de espacio es 'fisico'
-                }
-            },
-            numAula: {
-                type: String,
-                required: function () {
-                    return this.espacio.tipo === 'fisico'; // Requerido si el tipo de espacio es 'fisico'
-                }
-            }
+            edificio: String,
+            numAula: String  // Asegúrate de manejar la opcionalidad adecuadamente
         },
         fecha: {
             type: Date
         },
         hora: {
-            type: Date
-        }
+            type: String,
+            required: true
+        },
     },
     {
         timestamp: true, // TODO createdAt, updatedAt

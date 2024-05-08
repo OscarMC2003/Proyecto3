@@ -37,6 +37,8 @@ async function loginHandler(user, router) {
         if (response.ok) {
             //necesitamos un controller que devuelva el id del usuario en funcion de su correo
             const data = await response.json();
+            console.log(data)
+            console.log(data.token)
             //se guarda el token en el almacenamiento local del navegador cliente
             localStorage.setItem('token', data.token);
 
