@@ -92,6 +92,14 @@ const Actividades = ({IdUserIniciado}) => {
     router.push(`/foroAlumnos?id=${IdUserIniciado}`);
   }
 
+  const handleCambioAInicio = () =>{
+    router.push(`/`);
+  }
+
+  const handleCambioACrearActividad = () =>{
+    router.push(`/crearActividad?id=${IdUserIniciado}`);
+  }
+
   /*const handleIrActividad = (identificadorActividad) =>{
     router.push(`/actividad?id=${IdUserIniciado}&acti=${identificadorActividad}`)
       
@@ -99,19 +107,27 @@ const Actividades = ({IdUserIniciado}) => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-      <header style={{ position: 'fixed', top: 0, left: 0, width: '100%', background: '#888888', padding: '10px', textAlign: 'center', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        {/* Imagen a la izquierda */}
-        <img src="/images/cuadrado.png" alt="Imagen Izquierda" style={{ width: '75px', height: 'auto' }} />
 
-        {/* Contenedor vacío en el centro */}
-        <div style={{ flex: 1 }}></div>
+      <header className="fixed top-0 left-0 w-full h-20 bg-gray-300 p-2.5 text-center z-10 flex justify-between items-center">
 
-        {/* Botón seguido de otra imagen a la derecha */}
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-            <button onClick={handleCambioAForos} style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Comunidad de Alumnos</button>
-          <img src="/images/userVacio.png" alt="Imagen Derecha" style={{ width: '50px', height: 'auto' }} />
-        </div>
+        <button onClick={handleCambioAInicio} type="button" class="w-13 h-12 flex items-center justify-center rounded-md bg-gray-200 hover:bg-gray-300">
+          <img src="/images/cuadrado.png" alt="Imagen Izquierda" class="w-full h-full object-cover " />
+        </button>
+
+          {/* Contenedor vacío en el centro */}
+          <div className="flex-1"></div>
+
+          {/* Botón seguido de otra imagen a la derecha */}
+          <div className="flex items-center">
+
+            <button className="bg-blue-600 text-white p-2.5 rounded cursor-pointer mr-2.5">Actividades</button>
+            <button onClick={handleCambioAForos} className="bg-blue-500 hover:bg-blue-700 text-white p-2.5 rounded cursor-pointer mr-2.5 transition duration-300 ease-in-out">Comunidad de Alumnos</button>
+            <img src="/images/userVacio.png" alt="Imagen Derecha" className="w-12 h-auto" />
+
+          </div>
+
       </header>
+
 
       {/* Resto del contenido de la página */}
       <div style={{ flex: 1, padding: '20px', background: 'white' }}>
@@ -121,8 +137,8 @@ const Actividades = ({IdUserIniciado}) => {
       {/* Nuevo contenedor para dividir el resto de la página en dos partes */}
       <div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
         {/* Contenido de la primera parte (pegado a la izquierda) */}
-        <div style={{ flex: '0 0 30%', padding: '20px', background: 'white', marginLeft: 0, position: 'fixed', left: 0, top: '60px', bottom: 0, width: '30%' }}>
-          <h1 className="montExtra">Actividades</h1>
+        <div style={{ marginTop:'20px',flex: '0 0 30%', padding: '20px', background: 'white', marginLeft: 0, position: 'fixed', left: 0, top: '60px', bottom: 0, width: '30%', justifyContent:'center' }}>
+          <h1 className="montExtra text-center ">Actividades</h1>
           <p className="montSEMI2" style={{ color: '#333', marginLeft: '15%', marginTop: '10%' }}>Filtrar por:</p>
           {/* Cuadro centrado para "Filtrar por:" y opciones */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #ccc', padding: '10px', borderRadius: '5px', background: '#eee', width: "70%", marginLeft: '15%', marginTop: '5%' }}>
@@ -180,11 +196,18 @@ const Actividades = ({IdUserIniciado}) => {
                 </ul>
               )}
             </div>
+
           </div>
+
+          <div className='flex justify-center items-center'>
+              <button onClick={handleCambioACrearActividad} className="mt-20  bg-blue-500 hover:bg-blue-700 text-white p-2.5 rounded cursor-pointer mr-2.5 transition duration-300 ease-in-out">Crear Actividad</button>
+          </div>
+
+         
         </div>
 
         {/* Contenido de la segunda parte (pegado a la derecha) */}
-        <div style={{ flex: '1', padding: '20px', background: '#eee', top: '50px', bottom: 0, width: '70%', position: 'fixed', left: '30%', overflow: 'auto' }}>
+        <div style={{marginTop:'20px', flex: '1', padding: '20px', background: '#eee', top: '50px', bottom: 0, width: '70%', position: 'fixed', left: '30%', overflow: 'auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '20px', display: 'flex', justifyContent: 'space-around' }}>
             <p className="montBlack" style={{ cursor: 'pointer', color: contenidoVisible === "Texto 1" ? 'black' : 'black', textDecoration: contenidoVisible === "Texto 1" ? 'underline' : 'none' }} onClick={() => setContenidoVisible("Texto 1")}>Coordinación</p>
             <p className="montBlack" style={{ cursor: 'pointer', color: contenidoVisible === "Texto 2" ? 'black' : 'black', textDecoration: contenidoVisible === "Texto 2" ? 'underline' : 'none' }} onClick={() => setContenidoVisible("Texto 2")}>Alumnos</p>
@@ -194,31 +217,32 @@ const Actividades = ({IdUserIniciado}) => {
             {/* Estructura para mostrar actividades */}
             {contenidoVisible === "Texto 1" && (
               <>
-                {/* {Array.from({ length: 10 }, (_, index) => (
-                  <div key={index} style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
-                    <img src="/images/cuadrado.png" alt={`Actividad ${index + 1}`} style={{ width: '100%', height: 'auto' }} />
-                    <p className="montRegular" style={{ color: '#333' }}>Actividad {index + 1}</p>
-                    <p className="montLight" style={{ color: '#333' }}>Código explicativo</p>
-                  </div>
-                ))} */}
+              
 
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-              {Array.isArray(actividadesCoord) && actividadesCoord.map((actividades) => (
-                  <li key={actividades._id} className="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md grid-cols-2 gap-4">
-                    <div>
-                      <button onClick={() => togglePopup(actividades._id)}>
-                        <div className="flex flex-col items-center justify-center">
-                          <img src="images/cuadrado.png" alt="Actividad 1" className="w-full h-auto max-w-md rounded-lg shadow-md col-span-2" />
-                          <div className="text-center col-span-2">
-                            <h2 className="text-xl font-bold">{actividades.asunto}</h2>
-                            <p className="text-gray-700">{actividades.objetivo}</p>
-                          </div>
-                        </div>
-                      </button>
-                      {showPopup === actividades._id && <Actividad handleClose={() => togglePopup(actividades._id)} show={showPopup} id={actividades._id} />}
-                    </div>
+                {Array.isArray(actividadesCoord) && actividadesCoord.map((actividades) => (
+
+                  <li key={actividades._id} className="flex flex-col justify-between list-none p-2 bg-gray-200 rounded-lg shadow-md h-auto md:h-64">
+
+                    <button onClick={() => togglePopup(actividades._id)} className="flex flex-col items-center justify-center w-full h-full">
+
+                      <img src="images/cuadrado.png" alt="Actividad 1" className="w-full h-32 object-cover rounded-lg shadow-md" />
+
+                      <div className="text-center mt-2 px-2">
+                        <h2 className="text-xl font-bold line-clamp-1">{actividades.asunto}</h2>
+                        <p className="text-gray-700 text-sm mt-3 line-clamp-3 h-14">{actividades.objetivo}</p>
+                      </div>
+
+                    </button>
+
+                    {showPopup === actividades._id && <Actividad handleClose={() => togglePopup(actividades._id)} show={showPopup} id={actividades._id} />}
+
                   </li>
-              ))}
+
+                ))}
+              </div>
+
 
 
 
@@ -227,59 +251,13 @@ const Actividades = ({IdUserIniciado}) => {
 
             {contenidoVisible === "Texto 2" && (
               <>
-                {/* {Array.from({ length: 10 }, (_, index) => (
-                  <div key={index} style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
-                    <img src="/images/cuadrado.png" alt={`Actividad ${index + 1}`} style={{ width: '100%', height: 'auto' }} />
-                    <p className="montRegular" style={{ color: '#333' }}>Actividad {index + 1}</p>
-                    <p className="montLight" style={{ color: '#333' }}>Código explicativo</p>
-                  </div>
-                ))}
-                <div style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
-                    <img src="/images/cuadrado.png" alt={`Actividad`} style={{ width: '100%', height: 'auto' }} />
-                    <p className="montRegular" style={{ color: '#333' }}>Actividad Prueba</p>
-                    <p className="montLight" style={{ color: '#333' }}>Texto mas largo que los demas para ver si se ajusta al tamaño de la actividad, para cumplir con los requisitos de los de didi</p>
-                  </div> */}
-
-                  {/* {Array.isArray(actividadesAlum) && actividadesAlum.map((actividades) => (
-                    <li class="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md grid-cols-2 gap-4">
-                      <button onClick={() => handleIrActividad(actividades._id)}>
-                        <div class="flex flex-col items-center justify-center">
-                          <img src="images/cuadrado.png" alt="Actividad 1" class="w-full h-auto max-w-md rounded-lg shadow-md col-span-2" />
-                          <div class="text-center col-span-2">
-                            <h2 class="text-xl font-bold">{actividades.asunto}</h2>
-                            <p class="text-gray-700">{actividades.objetivo}</p>
-                          </div>
-                        </div>
-                      </button>
-                    </li>
-                  ))} */}
+               
               </>
             )}
 
             {contenidoVisible === "Texto 3" && (
               <>
-                {/* {Array.from({ length: 10 }, (_, index) => (
-                  <div key={index} style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
-                    <img src="/images/cuadrado.png" alt={`Actividad ${index + 1}`} style={{ width: '100%', height: 'auto' }} />
-                    <p className="montRegular" style={{ color: '#333' }}>Actividad {index + 1}</p>
-                    <p className="montLight" style={{ color: '#333' }}>Código explicativo</p>
-                  </div>
-                ))} */}
-
-
-                  {/* {Array.isArray(actividadesPriv) && actividadesPriv.map((actividades) => (
-                    <li class="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md grid-cols-2 gap-4">
-                      <button onClick={() => handleIrActividad(actividades._id)}>
-                        <div class="flex flex-col items-center justify-center">
-                          <img src="images/cuadrado.png" alt="Actividad 1" class="w-full h-auto max-w-md rounded-lg shadow-md col-span-2" />
-                          <div class="text-center col-span-2">
-                            <h2 class="text-xl font-bold">{actividades.asunto}</h2>
-                            <p class="text-gray-700">{actividades.objetivo}</p>
-                          </div>
-                        </div>
-                      </button>
-                    </li>
-                  ))} */}
+               
               </>
             )}
           </div>

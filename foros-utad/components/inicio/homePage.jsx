@@ -20,7 +20,7 @@ function Inicio() {
       {/* Contenido de la izquierda incluyendo header y footer */}
       <div className="w-1/2 flex flex-col">
   
-        <header className="bg-gray-100 p-4 text-center ">
+        <header className="bg-gray-300 p-4 text-center ">
           <img src="/images/cuadrado.png" alt="Logo de U-Tad" className="h-12" />
         </header>
   
@@ -36,7 +36,7 @@ function Inicio() {
           </div>
         </main>
   
-        <footer className="bg-gray-100 p-4 text-center flex justify-between">
+        <footer className="bg-gray-200 p-4 text-center flex justify-between">
   
         <div>
             <a href="#" className="text-blue-600 hover:underline mx-2">Sobre U-Tad</a>

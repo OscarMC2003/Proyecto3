@@ -1,7 +1,11 @@
 "use client"
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-const CrearActividad = () => {
+const CrearActividad = ({IdUserIniciado}) => {
+
+  const router = useRouter()
+
   // Estado para almacenar los valores de los campos del formulario
   const [formData, setFormData] = useState({
     titulo: '',
@@ -60,36 +64,38 @@ const CrearActividad = () => {
     // Por ejemplo: await enviarDatos(formDataToSend);
   };
 
+  const handleCambiaActividades = () =>{
+    router.push(`/actividades?id=${IdUserIniciado}`);
+  }
+
+  const handleCambioAForos = () =>{
+    router.push(`/foroAlumnos?id=${IdUserIniciado}`);
+  }
+
+  const handleCambioAInicio = () =>{
+    router.push(`/`);
+  }
+
   return (
         <div className="flex flex-col h-screen">
-          <header style={{ 
-            position: 'fixed', 
-            top: 0, 
-            left: 0, 
-            width: '100%', 
-            background: '#888888', 
-            padding: '10px', 
-            textAlign: 'center', 
-            zIndex: 1000, 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center' 
-          }}>
-            <img src="/images/cuadrado.png" alt="Imagen Izquierda" style={{ width: '75px', height: 'auto' }} />
-            <div style={{ flex: 1 }}></div>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <button style={{ 
-                background: 'blue', 
-                color: 'white', 
-                padding: '10px', 
-                borderRadius: '5px', 
-                cursor: 'pointer', 
-                marginRight: '10px' 
-              }}>
-                Comunidad de Alumnos
-              </button>
-              <img src="/images/userVacio.png" alt="Imagen Derecha" style={{ width: '50px', height: 'auto' }} />
-            </div>
+          <header className="fixed top-0 left-0 w-full h-20 bg-gray-300 p-2.5 text-center z-10 flex justify-between items-center">
+
+            <button onClick={handleCambioAInicio} type="button" class="w-13 h-12 flex items-center justify-center rounded-md bg-gray-200 hover:bg-gray-300">
+              <img src="/images/cuadrado.png" alt="Imagen Izquierda" class="w-full h-full object-cover " />
+            </button>
+
+              {/* Contenedor vacío en el centro */}
+              <div className="flex-1"></div>
+
+              {/* Botón seguido de otra imagen a la derecha */}
+              <div className="flex items-center">
+
+                <button onClick={handleCambiaActividades} className="bg-blue-500 hover:bg-blue-700 text-white p-2.5 rounded cursor-pointer mr-2.5 transition duration-300 ease-in-out">Actividades</button>
+                <button onClick={handleCambioAForos} className="bg-blue-500 hover:bg-blue-700 text-white p-2.5 rounded cursor-pointer mr-2.5 transition duration-300 ease-in-out">Comunidad de Alumnos</button>
+                <img src="/images/userVacio.png" alt="Imagen Derecha" className="w-12 h-auto" />
+
+              </div>
+
           </header>
     
           <div className="pt-16 p-20 bg-gray-200  w-full flex-grow">
