@@ -12,7 +12,7 @@ router.get("/", authMiddleware, getItems)
 router.get("/:id", authMiddleware, getItem)
 
 // RUTA PARA CREAR ACTIVIDAD
-router.post("/createActivities", authMiddleware, validatorCreateItem, createItem)
+router.post("/createActivities", authMiddleware, createItem)
 
 // RUTA PARA ACTUALIZAR ACTIVIDAD
 router.put("/updateActivities/:_id", authMiddleware, validatorCreateItem, updateItem)

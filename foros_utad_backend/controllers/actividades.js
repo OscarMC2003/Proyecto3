@@ -41,7 +41,8 @@ const getItem = async (req, res) => {
 const createItem = async (req, res) => {
     try {
         // COGE INFO DE LA PETICION MANDADA, ESTA BIEN PQ ANTES HEMOS PASADO X EL VALIDADOR.
-        const body = matchedData(req)
+        const body = req.body
+        console.log(body)
          //El dato filtrado por el modelo (probar con body=req)
         // VA AL MODEL Y CREA USER CON LA INFO PASADA
         const data = await actividadesModel.create(body)

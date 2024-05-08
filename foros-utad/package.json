@@ -13,11 +13,13 @@
     "emailjs-com": "^3.2.0",
     "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
     "net": "^1.0.2",
     "next": "14.1.0",
     "nextjs-fonts": "^0.22.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-select": "^5.8.0",
     "tls": "^0.0.1"
   },
   "devDependencies": {
