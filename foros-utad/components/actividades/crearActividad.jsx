@@ -16,8 +16,6 @@ const agregarActividad = async (actividad) => {
   }
 };
 
-
-
 const CrearActividad = () => {
   const [id, setId] = useState(null);
   const [usuarios, setUsuarios] = useState([]);
@@ -34,7 +32,7 @@ const CrearActividad = () => {
       }
     });
   };
-  //(callBack)devuelve una versión memorizada de una función que solo cambia si una de las dependencias ha cambiado
+  
   const fetchUsuarios = async () => {
     try {
       const response = await fetch('http://localhost:9000/api/users/', {
@@ -87,11 +85,12 @@ const CrearActividad = () => {
   // Estado para almacenar los valores de los campos del formulario
   const [formData, setFormData] = useState({
     idCreador: id,
-    titulo: '',
-    descripcion: '',
+    asunto: '',
+    objetivo: '',
+    tipoActividad: 'coordinacion',
     fecha: '',
     hora: '',
-    lugar: { tipo: '', edificio: '' },
+    espacio: { tipo: '', edificio: '' },
     asistentesRequeridos: [],
     asistentesOpcionales: '',
   });
@@ -111,8 +110,8 @@ const CrearActividad = () => {
 
       setFormData((prevState) => ({
         ...prevState,
-        lugar: {
-          ...prevState.lugar,
+        espacio: {
+          ...prevState.espacio,
           [name]: value,
         },
       }));
@@ -126,7 +125,7 @@ const CrearActividad = () => {
 
 
 
-    if (name === "descripcion" || name === "asistentesRequeridos") {
+    if (name === "objetivo" || name === "asistentesRequeridos") {
       ajustarAltura(e.target);
     }
   };
@@ -151,11 +150,11 @@ const CrearActividad = () => {
       formDataToSend.append(key, value);
     });
 
-    if (formData.lugar.tipo === 'virtual') {
+    if (formData.espacio.tipo === 'virtual') {
       setFormData(prevState => ({
         ...prevState,
-        lugar: {
-          ...prevState.lugar,
+        espacio: {
+          ...prevState.espacio,
           edificio: '' // Establecer el edificio como una cadena vacía
         }
       }));
@@ -225,23 +224,23 @@ const CrearActividad = () => {
               {/* Left column for activity description */}
               <div className="flex-grow w-2/3">
 
-                {/*Titulo de la actividad */}
-                <label htmlFor="titulo" className="text-2xl block mb-2 font-bold montBlack">Título de la actividad</label>
+                {/*asunto de la actividad */}
+                <label htmlFor="asunto" className="text-2xl block mb-2 font-bold montBlack">Asunto de la actividad</label>
                 <input
                   type="text"
-                  name="titulo"
-                  id="titulo"
-                  value={formData.titulo}
+                  name="asunto"
+                  id="asunto"
+                  value={formData.asunto}
                   onChange={handleChange}
                   className="border p-2 w-full"
                 />
 
-                {/*Descripcion de la actividad */}
-                <label htmlFor="descripcion" className="block mt-5 mb-2 font-bold montBlack">Descripción</label>
+                {/*objetivo de la actividad */}
+                <label htmlFor="objetivo" className="block mt-5 mb-2 font-bold montBlack">Objetivo</label>
                 <textarea
-                  name="descripcion"
-                  id="descripcion"
-                  value={formData.descripcion}
+                  name="objetivo"
+                  id="objetivo"
+                  value={formData.objetivo}
                   onChange={handleChange}
                   className="border p-2 w-full"
                   style={{ overflowY: 'hidden' }}
@@ -293,18 +292,18 @@ const CrearActividad = () => {
                     className="border p-2 w-full"
                   />
 
-                  {/*Lugar de la actividad */}
+                  {/*espacio de la actividad */}
 
-                  {/*Lugar de la actividad */}
-                  <label htmlFor="tipoLugar" className="block mb-2 font-bold  ">Tipo de Lugar</label>
+                  {/*espacio de la actividad */}
+                  <label htmlFor="tipoespacio" className="block mb-2 font-bold  ">Tipo de espacio</label>
                   <select
-                    id="tipoLugar"
-                    name="tipoLugar"
-                    value={formData.lugar.tipo}
+                    id="tipoespacio"
+                    name="tipoespacio"
+                    value={formData.espacio.tipo}
                     onChange={(e) => setFormData(prevState => ({
                       ...prevState,
-                      lugar: {
-                        ...prevState.lugar,
+                      espacio: {
+                        ...prevState.espacio,
                         tipo: e.target.value
                       }
                     }))}
@@ -316,17 +315,17 @@ const CrearActividad = () => {
                   </select>
 
                   {/*Edificio de la actividad */}
-                  {formData.lugar.tipo === 'fisico' && (
+                  {formData.espacio.tipo === 'fisico' && (
                     <div>
                       <label htmlFor="edificio" className="block mb-2 font-bold  ">Edificio</label>
                       <select
                         id="edificio"
                         name="edificio"
-                        value={formData.lugar.edificio}
+                        value={formData.espacio.edificio}
                         onChange={(e) => setFormData(prevState => ({
                           ...prevState,
-                          lugar: {
-                            ...prevState.lugar,
+                          espacio: {
+                            ...prevState.espacio,
                             edificio: e.target.value
                           }
                         }))}
