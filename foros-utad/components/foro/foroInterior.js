@@ -85,14 +85,16 @@ function ForoInterior({IDs}) {
     const handleSendMessage = async () => {
         if (newMessage.trim() !== '') {
             try {
+                const token = localStorage.getItem('token')
                 const respuesta = await fetch(`http://localhost:9000/api/foro/${IDs.identificadorForo}/mensaje`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
                     },
                     body: JSON.stringify({
                         mensaje: {
-                            idUsuario: [idUserIniciado],
+                            idUsuario: [IDs.identificadorUser],
                             texto: newMessage
                         }
                     })
