@@ -43,7 +43,7 @@ const ActividadesScheme = new mongoose.Schema(
         },
         asistentesRequeridos: 
             [asistenteSchema],
-        lugar: {
+        espacio: {
             tipo: {
                 type: String,
                 required: true
