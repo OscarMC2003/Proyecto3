@@ -18,6 +18,7 @@
     "next": "14.1.0",
     "nextjs-fonts": "^0.22.0",
     "react": "^18",
+    "react-datepicker": "^6.9.0",
     "react-dom": "^18",
     "react-select": "^5.8.0",
     "tls": "^0.0.1"

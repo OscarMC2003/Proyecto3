@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import user from '../notoken_redirect/notoken_redirect'
 import Actividad from "@/components/actividades/actividad"; // Mantener la importación del componente Actividad
 
@@ -40,8 +42,8 @@ const Actividades = ({IdUserIniciado}) => {
   const opcionesCurso = ["Opción A", "Opción B", "Opción C"];
   const opcionesGrupo = ["Grupo 1", "Grupo 2", "Grupo 3"];
   const opcionesAsistentes = ["Asistentes 1", "Asistentes 2", "Asistentes 3"];
-  const opcionesFecha = ["Fecha 1", "Fecha 2", "Fecha 3"];
 
+  const [fechaSeleccionada, setFechaSeleccionada] = useState(null);
 
   const [contenidoVisible, setContenidoVisible] = useState("Texto 1");
 
@@ -54,6 +56,30 @@ const Actividades = ({IdUserIniciado}) => {
   const togglePopup = (actividadId) => {
     setShowPopup(actividadId === showPopup ? null : actividadId);
   };
+
+  useEffect(() => {
+    if (fechaSeleccionada) {
+      const filteredActividades = actividades.filter(actividad => {
+        const actividadDate = new Date(actividad.fecha);
+        return actividadDate.toDateString() === fechaSeleccionada.toDateString();
+      });
+      setActividades(filteredActividades);
+    } else {
+      // Si no hay fecha seleccionada, mostramos todas las actividades
+      const filterActividades = () => {
+        const filteredCoord = actividades.filter(actividad => actividad.tipoActividad.includes("coordinacion"));
+        setActividadesCoord(filteredCoord);
+        
+        const filteredAlum = actividades.filter(actividad => actividad.tipoActividad.includes("alumnos"));
+        setActividadesAlum(filteredAlum);
+        
+        const filteredPriv = actividades.filter(actividad => actividad.tipoActividad.includes("privadas"));
+        setActividadesPriv(filteredPriv);
+      };
+  
+      filterActividades();
+    }
+  }, [fechaSeleccionada, actividades]);
 
   useEffect(() => {
     
@@ -101,6 +127,10 @@ const Actividades = ({IdUserIniciado}) => {
   const handleCambioAUsuario = () =>{
     router.push(`/perfil?id=${IdUserIniciado}`);
   }
+
+  const handleCrearActividad = () => {
+    router.push('/crearActividad');
+  };
 
   /*const handleIrActividad = (identificadorActividad) =>{
     router.push(`/actividad?id=${IdUserIniciado}&acti=${identificadorActividad}`)
@@ -185,14 +215,16 @@ const Actividades = ({IdUserIniciado}) => {
             <div style={{ margin: '10px 0' }}>
               <p className="montRegular" style={{ cursor: 'pointer', color: 'black' }} onClick={() => setMostrarFecha(!mostrarFecha)}>Fecha</p>
               {mostrarFecha && (
-                <ul>
-                  {opcionesFecha.map((opcion, index) => (
-                    <li key={index}>{opcion}</li>
-                  ))}
-                </ul>
+                <DatePicker
+                selected={fechaSeleccionada}
+                onChange={date => setFechaSeleccionada(date)}
+                dateFormat="dd/MM/yyyy"
+                placeholderText="Seleccionar fecha"
+              />
               )}
             </div>
           </div>
+          <button onClick={handleCrearActividad} style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginLeft: '40%', marginTop: '15%' }}>Crear Actividad</button>
         </div>
 
         {/* Contenido de la segunda parte (pegado a la derecha) */}

@@ -32,6 +32,10 @@ const Foros = ({IdUserIniciado}) => {
         router.push(`/perfil?id=${IdUserIniciado}`);
     }
 
+    const handleCrearForo = () => {
+        router.push('/crearForo');
+    };
+    
     useEffect(() => {
         async function LlamadaForos() {
           try {
@@ -153,6 +157,7 @@ const Foros = ({IdUserIniciado}) => {
                             )}
                         </div>
                     </div>
+                    <button onClick={handleCrearForo} style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginLeft: '40%', marginTop: '15%' }}>Crear Foro</button>
                 </div>
 
                 {/* Contenido de la segunda parte (pegado a la derecha) */}
