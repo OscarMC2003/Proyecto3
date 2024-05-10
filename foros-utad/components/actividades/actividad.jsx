@@ -130,7 +130,7 @@ const Actividad = ({ handleClose, show, id }) => {
     <div className={`${showHideClassName} ${animationClassName}`} onClick={handleCloseOutside}>
       <div className="bg-opacity-25 p-8 rounded shadow-md max-w-screen-lg w-full my-8 mx-auto" style={{ marginTop: '20vh' }}>
         <header className="flex justify-between items-center mb-4">
-          <img src="/images/cuadrado.png" alt="Imagen Izquierda" style={{ width: '75px', height: 'auto' }} />
+          <img src="/images/Logo U-Tad.png" alt="Imagen Izquierda" style={{ width: '75px', height: 'auto' }} />
         </header>
         {actividad && (
           <div className="flex flex-col h-full">

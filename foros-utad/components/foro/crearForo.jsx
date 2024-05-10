@@ -160,7 +160,7 @@ const CrearForo = () => {
         justifyContent: 'space-between',
         alignItems: 'center'
       }}>
-        <img src="/images/cuadrado.png" alt="Imagen Izquierda" style={{ width: '75px', height: 'auto' }} />
+        <img src="/images/Logo U-Tad.png" alt="Imagen Izquierda" style={{ width: '75px', height: 'auto' }} />
         <div style={{ flex: 1 }}></div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <button style={{

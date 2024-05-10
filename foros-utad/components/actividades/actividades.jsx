@@ -144,10 +144,10 @@ const Actividades = ({IdUserIniciado}) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
 
-      <header className="fixed top-0 left-0 w-full h-20 bg-gray-300 p-2.5 text-center z-10 flex justify-between items-center">
+      <header className="fixed top-0 left-0 w-full h-20 bg-gray-300 p-2.5 text-center z-10 flex justify-between items-center" style={{background: '#0a1229'}}>
 
         <button onClick={handleCambioAInicio} type="button" class="w-13 h-12 flex items-center justify-center rounded-md bg-gray-200 hover:bg-gray-300">
-          <img src="/images/cuadrado.png" alt="Imagen Izquierda" class="w-full h-full object-cover " />
+          <img src="/images/Logo U-Tad.png" alt="Imagen Izquierda" class="w-full h-full object-cover " />
         </button>
 
           {/* Contenedor vacío en el centro */}
