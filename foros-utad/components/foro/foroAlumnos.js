@@ -28,13 +28,24 @@ const Foros = ({IdUserIniciado}) => {
 
     let [foros, setForos] = useState([]);
 
-    const handleCambioAUsuario = () =>{
+    const handleCambioAactividades = () =>{
+        router.push(`/actividades?id=${IdUserIniciado}`);
+      }
+    
+      const handleCambioAUsuario = () =>{
         router.push(`/perfil?id=${IdUserIniciado}`);
-    }
+      }
+    
+      const handleCambioAInicio = () =>{
+        router.push(`/`);
+      }
+    
 
     const handleCrearForo = () => {
         router.push('/crearForo');
     };
+
+    
     
     useEffect(() => {
         async function LlamadaForos() {
@@ -63,20 +74,29 @@ const Foros = ({IdUserIniciado}) => {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-            <header style={{ position: 'fixed', top: 0, left: 0, width: '100%', background: '#0a1229', padding: '10px', textAlign: 'center', zIndex: 1000, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                {/* Imagen a la izquierda */}
-                    <img src="/images/Logo U-Tad.png" alt="Imagen Izquierda" style={{ width: '75px', height: 'auto' }} />
+            
+            <header className="fixed top-0 left-0 w-full h-20 bg-gray-300 p-2.5 text-center z-10 flex justify-between items-center">
+
+                <button onClick={handleCambioAInicio} type="button" class="w-13 h-12 flex items-center justify-center rounded-md bg-gray-200 hover:bg-gray-300">
+                <img src="/images/cuadrado.png" alt="Imagen Izquierda" class="w-full h-full object-cover " />
+                </button>
+
                 {/* Contenedor vacío en el centro */}
-                <div style={{ flex: 1 }}></div>
+                <div className="flex-1"></div>
 
                 {/* Botón seguido de otra imagen a la derecha */}
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <button onClick={handleCambiaActividades} style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Actividades</button>
+                <div className="flex items-center">
+
+                    <button onClick={handleCambioAactividades}className="bg-blue-500 hover:bg-blue-700 text-white p-2.5 rounded cursor-pointer mr-2.5 transition duration-300 ease-in-out">Actividades</button>
+                    <button className="bg-blue-600 text-white p-2.5 rounded cursor-pointer mr-2.5">Comunidad de Alumnos</button>
                     <button onClick={handleCambioAUsuario}>
-                        <img src="/images/userVacio.png" alt="Imagen Derecha" style={{ width: '50px', height: 'auto' }} />
-                    </button>
+                    <img src="/images/userVacio.png" alt="Imagen Derecha" style={{ width: '50px', height: 'auto' }} />
+                    </button> 
+
                 </div>
+
             </header>
+
 
             {/* Resto del contenido de la página */}
             <div style={{ flex: 1, padding: '20px', background: 'white' }}>
@@ -86,8 +106,8 @@ const Foros = ({IdUserIniciado}) => {
             {/* Nuevo contenedor para dividir el resto de la página en dos partes */}
             <div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
                 {/* Contenido de la primera parte (pegado a la izquierda) */}
-                <div style={{ flex: '0 0 30%', padding: '20px', background: 'white', marginLeft: 0, position: 'fixed', left: 0, top: '60px', bottom: 0, width: '30%' }}>
-                    <h1 className="montExtra">Comunidad de alumnos</h1>
+                <div style={{ marginTop:'20px', flex: '0 0 30%', padding: '20px', background: 'white', marginLeft: 0, position: 'fixed', left: 0, top: '60px', bottom: 0, width: '30%' }}>
+                <h1 className="montExtra text-center ">Comunidad de Alumnos</h1>
                     <p className="montSEMI2" style={{ color: '#333', marginLeft: '15%', marginTop: '10%' }}>Filtrar por:</p>
                     {/* Cuadro centrado para "Filtrar por:" y opciones */}
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #ccc', padding: '10px', borderRadius: '5px', background: '#eee', width: "70%", marginLeft: '15%', marginTop: '5%' }}>
@@ -157,7 +177,11 @@ const Foros = ({IdUserIniciado}) => {
                             )}
                         </div>
                     </div>
-                    <button onClick={handleCrearForo} style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginLeft: '40%', marginTop: '15%' }}>Crear Foro</button>
+                   
+                    <div className='flex justify-center items-center'>
+                        <button onClick={handleCrearForo} className="mt-20  bg-blue-500 hover:bg-blue-700 text-white p-2.5 rounded cursor-pointer mr-2.5 transition duration-300 ease-in-out">Crear Foro</button>
+                    </div>
+
                 </div>
 
                 {/* Contenido de la segunda parte (pegado a la derecha) */}
