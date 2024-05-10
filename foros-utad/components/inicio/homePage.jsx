@@ -10,7 +10,7 @@ function Inicio() {
   //const [showLogin, setShowLogin] = useState(false);
 
   const imageUrls = [
-    '/images/foto1.png',
+    '/images/Inicio.png',
     '/images/foto2.png',
     '/images/foto3.png',
   ];
@@ -21,7 +21,7 @@ function Inicio() {
       <div className="w-1/2 flex flex-col">
   
         <header className="bg-gray-100 p-4 text-center ">
-          <img src="/images/cuadrado.png" alt="Logo de U-Tad" className="h-12" />
+          <img src="/images/Logo U-Tad Login.png" alt="Logo de U-Tad" className="h-12" />
         </header>
   
         <main className="flex-grow flex flex-col justify-center p-4 text-center">

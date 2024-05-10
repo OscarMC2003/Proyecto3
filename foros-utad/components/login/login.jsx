@@ -86,7 +86,7 @@ export default function Login() {
                 <div className="flex flex-col justify-center items-center h-screen">
                     <div className="bg-white shadow-md rounded-lg p-8">
                         <div className="flex justify-center mb-5">
-                            <img src="/images/cuadrado.png" alt="Cuadrado DEFAULT" />
+                            <img src="/images/Logo U-Tad Login.png" alt="Cuadrado DEFAULT" />
                         </div>
 
                         <div>

@@ -123,7 +123,7 @@ function ForoInterior({IDs}) {
         <>
             <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
                 <header style={{ position: 'fixed', top: 0, left: 0, width: '100%', background: '#0a1229', padding: '10px', textAlign: 'center', zIndex: 1000, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <img src="/images/cuadrado.png" alt="Imagen Izquierda" style={{ width: '75px', height: 'auto' }} />
+                    <img src="/images/Logo U-Tad.png" alt="Imagen Izquierda" style={{ width: '75px', height: 'auto' }} />
                     <div style={{ flex: 1 }}></div>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <button onClick={handleCambioActividades} style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Actividades</button>
