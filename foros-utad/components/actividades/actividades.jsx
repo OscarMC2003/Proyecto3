@@ -109,7 +109,7 @@ const Actividades = ({IdUserIniciado}) => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-      <header style={{ position: 'fixed', top: 0, left: 0, width: '100%', background: '#888888', padding: '10px', textAlign: 'center', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <header style={{ position: 'fixed', top: 0, left: 0, width: '100%', background: '#0a1229', padding: '10px', textAlign: 'center', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         {/* Imagen a la izquierda */}
         <img src="/images/cuadrado.png" alt="Imagen Izquierda" style={{ width: '75px', height: 'auto' }} />
 
