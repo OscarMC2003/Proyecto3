@@ -27,7 +27,7 @@ const Actividad = ({ handleClose, show, id }) => {
       console.log("Datos del usuario:", userData);
 
       const response = await fetch(`http://localhost:9000/api/actividades/joinActivity/${id}`, {
-        method: 'PUT', 
+        method: 'PUT',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json'
@@ -41,8 +41,8 @@ const Actividad = ({ handleClose, show, id }) => {
       }
 
       alert('Te has unido a la actividad exitosamente.');
-     //const data = await response.json();
-     
+      //const data = await response.json();
+
     } catch (error) {
       console.error('Error al obtener la lista de usuarios:', error);
     }
@@ -231,22 +231,36 @@ const Actividad = ({ handleClose, show, id }) => {
                       <span>{actividad.fecha}</span>
                       <span>{actividad.hora}</span>
                     </div>
-                    <div className="flex flex-col mb-4">
+                    <div className="flex flex-col mb-4 ">
                       <span className="font-bold">Lugar:</span>
                       <span>Pabellón 3, Ifema</span>
                     </div>
                     <div className="flex flex-col mb-4">
                       <span className="font-bold">Asistentes requeridos:</span>
-                      <ul>
-                        <li>3/10 alumnos de INSO</li>
-                        <li>5/10 alumnos de DIDI</li>
-                        <li>10/10 alumnos de ANIV</li>
-                      </ul>
+                      {actividad.asistentesRequeridos && actividad.asistentesRequeridos.length > 0 ? (
+                        <ul>
+                          {actividad.asistentesRequeridos.map((asistente, index) => (
+                            <li key={index}>{asistente.label}</li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <span>No hay asistentes requeridos</span>
+                      )}
                     </div>
+
                     <div className="flex flex-col mb-5">
                       <span className="font-bold">Asistentes opcionales:</span>
-                      <span>No hay asistentes opcionales</span>
+                      {actividad.asistentesOpcionales && actividad.asistentesOpcionales.length > 0 ? (
+                        <ul>
+                          {actividad.asistentesOpcionales.map((asistente, index) => (
+                            <li key={index}>{asistente.name}</li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <span>No hay asistentes opcionales</span>
+                      )}
                     </div>
+
                     <div className='flex w-auto justify-center'>
                       <button onClick={() => handleJoinActivity()} className="mt-5 bg-blue-600 text-white py-4 px-10 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
                         Unirse
