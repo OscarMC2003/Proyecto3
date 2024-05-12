@@ -299,7 +299,7 @@ const Actividades = ({IdUserIniciado}) => {
                 {Array.isArray(actividadesCoord) && actividadesCoord.map((actividades) => (
 
                   <li key={actividades._id} className="flex flex-col justify-between list-none p-2 bg-gray-200 rounded-lg shadow-md h-auto md:h-64">
-
+                      {console.log("ID de la actividad:", actividades._id)}
                     <button onClick={() => togglePopup(actividades._id)} className="flex flex-col items-center justify-center w-full h-full">
 
                       <img src={actividades.imageUrl} alt="Actividad 1" className="w-full h-32 object-cover rounded-lg shadow-md" />
@@ -312,7 +312,7 @@ const Actividades = ({IdUserIniciado}) => {
                     </button>
 
                     {showPopup === actividades._id && <Actividad handleClose={() => togglePopup(actividades._id)} show={showPopup} id={actividades._id} />}
-
+                  
                   </li>
               ))}
               </div>

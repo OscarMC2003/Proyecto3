@@ -17,6 +17,7 @@ const agregarActividad = async (actividad, handleClose) => {
     console.error('Ocurrió un error al agregar la actividad:', error);
     console.error(error);
   }
+  alert('Actividad creada exitosamente')
 };
 
 const CrearActividad = ({handleClose, show}) => {
@@ -110,7 +111,7 @@ const CrearActividad = ({handleClose, show}) => {
     hora: '',
     espacio: { tipo: '', edificio: '' },
     asistentesRequeridos: [],
-    asistentesOpcionales: '',
+    asistentesOpcionales: [],
   });
 
   const [selectedImage, setSelectedImage] = useState(null);
