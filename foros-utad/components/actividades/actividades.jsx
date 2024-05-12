@@ -6,6 +6,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import user from '../notoken_redirect/notoken_redirect'
 import Actividad from "@/components/actividades/actividad"; // Mantener la importación del componente Actividad
+import CrearActividad from '@/components/actividades/crearActividad';
 
 async function response_to_array(resp) {
   if (resp && resp.json) {
@@ -48,6 +49,23 @@ const Actividades = ({IdUserIniciado}) => {
   const [contenidoVisible, setContenidoVisible] = useState("Texto 1");
 
   const [showPopup, setShowPopup] = useState(false);
+  const [showCrearActividadPopup, setShowCrearActividadPopup] = useState(false);
+
+  //Gestion aleatoria de imagenes
+
+  const imageUrls = [
+    "/images/actividades/base1.jpeg",
+    "/images/actividades/base2.jpeg",
+    "/images/actividades/base3.jpeg",
+    "/images/actividades/base4.jpeg",
+    "/images/actividades/base5.jpeg",
+    
+  ];
+  
+  const getRandomImageUrl = () => {
+    const randomIndex = Math.floor(Math.random() * imageUrls.length);
+    return imageUrls[randomIndex];
+  };
 
   // const togglePopup = () => {
   //   setShowPopup(!showPopup);
@@ -56,6 +74,12 @@ const Actividades = ({IdUserIniciado}) => {
   const togglePopup = (actividadId) => {
     setShowPopup(actividadId === showPopup ? null : actividadId);
   };
+
+  
+  const togglePopupCrearActividad = () => {
+    setShowCrearActividadPopup(!showCrearActividadPopup);
+  };
+  
 
   useEffect(() => {
     if (fechaSeleccionada) {
@@ -96,7 +120,13 @@ const Actividades = ({IdUserIniciado}) => {
         
         console.log("response actividades" + response);
         const data = await response_to_array(response);
-        setActividades(data);
+
+        const enrichedData = data.map(actividad => ({
+          ...actividad,
+          imageUrl: getRandomImageUrl(), // Añadir una URL de imagen aleatoria
+        }));
+
+        setActividades(enrichedData);
       } catch (error) {
         console.log("Error al llamar a las actividades:", error);
       }
@@ -146,7 +176,7 @@ const Actividades = ({IdUserIniciado}) => {
 
       <header className="fixed top-0 left-0 w-full h-20 bg-gray-300 p-2.5 text-center z-10 flex justify-between items-center" style={{background: '#0a1229'}}>
 
-        <button onClick={handleCambioAInicio} type="button" class="w-13 h-12 flex items-center justify-center rounded-md bg-gray-200 hover:bg-gray-300">
+        <button onClick={handleCambioAInicio} type="button" class="w-13 h-12 flex items-center justify-center rounded-md ">
           <img src="/images/Logo U-Tad.png" alt="Imagen Izquierda" class="w-full h-full object-cover " />
         </button>
 
@@ -174,7 +204,7 @@ const Actividades = ({IdUserIniciado}) => {
       {/* Nuevo contenedor para dividir el resto de la página en dos partes */}
       <div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
         {/* Contenido de la primera parte (pegado a la izquierda) */}
-        <div style={{ marginTop:'20px',flex: '0 0 30%', padding: '20px', background: 'white', marginLeft: 0, position: 'fixed', left: 0, top: '60px', bottom: 0, width: '30%', justifyContent:'center' }}>
+        <div style={{zIndex:'10', marginTop:'20px',flex: '0 0 30%', padding: '20px', background: 'white', marginLeft: 0, position: 'fixed', left: 0, top: '60px', bottom: 0, width: '30%', justifyContent:'center' }}>
         <h1 className="montExtra text-center ">Actividades</h1>
           <p className="montSEMI2" style={{ color: '#333', marginLeft: '15%', marginTop: '10%' }}>Filtrar por:</p>
           {/* Cuadro centrado para "Filtrar por:" y opciones */}
@@ -238,7 +268,8 @@ const Actividades = ({IdUserIniciado}) => {
           </div >
 
           <div className='flex justify-center items-center'>
-              <button onClick={handleCrearActividad} className="mt-20  bg-blue-500 hover:bg-blue-700 text-white p-2.5 rounded cursor-pointer mr-2.5 transition duration-300 ease-in-out">Crear Actividad</button>
+              <button onClick={togglePopupCrearActividad} className="mt-20  bg-blue-500 hover:bg-blue-700 text-white p-2.5 rounded cursor-pointer mr-2.5 transition duration-300 ease-in-out">Crear Actividad</button>
+              {setShowCrearActividadPopup && <CrearActividad handleClose={() => togglePopupCrearActividad()} show={showCrearActividadPopup} />}
           </div>
         </div>
 
@@ -262,6 +293,7 @@ const Actividades = ({IdUserIniciado}) => {
                 ))} */}
 
 
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                 {Array.isArray(actividadesCoord) && actividadesCoord.map((actividades) => (
@@ -270,7 +302,7 @@ const Actividades = ({IdUserIniciado}) => {
                       {console.log("ID de la actividad:", actividades._id)}
                     <button onClick={() => togglePopup(actividades._id)} className="flex flex-col items-center justify-center w-full h-full">
 
-                      <img src="images/cuadrado.png" alt="Actividad 1" className="w-full h-32 object-cover rounded-lg shadow-md" />
+                      <img src={actividades.imageUrl} alt="Actividad 1" className="w-full h-32 object-cover rounded-lg shadow-md" />
 
                       <div className="text-center mt-2 px-2">
                         <h2 className="text-xl font-bold line-clamp-1">{actividades.asunto}</h2>
