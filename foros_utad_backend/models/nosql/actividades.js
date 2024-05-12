@@ -12,6 +12,18 @@ const asistenteSchema = new mongoose.Schema({
         required: true
     }
 });
+
+const asistentesOpcionalesSchema = new mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users'
+    },
+    name: {
+        type: String
+    },
+
+});
+
 const ActividadesScheme = new mongoose.Schema(
     {
         idCreador: {
@@ -41,8 +53,10 @@ const ActividadesScheme = new mongoose.Schema(
             // TODO
             type: String
         },
-        asistentesRequeridos: 
+        asistentesRequeridos:
             [asistenteSchema],
+        asistentesOpcionales:
+            [asistentesOpcionalesSchema],
         espacio: {
             tipo: {
                 type: String,

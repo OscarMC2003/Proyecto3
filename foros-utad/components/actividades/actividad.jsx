@@ -1,25 +1,66 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import user from '../notoken_redirect/notoken_redirect'
+import { getUserId } from '@/utils/user';
 
 const Actividad = ({ handleClose, show, id }) => {
-  const [actividad, setActividad] = useState();
+  const [actividad, setActividad] = useState([]);
 
   const showHideClassName = show ? "fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 overflow-y-auto" : "hidden";
   const animationClassName = show ? "animated-fadeIn" : "animated-fadeOut";
 
   const [messages, setMessages] = useState([]);
 
+
+  const handleJoinActivity = async () => {
+    console.log("ID de la actividad al unirse:", id);
+
+    try {
+      const userId = await getUserId((localStorage.getItem('token')))
+      const getUser = await fetch(`http://localhost:9000/api/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      const userData = await getUser.json();
+      console.log("Datos del usuario:", userData);
+
+      const response = await fetch(`http://localhost:9000/api/actividades/joinActivity/${id}`, {
+        method: 'PUT', 
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userData })
+      });
+      if (!response.ok) {
+        const errorMessage = await response.json();
+        alert(`No se pudo unirse a la actividad: ${errorMessage.message}`);
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      alert('Te has unido a la actividad exitosamente.');
+     //const data = await response.json();
+     
+    } catch (error) {
+      console.error('Error al obtener la lista de usuarios:', error);
+    }
+  };
+
+
+
+
   const deleteactividad = async (id) => {
-  	console.log("deleteactividad " + id);
+    console.log("deleteactividad " + id);
     const token = localStorage.getItem('token')
     const options = {
       headers: {
         'Authorization': `Bearer ${token}`
       }
     }
-  	const respuesta = await fetch(window.location.origin.slice(0, -5) + ':9000/api/actividades/' + id, {method: "DELETE"}, options);
-  	if (respuesta) {
+    const respuesta = await fetch(window.location.origin.slice(0, -5) + ':9000/api/actividades/' + id, { method: "DELETE" }, options);
+    if (respuesta) {
       const datos = await respuesta.text();
       console.log(datos);
       window.location.reload(false);
@@ -28,10 +69,10 @@ const Actividad = ({ handleClose, show, id }) => {
     }
   }
   const editactividad = () => {
-    document.getElementById("actividad_asunto").setAttribute("contenteditable","true");
-    document.getElementById("actividad_objetivo").setAttribute("contenteditable","true");
-    document.getElementById("btn_edit_actividad").style.display="none";
-    document.getElementById("btn_edit_save_actividad").style.display="block";
+    document.getElementById("actividad_asunto").setAttribute("contenteditable", "true");
+    document.getElementById("actividad_objetivo").setAttribute("contenteditable", "true");
+    document.getElementById("btn_edit_actividad").style.display = "none";
+    document.getElementById("btn_edit_save_actividad").style.display = "block";
   }
   const saveeditactividad = async (id) => {
     var asunto = document.getElementById("actividad_asunto").innerHTML;
@@ -166,7 +207,7 @@ const Actividad = ({ handleClose, show, id }) => {
                   </div>
                   <div className="w-full md:w-1/3 pt-4 md:pt-0 md:pl-6  flex flex-col items-center justify-center">
                     <div className="flex space-x-2 mt-10 mb-10 justify-center">
-                      <button id="btn_edit_save_actividad" onClick={() => saveeditactividad(id)} aria-label="Save" style={{display:"none"}} className="p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400">
+                      <button id="btn_edit_save_actividad" onClick={() => saveeditactividad(id)} aria-label="Save" style={{ display: "none" }} className="p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400">
                         <img src="/images/GuardarModificaciones.png" alt="Save" />
                       </button>
                       <button id="btn_edit_actividad" onClick={() => editactividad()} aria-label="Edit" className="p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400">
@@ -207,7 +248,7 @@ const Actividad = ({ handleClose, show, id }) => {
                       <span>No hay asistentes opcionales</span>
                     </div>
                     <div className='flex w-auto justify-center'>
-                      <button className="mt-5 bg-blue-600 text-white py-4 px-10 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+                      <button onClick={() => handleJoinActivity()} className="mt-5 bg-blue-600 text-white py-4 px-10 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
                         Unirse
                       </button>
                     </div>
@@ -220,8 +261,8 @@ const Actividad = ({ handleClose, show, id }) => {
       </div>
     </div>
   );
-  
-  
+
+
 };
 
 export default Actividad;

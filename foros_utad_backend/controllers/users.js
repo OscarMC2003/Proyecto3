@@ -29,7 +29,7 @@ const getItem = async (req, res) => {
         const id = req.params.id
         console.log(id)
         // LLAMADA AL MODELO Y FILTRA POR ID
-        const data = await usersModel.findById(id)
+        const data = await usersModel.findById(id, { password: 0 })
         console.log(data)
         // SI LO ENCUENTRA MANDA DATOS DE ESE USUARIO, SI NO ERROR EN CATCH
         res.send(data)

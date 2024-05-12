@@ -8,9 +8,9 @@ Content-Type: application/json
 api_key: Api-publica-123
 
 {
-    "name": "andres perez",
-    "email": "andresperez@gmail.com",
-    "age": "40",
+    "name": "David Gil",
+    "email": "david@gmail.com",
+    "age": "22",
     "activo": true,
     "password": "123",
     "role": "admin"
