@@ -3,24 +3,39 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { createForum } from '@/utils/foros';
 import { getUserId } from '@/utils/user'
 import Select from 'react-select';
+import Portal from '@/utils/portal';
 
 
-const agregarForo = async (Foro) => {
+const agregarForo = async (Foro, handleClose) => {
   try {
     console.log("datos a enviar: ", Foro);
     const data = await createForum(Foro, localStorage.getItem('token'));
     console.log(data);
+    handleClose();
+    window.location.reload();
   } catch (error) {
     console.error('Ocurrió un error al agregar el Foro:', error);
     console.error(error);
   }
 };
 
-const CrearForo = () => {
+const CrearForo = ({handleClose, show}) => {
+
+  if (!show) return null;
+
   const [id, setId] = useState(null);
   const [usuarios, setUsuarios] = useState([]);
   const [usuariosCargados, setUsuariosCargados] = useState(false);
   const [usuariosSeleccionados, setUsuariosSeleccionados] = useState([]);
+
+  const showHideClassName = show ? "fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 overflow-y-auto z-20" : "hidden";
+  const animationClassName = show ? "animated-fadeIn" : "animated-fadeOut";
+
+  const handleCloseOutside = (event) => {
+    if (event.target === event.currentTarget) {
+      handleClose();
+    }
+  };
 
   const toggleUsuario = (usuario) => {
     setUsuariosSeleccionados((prevUsuarios) => {
@@ -127,7 +142,7 @@ const CrearForo = () => {
   };
 
   // Manejador para el envío del formulario
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e,handleClose ) => {
     e.preventDefault();
     const foro = {
     name: nombre,
@@ -139,6 +154,8 @@ const CrearForo = () => {
       console.log("datos a enviar: ", foro);
       const data = await createForum(foro, localStorage.getItem('token'));
       console.log(data);
+      handleClose();
+      window.location.reload();
     } catch (error) {
       console.error('Ocurrió un error al agregar la actividad:', error);
       console.error(error);
@@ -146,44 +163,15 @@ const CrearForo = () => {
   };
 
   return (
+    <Portal>
+      <div className={`${showHideClassName} ${animationClassName} `} onClick={handleCloseOutside}>
     <form onSubmit={handleSubmit} className="flex flex-col h-screen">
-      <header style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        background: '#888888',
-        padding: '10px',
-        textAlign: 'center',
-        zIndex: 1000,
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }}>
-        <img src="/images/Logo U-Tad.png" alt="Imagen Izquierda" style={{ width: '75px', height: 'auto' }} />
-        <div style={{ flex: 1 }}></div>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <button style={{
-            background: 'blue',
-            color: 'white',
-            padding: '10px',
-            borderRadius: '5px',
-            cursor: 'pointer',
-            marginRight: '10px'
-          }}>
-            Comunidad de Alumnos
-          </button>
-          <img src="/images/userVacio.png" alt="Imagen Derecha" style={{ width: '50px', height: 'auto' }} />
-        </div>
-      </header>
-
-      <div className="pt-16 p-20 bg-gray-200  w-full flex-grow">
 
         <div className="max-w-full mx-auto my-12">
 
           {/* Image as a visual header at the top of the content */}
           <div className=" bg-white shadow-lg rounded-lg overflow-hidden">
-
+            <h1>Crear Foro</h1>
             <label className=" p-6 block mt-5 mb-2 font-bold montBlack">Imagen</label>
             {imagePreviewUrl && (
               <img src={imagePreviewUrl} alt="Vista previa del foro" className="w-full mb-4 max-h-60 object-cover" />
@@ -313,8 +301,9 @@ const CrearForo = () => {
             </div>
           </div>
         </div>
-      </div>
     </form>
+    </div>
+    </Portal>
   );
 };
 

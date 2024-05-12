@@ -3,13 +3,16 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { createActivity } from '@/utils/actividades';
 import { getUserId } from '@/utils/user'
 import Select from 'react-select';
+import Portal from '@/utils/portal';
 
 
-const agregarActividad = async (actividad) => {
+const agregarActividad = async (actividad, handleClose) => {
   try {
     console.log("datos a enviar: ", actividad);
     const data = await createActivity(actividad, localStorage.getItem('token'));
     console.log(data);
+    handleClose();
+    window.location.reload();
   } catch (error) {
     console.error('Ocurrió un error al agregar la actividad:', error);
     console.error(error);
@@ -17,11 +20,26 @@ const agregarActividad = async (actividad) => {
   alert('Actividad creada exitosamente')
 };
 
-const CrearActividad = () => {
+const CrearActividad = ({handleClose, show}) => {
+
+  if (!show) return null;
+
+  const showHideClassName = show ? "fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 overflow-y-auto z-20" : "hidden";
+  const animationClassName = show ? "animated-fadeIn" : "animated-fadeOut";
+  const showHideCrearActividad = show ? " fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 overflow-y-auto" : "hidden";
+
+
   const [id, setId] = useState(null);
   const [usuarios, setUsuarios] = useState([]);
   const [usuariosCargados, setUsuariosCargados] = useState(false);
   const [usuariosSeleccionados, setUsuariosSeleccionados] = useState([]);
+
+  const handleCloseOutside = (event) => {
+    if (event.target === event.currentTarget) {
+      handleClose();
+    }
+  };
+  
 
   const toggleUsuario = (usuario) => {
     setUsuariosSeleccionados((prevUsuarios) => {
@@ -139,6 +157,8 @@ const CrearActividad = () => {
     }
   };
 
+  
+
   // Manejador para el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -164,219 +184,191 @@ const CrearActividad = () => {
     console.log("Enviando formulario y archivo de imagen...");
 
     //no he usado 
-    agregarActividad(actividad);
+    agregarActividad(actividad,handleClose);
     // Asume que tienes una función asíncrona para enviar estos datos a tu backend
     // Por ejemplo: await enviarDatos(formDataToSend);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col h-screen">
-      <header style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        background: '#888888',
-        padding: '10px',
-        textAlign: 'center',
-        zIndex: 1000,
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }}>
-        <img src="/images/cuadrado.png" alt="Imagen Izquierda" style={{ width: '75px', height: 'auto' }} />
-        <div style={{ flex: 1 }}></div>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <button style={{
-            background: 'blue',
-            color: 'white',
-            padding: '10px',
-            borderRadius: '5px',
-            cursor: 'pointer',
-            marginRight: '10px'
-          }}>
-            Comunidad de Alumnos
-          </button>
-          <img src="/images/userVacio.png" alt="Imagen Derecha" style={{ width: '50px', height: 'auto' }} />
-        </div>
-      </header>
+    <Portal>
+      <div className={`${showHideClassName} ${animationClassName} `} onClick={handleCloseOutside}>
+        <form onSubmit={handleSubmit} className="flex flex-col h-screen">
 
-      <div className="pt-16 p-20 bg-gray-200  w-full flex-grow">
+            <div className="max-w-full mx-auto my-12">
 
-        <div className="max-w-full mx-auto my-12">
+              {/* Image as a visual header at the top of the content */}
+              <div className=" bg-white shadow-lg rounded-lg overflow-hidden">
 
-          {/* Image as a visual header at the top of the content */}
-          <div className=" bg-white shadow-lg rounded-lg overflow-hidden">
-
-            <label className=" p-6 block mt-5 mb-2 font-bold montBlack">Imagen</label>
-            {imagePreviewUrl && (
-              <img src={imagePreviewUrl} alt="Vista previa de la actividad" className="w-full mb-4 max-h-60 object-cover" />
-            )}
-            <input
-              type="file"
-              id="imagen"
-              name="imagen"
-              onChange={handleImageChange}
-              className="border p-2 w-full mb-4"
-            />
-
-            {/* Content below the image */}
-            <div className="bg-white p-6 flex flex-col md:flex-row">
-              {/* Left column for activity description */}
-              <div className="flex-grow w-2/3">
-
-                {/*asunto de la actividad */}
-                <label htmlFor="asunto" className="text-2xl block mb-2 font-bold montBlack">Asunto de la actividad</label>
+                <label className=" p-6 block mt-5 mb-2 font-bold montBlack">Imagen</label>
+                {imagePreviewUrl && (
+                  <img src={imagePreviewUrl} alt="Vista previa de la actividad" className="w-full mb-4 max-h-60 object-cover" />
+                )}
                 <input
-                  type="text"
-                  name="asunto"
-                  id="asunto"
-                  value={formData.asunto}
-                  onChange={handleChange}
-                  className="border p-2 w-full"
+                  type="file"
+                  id="imagen"
+                  name="imagen"
+                  onChange={handleImageChange}
+                  className="border p-2 w-full mb-4"
                 />
 
-                {/*objetivo de la actividad */}
-                <label htmlFor="objetivo" className="block mt-5 mb-2 font-bold montBlack">Objetivo</label>
-                <textarea
-                  name="objetivo"
-                  id="objetivo"
-                  value={formData.objetivo}
-                  onChange={handleChange}
-                  className="border p-2 w-full"
-                  style={{ overflowY: 'hidden' }}
-                ></textarea>
+                {/* Content below the image */}
+                <div className="bg-white p-6 flex flex-col md:flex-row">
+                  {/* Left column for activity description */}
+                  <div className="flex-grow w-2/3">
 
-                {/*Documentos adjuntos
-                                -----------
-                                ||REVISAR||
-                                -----------
-                    */}
+                    {/*asunto de la actividad */}
+                    <label htmlFor="asunto" className="text-2xl block mb-2 font-bold montBlack">Asunto de la actividad</label>
+                    <input
+                      type="text"
+                      name="asunto"
+                      id="asunto"
+                      value={formData.asunto}
+                      onChange={handleChange}
+                      className="border p-2 w-full"
+                    />
 
-                <div className="mt-4 border-t pt-4">
-                  <h2 className="font-semibold mb-2">Documentos adjuntos:</h2>
+                    {/*objetivo de la actividad */}
+                    <label htmlFor="objetivo" className="block mt-5 mb-2 font-bold montBlack">Objetivo</label>
+                    <textarea
+                      name="objetivo"
+                      id="objetivo"
+                      value={formData.objetivo}
+                      onChange={handleChange}
+                      className="border p-2 w-full"
+                      style={{ overflowY: 'hidden' }}
+                    ></textarea>
 
-                  <div className="flex flex-wrap gap-4">
-                    <img src="/images/cuadrado.png" alt="Actividad" className="w-auto"></img>
-                    <img src="/images/cuadrado.png" alt="Actividad" className="w-auto"></img>
+                    {/*Documentos adjuntos
+                                    -----------
+                                    ||REVISAR||
+                                    -----------
+                        */}
+
+                    <div className="mt-4 border-t pt-4">
+                      <h2 className="font-semibold mb-2">Documentos adjuntos:</h2>
+
+                      <div className="flex flex-wrap gap-4">
+                        <img src="/images/cuadrado.png" alt="Actividad" className="w-auto"></img>
+                        <img src="/images/cuadrado.png" alt="Actividad" className="w-auto"></img>
+                      </div>
+
+                    </div>
+
                   </div>
 
-                </div>
+                  {/* Right column for date, location, and attendees */}
 
-              </div>
+                  <div className="w-full md:w-1/3 pt-4 md:pt-0 md:pl-6  flex flex-col items-center justify-center">
 
-              {/* Right column for date, location, and attendees */}
+                    <div className="flex flex-col mb-4">
 
-              <div className="w-full md:w-1/3 pt-4 md:pt-0 md:pl-6  flex flex-col items-center justify-center">
+                      {/*Fecha de la actividad */}
+                      <label htmlFor="fecha" className="block mb-2 font-bold ">Fecha</label>
+                      <input
+                        type="date"
+                        id="fecha"
+                        name="fecha"
+                        value={formData.fecha}
+                        onChange={handleChange}
+                        className="border p-2 w-full"
+                      />
 
-                <div className="flex flex-col mb-4">
+                      {/*Hora de la actividad */}
+                      <label htmlFor="hora" className="block mb-2 font-bold ">Hora</label>
+                      <input
+                        type="time"
+                        id="hora"
+                        name="hora"
+                        value={formData.hora}
+                        onChange={handleChange}
+                        className="border p-2 w-full"
+                      />
 
-                  {/*Fecha de la actividad */}
-                  <label htmlFor="fecha" className="block mb-2 font-bold ">Fecha</label>
-                  <input
-                    type="date"
-                    id="fecha"
-                    name="fecha"
-                    value={formData.fecha}
-                    onChange={handleChange}
-                    className="border p-2 w-full"
-                  />
+                      {/*espacio de la actividad */}
 
-                  {/*Hora de la actividad */}
-                  <label htmlFor="hora" className="block mb-2 font-bold ">Hora</label>
-                  <input
-                    type="time"
-                    id="hora"
-                    name="hora"
-                    value={formData.hora}
-                    onChange={handleChange}
-                    className="border p-2 w-full"
-                  />
-
-                  {/*espacio de la actividad */}
-
-                  {/*espacio de la actividad */}
-                  <label htmlFor="tipoespacio" className="block mb-2 font-bold  ">Tipo de espacio</label>
-                  <select
-                    id="tipoespacio"
-                    name="tipoespacio"
-                    value={formData.espacio.tipo}
-                    onChange={(e) => setFormData(prevState => ({
-                      ...prevState,
-                      espacio: {
-                        ...prevState.espacio,
-                        tipo: e.target.value
-                      }
-                    }))}
-                    className="border p-2 w-full"
-                  >
-                    <option value="">Seleccionar</option>
-                    <option value="fisico">Físico</option>
-                    <option value="virtual">Virtual</option>
-                  </select>
-
-                  {/*Edificio de la actividad */}
-                  {formData.espacio.tipo === 'fisico' && (
-                    <div>
-                      <label htmlFor="edificio" className="block mb-2 font-bold  ">Edificio</label>
+                      {/*espacio de la actividad */}
+                      <label htmlFor="tipoespacio" className="block mb-2 font-bold  ">Tipo de espacio</label>
                       <select
-                        id="edificio"
-                        name="edificio"
-                        value={formData.espacio.edificio}
+                        id="tipoespacio"
+                        name="tipoespacio"
+                        value={formData.espacio.tipo}
                         onChange={(e) => setFormData(prevState => ({
                           ...prevState,
                           espacio: {
                             ...prevState.espacio,
-                            edificio: e.target.value
+                            tipo: e.target.value
                           }
                         }))}
                         className="border p-2 w-full"
                       >
                         <option value="">Seleccionar</option>
-                        <option value="madrid">Madrid</option>
-                        <option value="berlin">Berlín</option>
-                        <option value="londres">Londres</option>
+                        <option value="fisico">Físico</option>
+                        <option value="virtual">Virtual</option>
                       </select>
-                    </div>
-                  )}
+
+                      {/*Edificio de la actividad */}
+                      {formData.espacio.tipo === 'fisico' && (
+                        <div>
+                          <label htmlFor="edificio" className="block mb-2 font-bold  ">Edificio</label>
+                          <select
+                            id="edificio"
+                            name="edificio"
+                            value={formData.espacio.edificio}
+                            onChange={(e) => setFormData(prevState => ({
+                              ...prevState,
+                              espacio: {
+                                ...prevState.espacio,
+                                edificio: e.target.value
+                              }
+                            }))}
+                            className="border p-2 w-full"
+                          >
+                            <option value="">Seleccionar</option>
+                            <option value="madrid">Madrid</option>
+                            <option value="berlin">Berlín</option>
+                            <option value="londres">Londres</option>
+                          </select>
+                        </div>
+                      )}
 
 
-                  {/*Asistentes Confirmado 
-                                -----------
-                                ||REVISAR||
-                                -----------
-                        */}
-                  <div className="container mx-auto p-4">
-                    <div className="mt-4">
-                      <label className="block mb-2 font-bold ">Asistentes Requeridos</label>
-                      <div className="mt-1 relative">
-                        <Select
-                          isMulti
-                          options={usuarios.map(user => ({ value: user._id, label: user.name }))}
-                          value={usuariosSeleccionados}
-                          onChange={handleSelectChange}
-                          onMenuOpen={handleSelectOpen}
-                          className="basic-multi-select"
-                          classNamePrefix="select"
-                          closeMenuOnSelect={false}
-                        />
+                      {/*Asistentes Confirmado 
+                                    -----------
+                                    ||REVISAR||
+                                    -----------
+                            */}
+                      <div className="container mx-auto p-4">
+                        <div className="mt-4">
+                          <label className="block mb-2 font-bold ">Asistentes Requeridos</label>
+                          <div className="mt-1 relative">
+                            <Select
+                              isMulti
+                              options={usuarios.map(user => ({ value: user._id, label: user.name }))}
+                              value={usuariosSeleccionados}
+                              onChange={handleSelectChange}
+                              onMenuOpen={handleSelectOpen}
+                              className="basic-multi-select"
+                              classNamePrefix="select"
+                              closeMenuOnSelect={false}
+                            />
+                          </div>
+                          
+                        </div>
+
+                        <div className='flex w-auto justify-center'>
+                          <button type="submit" className="mt-5 bg-blue-600 text-white py-4 px-10 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+                            Crear
+                          </button>
+                        </div>
                       </div>
-                      
-                    </div>
-
-                    <div className='flex w-auto justify-center'>
-                      <button type="submit" className="mt-5 bg-blue-600 text-white py-4 px-10 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
-                        Crear
-                      </button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+        </form>
       </div>
-    </form>
+    </Portal>
   );
 };
 
