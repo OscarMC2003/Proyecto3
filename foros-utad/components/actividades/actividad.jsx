@@ -1,11 +1,12 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import user from '../notoken_redirect/notoken_redirect'
+import Portal from '@/utils/portal';
 
 const Actividad = ({ handleClose, show, id }) => {
   const [actividad, setActividad] = useState();
 
-  const showHideClassName = show ? "fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 overflow-y-auto" : "hidden";
+  const showHideClassName = show ? "fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 overflow-y-auto z-20" : "hidden";
   const animationClassName = show ? "animated-fadeIn" : "animated-fadeOut";
 
   const [messages, setMessages] = useState([]);
@@ -127,6 +128,7 @@ const Actividad = ({ handleClose, show, id }) => {
   }, [id]);
 
   return (
+    <Portal>
     <div className={`${showHideClassName} ${animationClassName}`} onClick={handleCloseOutside}>
       <div className="bg-opacity-25 p-8 rounded shadow-md max-w-screen-lg w-full my-8 mx-auto" style={{ marginTop: '20vh' }}>
         <header className="flex justify-between items-center mb-4">
@@ -219,6 +221,7 @@ const Actividad = ({ handleClose, show, id }) => {
         )}
       </div>
     </div>
+    </Portal>
   );
   
   
