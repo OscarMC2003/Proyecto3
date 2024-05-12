@@ -4,8 +4,9 @@ import Buscador from '../buscador/buscador'
 import Lista from '../lista/lista'
 import { useRouter } from 'next/navigation'
 import user from '../notoken_redirect/notoken_redirect'
+import CrearForo from './crearForo';
 
-const Foros = ({IdUserIniciado}) => {
+const Foros = ({IdUserIniciado, handleClose, show}) => {
 
     const router = useRouter()
     // Estados para manejar la visibilidad de las opciones
@@ -45,7 +46,11 @@ const Foros = ({IdUserIniciado}) => {
         router.push('/crearForo');
     };
 
-    
+    const [showCrearForo, setShowCrearForo] = useState(false);
+
+    const togglePopupCrearForo = () => {
+        setShowCrearForo(!showCrearForo);
+    };
     
     useEffect(() => {
         async function LlamadaForos() {
@@ -77,7 +82,7 @@ const Foros = ({IdUserIniciado}) => {
             
             <header className="fixed top-0 left-0 w-full h-20 bg-gray-300 p-2.5 text-center z-10 flex justify-between items-center" style={{background: '#0a1229'}}>
 
-                <button onClick={handleCambioAInicio} type="button" class="w-13 h-12 flex items-center justify-center rounded-md bg-gray-200 hover:bg-gray-300">
+                <button onClick={handleCambioAInicio} type="button" class="w-13 h-12 flex items-center justify-center rounded-md">
                 <img src="/images/Logo U-Tad.png" alt="Imagen Izquierda" class="w-full h-full object-cover " />
                 </button>
 
@@ -179,7 +184,8 @@ const Foros = ({IdUserIniciado}) => {
                     </div>
                    
                     <div className='flex justify-center items-center'>
-                        <button onClick={handleCrearForo} className="mt-20  bg-blue-500 hover:bg-blue-700 text-white p-2.5 rounded cursor-pointer mr-2.5 transition duration-300 ease-in-out">Crear Foro</button>
+                        <button onClick={togglePopupCrearForo} className="mt-20  bg-blue-500 hover:bg-blue-700 text-white p-2.5 rounded cursor-pointer mr-2.5 transition duration-300 ease-in-out">Crear foro</button>
+                        {showCrearForo && <CrearForo handleClose={() => togglePopupCrearForo()} show={showCrearForo} />}
                     </div>
 
                 </div>
