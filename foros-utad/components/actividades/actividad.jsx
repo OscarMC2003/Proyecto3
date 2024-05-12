@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import user from '../notoken_redirect/notoken_redirect'
+import Portal from '@/utils/portal';
 
 import { getUserId } from '@/utils/user';
 
