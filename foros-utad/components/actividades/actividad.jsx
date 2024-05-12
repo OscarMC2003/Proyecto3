@@ -16,7 +16,7 @@ const Actividad = ({ handleClose, show, id }) => {
 
   const handleJoinActivity = async () => {
     console.log("ID de la actividad al unirse:", id);
-
+  
     try {
       const userId = await getUserId((localStorage.getItem('token')))
       const getUser = await fetch(`http://localhost:9000/api/users/${userId}`, {
@@ -24,10 +24,10 @@ const Actividad = ({ handleClose, show, id }) => {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       });
-
+  
       const userData = await getUser.json();
       console.log("Datos del usuario:", userData);
-
+  
       const response = await fetch(`http://localhost:9000/api/actividades/joinActivity/${id}`, {
         method: 'PUT',
         headers: {
@@ -41,14 +41,18 @@ const Actividad = ({ handleClose, show, id }) => {
         alert(`No se pudo unirse a la actividad: ${errorMessage.message}`);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
+      
+      const data = await response.json();
+      setActividad(data.actividad);
+      
       alert('Te has unido a la actividad exitosamente.');
-      //const data = await response.json();
-
+     
+  
     } catch (error) {
       console.error('Error al obtener la lista de usuarios:', error);
     }
   };
+  
 
 
 
