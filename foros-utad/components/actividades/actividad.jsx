@@ -29,7 +29,7 @@ const Actividad = ({ handleClose, show, id }) => {
       console.log("Datos del usuario:", userData);
   
       const response = await fetch(`http://localhost:9000/api/actividades/joinActivity/${id}`, {
-        method: 'PUT',
+        method: 'PATCH',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json'
