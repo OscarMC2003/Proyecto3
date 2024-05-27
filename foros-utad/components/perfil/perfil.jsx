@@ -4,7 +4,7 @@ import user from '../notoken_redirect/notoken_redirect'
 import Actividad from "@/components/actividades/actividad"; // Mantener la importación del componente Actividad
 import { useRouter } from 'next/navigation'
 
-const Perfil = ({IdUserIniciado}) => {
+const Perfil = ({ IdUserIniciado }) => {
 
   const [contenidoVisible, setContenidoVisible] = useState("Texto 1");
   const [searchTerm, setSearchTerm] = useState("");
@@ -25,11 +25,11 @@ const Perfil = ({IdUserIniciado}) => {
     if (user && user.actividades) {
       console.log("usuarios:" + user.actividades);
       console.log("usuarios:" + user.actividades.length);
-      for(var i = 0; i < user.actividades.length; i++){
+      for (var i = 0; i < user.actividades.length; i++) {
         fetchDataActividades(i);
       }
       console.log("actividades" + actividad.length);
-      
+
       setNombre(user.name);
       setTexto(user.email);
     } else {
@@ -37,11 +37,11 @@ const Perfil = ({IdUserIniciado}) => {
     }
   }
 
-  const handleCambioActividades = () =>{
+  const handleCambioActividades = () => {
     router.push(`/actividades?id=${IdUserIniciado}`);
   }
 
-  const handleCambioAForos = () =>{
+  const handleCambioAForos = () => {
     router.push(`/foroAlumnos?id=${IdUserIniciado}`);
   }
 
@@ -62,10 +62,10 @@ const Perfil = ({IdUserIniciado}) => {
       console.log("Error al llamar a las actividades:", error);
     }
   };
-      
+
   useEffect(() => {
 
-    
+
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token')
@@ -89,7 +89,7 @@ const Perfil = ({IdUserIniciado}) => {
   useEffect(() => {
     //se que es una aberración, pero no se me ocurre otra forma de evitar que se ejute dos veces
     if (user) {
-      if(antibug == false){
+      if (antibug == false) {
         filterUser();
         setAntibug(true);
       }
@@ -110,37 +110,37 @@ const Perfil = ({IdUserIniciado}) => {
   };
 
   const handleCambios = async (e) => {
-      try {
-        const response = await fetch(`${window.location.origin.slice(0, -5)}:9000/api/users/cambios/${IdUserIniciado}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            name: nombre,
-            email: texto
-          })
-        });
-        if (response.ok) {
-          console.log("Usuario modificado exitosamente");
-          // Aquí puedes realizar alguna acción adicional después de modificar el usuario
-        } else {
-          console.log("Error al modificar el usuario");
-        }
-      } catch (error) {
-        console.log("Error al llamar a la API:", error);
+    try {
+      const response = await fetch(`${window.location.origin.slice(0, -5)}:9000/api/users/cambios/${IdUserIniciado}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: nombre,
+          email: texto
+        })
+      });
+      if (response.ok) {
+        console.log("Usuario modificado exitosamente");
+        // Aquí puedes realizar alguna acción adicional después de modificar el usuario
+      } else {
+        console.log("Error al modificar el usuario");
       }
-    };
+    } catch (error) {
+      console.log("Error al llamar a la API:", error);
+    }
+  };
 
-    const [showPopup, setShowPopup] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
-    // const togglePopup = () => {
-    //   setShowPopup(!showPopup);
-    // };
-  
-    const togglePopup = (actividadId) => {
-      setShowPopup(actividadId === showPopup ? null : actividadId);
-    };
+  // const togglePopup = () => {
+  //   setShowPopup(!showPopup);
+  // };
+
+  const togglePopup = (actividadId) => {
+    setShowPopup(actividadId === showPopup ? null : actividadId);
+  };
 
 
   return (
@@ -148,33 +148,34 @@ const Perfil = ({IdUserIniciado}) => {
       <header style={{ position: 'fixed', top: 0, left: 0, width: '100%', background: '#0A1229', padding: '10px', textAlign: 'center', zIndex: 1000, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <img src="/images/Logo U-Tad.png" alt="Imagen Izquierda" style={{ width: '75px', height: 'auto' }} />
         <div style={{ flex: 1 }}></div>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <button onClick={handleCambioActividades} style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Actividades</button>
-          <button onClick={handleCambioAForos} style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Comunidad de Alumnos</button>
+        <div className="flex items-center">
+          <button onClick={handleCambioActividades} className="bg-blue-700 text-white px-4 py-2 rounded-md mr-2.5">Actividades</button>
+          <button onClick={handleCambioAForos} className="bg-blue-700 text-white px-4 py-2 rounded-md mr-2.5">Comunidad de Alumnos</button>
         </div>
+
       </header>
 
 
 
       <div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
-      <div style={{ flex: '0 0 30%', padding: '20px', background: 'white', marginLeft: 0, position: 'fixed', left: 0, top: '60px', bottom: 0, width: '30%' }}>
+        <div style={{ flex: '0 0 30%', padding: '20px', background: 'white', marginLeft: 0, position: 'fixed', left: 0, top: '60px', bottom: 0, width: '30%' }}>
           <img src="/images/userVacio.png" alt="Imagen Perfil" style={{ width: '45%', height: 'auto', margin: '0 auto' }} />
           <h1 className="montExtra" style={{ textAlign: 'center', marginBottom: '20px' }}>{nombre}</h1>
           <p className="montSEMI2" style={{ color: '#333', textAlign: 'center' }}>{texto}</p>
           <button style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginTop: '20px', width: '100%', display: 'block' }} onClick={handleEditarPerfil}>Editar perfil</button>
           {mostrarEditarPerfil && (
             <form onSubmit={handleEdit}>
-                <div className="mb-4">
-                    <label htmlFor="email" className="block mb-2 text-sm font-medium">Nombre de usuario:</label>
-                    <input onChange={(e) => setNombre(e.target.value)} id="email" name="email" className="shadow-sm border-gray-300 rounded-md w-full py-2 px-4  bg-gray-100" placeholder="Nuevo nombre" />
-                </div>
-                <div className="flex items-start">
-                    <label htmlFor="password" className="block mb-2 text-sm font-medium">Email</label>
-                </div>
-                <input type="email" onChange={(e) => setTexto(e.target.value)} id="password" name="password" className="shadow-sm border-gray-300 rounded-md w-full py-2 px-4 mb-8 bg-gray-100" placeholder="email" />
-                <button type="submit" className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-md w-full">Realizar cambios</button>
+              <div className="mb-4">
+                <label htmlFor="email" className="block mb-2 text-sm font-medium">Nombre de usuario:</label>
+                <input onChange={(e) => setNombre(e.target.value)} id="email" name="email" className="shadow-sm border-gray-300 rounded-md w-full py-2 px-4  bg-gray-100" placeholder="Nuevo nombre" />
+              </div>
+              <div className="flex items-start">
+                <label htmlFor="password" className="block mb-2 text-sm font-medium">Email</label>
+              </div>
+              <input type="email" onChange={(e) => setTexto(e.target.value)} id="password" name="password" className="shadow-sm border-gray-300 rounded-md w-full py-2 px-4 mb-8 bg-gray-100" placeholder="email" />
+              <button type="submit" className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-md w-full">Realizar cambios</button>
             </form>
-              
+
           )}
         </div>
 
@@ -187,24 +188,24 @@ const Perfil = ({IdUserIniciado}) => {
             <p className="montBlack" style={{ cursor: 'pointer', color: contenidoVisible === "Texto 1" ? 'black' : 'black', textDecoration: contenidoVisible === "Texto 1" ? 'underline' : 'none' }} onClick={() => setContenidoVisible("Texto 1")}>Actividades guardadas</p>
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-              <>
-               {Array.isArray(actividad) && actividad.filter(actividades => actividades.asunto.toLowerCase().includes(searchTerm.toLowerCase())).map((actividades) => (
-                  <li key={actividades._id} className="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md grid-cols-2 gap-4">
-                    <div>
-                      <button onClick={() => togglePopup(actividades._id)}>
-                        <div className="flex flex-col items-center justify-center">
-                          <img src="images/cuadrado.png" alt="Actividad 1" className="w-full h-auto max-w-md rounded-lg shadow-md col-span-2" />
-                          <div className="text-center col-span-2">
-                            <h2 className="text-xl font-bold">{actividades.asunto}</h2>
-                            <p className="text-gray-700">{actividades.objetivo}</p>
-                          </div>
+            <>
+              {Array.isArray(actividad) && actividad.filter(actividades => actividades.asunto.toLowerCase().includes(searchTerm.toLowerCase())).map((actividades) => (
+                <li key={actividades._id} className="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md grid-cols-2 gap-4">
+                  <div>
+                    <button onClick={() => togglePopup(actividades._id)}>
+                      <div className="flex flex-col items-center justify-center">
+                        <img src="images/cuadrado.png" alt="Actividad 1" className="w-full h-auto max-w-md rounded-lg shadow-md col-span-2" />
+                        <div className="text-center col-span-2">
+                          <h2 className="text-xl font-bold">{actividades.asunto}</h2>
+                          <p className="text-gray-700">{actividades.objetivo}</p>
                         </div>
-                      </button>
-                      {showPopup === actividades._id && <Actividad handleClose={() => togglePopup(actividades._id)} show={showPopup} id={actividades._id} />}
-                    </div>
-                  </li>
+                      </div>
+                    </button>
+                    {showPopup === actividades._id && <Actividad handleClose={() => togglePopup(actividades._id)} show={showPopup} id={actividades._id} />}
+                  </div>
+                </li>
               ))}
-              </>
+            </>
           </div>
         </div>
       </div>
