@@ -27,7 +27,7 @@ const Actividades = ({ IdUserIniciado }) => {
   //esto lo tendra que recibir del backend
   let [actividades, setActividades] = useState([]);
 
-  //ya filtrados por tipo de activuidades
+  //ya filtrados por tipo de actividades
   const [actividadesCoord, setActividadesCoord] = useState([]);
   const [actividadesAlum, setActividadesAlum] = useState([]);
   const [actividadesPriv, setActividadesPriv] = useState([]);
@@ -52,6 +52,7 @@ const Actividades = ({ IdUserIniciado }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [showCrearActividadPopup, setShowCrearActividadPopup] = useState(false);
 
+
   //Gestion aleatoria de imagenes
 
   const getImageUrl = (id_foto) => {
@@ -61,9 +62,6 @@ const Actividades = ({ IdUserIniciado }) => {
     return '/images/cuadrado.png'; // Imagen por defecto
   }
 
-  // const togglePopup = () => {
-  //   setShowPopup(!showPopup);
-  // };
 
   const togglePopup = (actividadId) => {
     setShowPopup(actividadId === showPopup ? null : actividadId);
@@ -113,7 +111,7 @@ const Actividades = ({ IdUserIniciado }) => {
         
         console.log("response actividades" + response);
         const data = await response_to_array(response);
-  
+
         setActividades(data);
       } catch (error) {
         console.log("Error al llamar a las actividades:", error);
@@ -122,6 +120,7 @@ const Actividades = ({ IdUserIniciado }) => {
     
     fetchData();
   }, []);
+
 
   useEffect(() => {
     const filterActividades = () => {
@@ -154,11 +153,6 @@ const Actividades = ({ IdUserIniciado }) => {
     router.push(`/crearActividad?id=${IdUserIniciado}`);
   };
 
-  /*const handleIrActividad = (identificadorActividad) =>{
-    router.push(`/actividad?id=${IdUserIniciado}&acti=${identificadorActividad}`)
-      
-  }*/
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
 
@@ -179,8 +173,6 @@ const Actividades = ({ IdUserIniciado }) => {
             <img src="/images/userVacio.png" alt="Imagen Derecha" className="w-12 h-auto rounded-full border-2 border-blue-700" />
           </button>
         </div>
-
-
       </header>
 
       {/* Resto del contenido de la página */}
@@ -215,6 +207,7 @@ const Actividades = ({ IdUserIniciado }) => {
                     <li key={index}>{opcion}</li>
                   ))}
                 </ul>
+                
               )}
             </div>
 
@@ -271,61 +264,53 @@ const Actividades = ({ IdUserIniciado }) => {
             {/* Estructura para mostrar actividades */}
             {contenidoVisible === "Texto 1" && (
               <>
-                {/* {Array.from({ length: 10 }, (_, index) => (
-                  <div key={index} style={{ width: '45%', margin: '10px 0', border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
-                    <img src="/images/cuadrado.png" alt={`Actividad ${index + 1}`} style={{ width: '100%', height: 'auto' }} />
-                    <p className="montRegular" style={{ color: '#333' }}>Actividad {index + 1}</p>
-                    <p className="montLight" style={{ color: '#333' }}>Código explicativo</p>
-                  </div>
-                ))} */}
-
-
-
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-                  {Array.isArray(actividadesCoord) && actividadesCoord.map((actividades) => (
+                  {Array.isArray(actividadesCoord) && actividadesCoord.map((actividad) => (
 
-                    <li key={actividades._id} className="flex flex-col justify-between list-none p-2 bg-gray-200 rounded-lg shadow-md h-auto md:h-64">
-                      {console.log("ID de la actividad:", actividades._id)}
-                      <button onClick={() => togglePopup(actividades._id)} className="flex flex-col items-center justify-center w-full h-full">
+                    <li key={actividad._id} className="flex flex-col justify-between list-none p-2 bg-gray-200 rounded-lg shadow-md h-auto md:h-64">
+                      {console.log("ID de la actividad:", actividad._id)}
+                      <button onClick={() => togglePopup(actividad._id)} className="flex flex-col items-center justify-center w-full h-full">
+
 
                       <img src={getImageUrl(actividades.id_foto)} alt="Actividad" className="w-full h-32 object-cover rounded-lg shadow-md" />
 
+
                         <div className="text-center mt-2 px-2">
-                          <h2 className="text-xl font-bold line-clamp-1">{actividades.asunto}</h2>
-                          <p className="text-gray-700 text-sm mt-3 line-clamp-3 h-14">{actividades.objetivo}</p>
+                          <h2 className="text-xl font-bold line-clamp-1">{actividad.asunto}</h2>
+                          <p className="text-gray-700 text-sm mt-3 line-clamp-3 h-14">{actividad.objetivo}</p>
                         </div>
 
                       </button>
 
-                      {showPopup === actividades._id && <Actividad handleClose={() => togglePopup(actividades._id)} show={showPopup} id={actividades._id} />}
+                      {showPopup === actividad._id && <Actividad handleClose={() => togglePopup(actividad._id)} show={showPopup} id={actividad._id} />}
 
                     </li>
                   ))}
                 </div>
-
-
               </>
             )}
 
             {contenidoVisible === "Texto 2" && (
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {Array.isArray(actividadesAlum) && actividadesAlum.map((actividades) => (
-                    <li key={actividades._id} className="flex flex-col justify-between list-none p-2 bg-gray-200 rounded-lg shadow-md h-auto md:h-64">
+                  {Array.isArray(actividadesAlum) && actividadesAlum.map((actividad) => (
+                    <li key={actividad._id} className="flex flex-col justify-between list-none p-2 bg-gray-200 rounded-lg shadow-md h-auto md:h-64">
 
-                      <button onClick={() => togglePopup(actividades._id)} className="flex flex-col items-center justify-center w-full h-full">
+                      <button onClick={() => togglePopup(actividad._id)} className="flex flex-col items-center justify-center w-full h-full">
+
 
                       <img src={getImageUrl(actividades.id_foto)} alt="Actividad" className="w-full h-32 object-cover rounded-lg shadow-md" />
 
+
                         <div className="text-center mt-2 px-2">
-                          <h2 className="text-xl font-bold line-clamp-1">{actividades.asunto}</h2>
-                          <p className="text-gray-700 text-sm mt-3 line-clamp-3 h-14">{actividades.objetivo}</p>
+                          <h2 className="text-xl font-bold line-clamp-1">{actividad.asunto}</h2>
+                          <p className="text-gray-700 text-sm mt-3 line-clamp-3 h-14">{actividad.objetivo}</p>
                         </div>
 
                       </button>
 
-                      {showPopup === actividades._id && <Actividad handleClose={() => togglePopup(actividades._id)} show={showPopup} id={actividades._id} />}
+                      {showPopup === actividad._id && <Actividad handleClose={() => togglePopup(actividad._id)} show={showPopup} id={actividad._id} />}
 
                     </li>
                   ))}
@@ -336,21 +321,23 @@ const Actividades = ({ IdUserIniciado }) => {
             {contenidoVisible === "Texto 3" && (
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {Array.isArray(actividadesPriv) && actividadesPriv.map((actividades) => (
-                    <li key={actividades._id} className="flex flex-col justify-between list-none p-2 bg-gray-200 rounded-lg shadow-md h-auto md:h-64">
+                  {Array.isArray(actividadesPriv) && actividadesPriv.map((actividad) => (
+                    <li key={actividad._id} className="flex flex-col justify-between list-none p-2 bg-gray-200 rounded-lg shadow-md h-auto md:h-64">
 
-                      <button onClick={() => togglePopup(actividades._id)} className="flex flex-col items-center justify-center w-full h-full">
+                      <button onClick={() => togglePopup(actividad._id)} className="flex flex-col items-center justify-center w-full h-full">
+
 
                       <img src={getImageUrl(actividades.id_foto)} alt="Actividad" className="w-full h-32 object-cover rounded-lg shadow-md" />
 
+
                         <div className="text-center mt-2 px-2">
-                          <h2 className="text-xl font-bold line-clamp-1">{actividades.asunto}</h2>
-                          <p className="text-gray-700 text-sm mt-3 line-clamp-3 h-14">{actividades.objetivo}</p>
+                          <h2 className="text-xl font-bold line-clamp-1">{actividad.asunto}</h2>
+                          <p className="text-gray-700 text-sm mt-3 line-clamp-3 h-14">{actividad.objetivo}</p>
                         </div>
 
                       </button>
 
-                      {showPopup === actividades._id && <Actividad handleClose={() => togglePopup(actividades._id)} show={showPopup} id={actividades._id} />}
+                      {showPopup === actividad._id && <Actividad handleClose={() => togglePopup(actividad._id)} show={showPopup} id={actividad._id} />}
 
                     </li>
                   ))}
@@ -360,6 +347,7 @@ const Actividades = ({ IdUserIniciado }) => {
           </div>
         </div>
       </div>
+      
     </div>
   );
 };
