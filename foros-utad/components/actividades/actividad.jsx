@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import user from '../notoken_redirect/notoken_redirect'
 import Portal from '@/utils/portal';
+import fotos from '@/utils/fotos';
+
 
 import { getUserId } from '@/utils/user';
 
@@ -53,27 +55,26 @@ const Actividad = ({ handleClose, show, id }) => {
     }
   };
   
-
-
-
-
   const deleteactividad = async (id) => {
-    console.log("deleteactividad " + id);
+    console.log("deleteActividad " + id);
     const token = localStorage.getItem('token')
     const options = {
+      method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
       }
-    }
-    const respuesta = await fetch(window.location.origin.slice(0, -5) + ':9000/api/actividades/' + id, { method: "DELETE" }, options);
-    if (respuesta) {
+    };
+    const respuesta = await fetch(`${window.location.origin.slice(0, -5)}:9000/api/actividades/${id}`, options);
+    if (respuesta.ok) {
       const datos = await respuesta.text();
       console.log(datos);
       window.location.reload(false);
     } else {
-      console.error("borrado no ok");
+      console.error("Error al borrar la actividad");
     }
   }
+  
   const editactividad = () => {
     document.getElementById("actividad_asunto").setAttribute("contenteditable", "true");
     document.getElementById("actividad_objetivo").setAttribute("contenteditable", "true");
@@ -173,6 +174,13 @@ const Actividad = ({ handleClose, show, id }) => {
     fetchData();
   }, [id]);
 
+  const getImageUrl = () => {
+    if (actividad.id_foto !== undefined && actividad.id_foto >= 0 && actividad.id_foto < fotos.length) {
+      return fotos[actividad.id_foto];
+    }
+    return '/images/cuadrado.png'; // Imagen por defecto
+  };
+
   return (
     <Portal>
     <div className={`${showHideClassName} ${animationClassName}`} onClick={handleCloseOutside}>
@@ -184,7 +192,7 @@ const Actividad = ({ handleClose, show, id }) => {
           <div className="flex flex-col h-full">
             <div className="max-w-full mx-auto my-12">
               <div className="shadow-lg rounded-lg overflow-hidden">
-                <img src="/images/cuadrado.png" alt="Actividad" className="w-full object-cover" style={{ height: '250px' }} />
+              <img src={getImageUrl()} alt="Actividad" className="w-full object-cover" style={{ height: '250px' }} />
                 <div className="bg-white p-6 flex flex-col md:flex-row">
                   <div className="flex-grow w-2/3">
                     <h1 contenteditable="false" id="actividad_asunto" className="text-2xl font-bold mb-4 montBlack">{actividad.asunto}</h1>
