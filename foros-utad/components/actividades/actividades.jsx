@@ -7,6 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import user from '../notoken_redirect/notoken_redirect'
 import Actividad from "@/components/actividades/actividad"; // Mantener la importación del componente Actividad
 import CrearActividad from '@/components/actividades/crearActividad';
+import fotos from '@/utils/fotos';
 
 async function response_to_array(resp) {
   if (resp && resp.json) {
@@ -53,19 +54,12 @@ const Actividades = ({ IdUserIniciado }) => {
 
   //Gestion aleatoria de imagenes
 
-  const imageUrls = [
-    "/images/actividades/base1.jpeg",
-    "/images/actividades/base2.jpeg",
-    "/images/actividades/base3.jpeg",
-    "/images/actividades/base4.jpeg",
-    "/images/actividades/base5.jpeg",
-
-  ];
-
-  const getRandomImageUrl = () => {
-    const randomIndex = Math.floor(Math.random() * imageUrls.length);
-    return imageUrls[randomIndex];
-  };
+  const getImageUrl = (id_foto) => {
+  if (id_foto !== undefined && id_foto >= 0 && id_foto < fotos.length) {
+    return fotos[id_foto];
+  }
+    return '/images/cuadrado.png'; // Imagen por defecto
+  }
 
   // const togglePopup = () => {
   //   setShowPopup(!showPopup);
@@ -106,7 +100,6 @@ const Actividades = ({ IdUserIniciado }) => {
   }, [fechaSeleccionada, actividades]);
 
   useEffect(() => {
-
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token')
@@ -115,23 +108,18 @@ const Actividades = ({ IdUserIniciado }) => {
             'Authorization': `Bearer ${token}`
           }
         }
-
+  
         const response = await fetch(window.location.origin.slice(0, -5) + ':9000/api/actividades', options);
-
+        
         console.log("response actividades" + response);
         const data = await response_to_array(response);
-
-        const enrichedData = data.map(actividad => ({
-          ...actividad,
-          imageUrl: getRandomImageUrl(), // Añadir una URL de imagen aleatoria
-        }));
-
-        setActividades(enrichedData);
+  
+        setActividades(data);
       } catch (error) {
         console.log("Error al llamar a las actividades:", error);
       }
     };
-
+    
     fetchData();
   }, []);
 
@@ -301,7 +289,7 @@ const Actividades = ({ IdUserIniciado }) => {
                       {console.log("ID de la actividad:", actividades._id)}
                       <button onClick={() => togglePopup(actividades._id)} className="flex flex-col items-center justify-center w-full h-full">
 
-                        <img src={actividades.imageUrl} alt="Actividad 1" className="w-full h-32 object-cover rounded-lg shadow-md" />
+                      <img src={getImageUrl(actividades.id_foto)} alt="Actividad" className="w-full h-32 object-cover rounded-lg shadow-md" />
 
                         <div className="text-center mt-2 px-2">
                           <h2 className="text-xl font-bold line-clamp-1">{actividades.asunto}</h2>
@@ -328,7 +316,7 @@ const Actividades = ({ IdUserIniciado }) => {
 
                       <button onClick={() => togglePopup(actividades._id)} className="flex flex-col items-center justify-center w-full h-full">
 
-                        <img src="images/cuadrado.png" alt="Actividad 1" className="w-full h-32 object-cover rounded-lg shadow-md" />
+                      <img src={getImageUrl(actividades.id_foto)} alt="Actividad" className="w-full h-32 object-cover rounded-lg shadow-md" />
 
                         <div className="text-center mt-2 px-2">
                           <h2 className="text-xl font-bold line-clamp-1">{actividades.asunto}</h2>
@@ -353,7 +341,7 @@ const Actividades = ({ IdUserIniciado }) => {
 
                       <button onClick={() => togglePopup(actividades._id)} className="flex flex-col items-center justify-center w-full h-full">
 
-                        <img src="images/cuadrado.png" alt="Actividad 1" className="w-full h-32 object-cover rounded-lg shadow-md" />
+                      <img src={getImageUrl(actividades.id_foto)} alt="Actividad" className="w-full h-32 object-cover rounded-lg shadow-md" />
 
                         <div className="text-center mt-2 px-2">
                           <h2 className="text-xl font-bold line-clamp-1">{actividades.asunto}</h2>
