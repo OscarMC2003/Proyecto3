@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import user from '../notoken_redirect/notoken_redirect'
 import Portal from '@/utils/portal';
+import fotos from '@/utils/fotos';
 
 import { getUserId } from '@/utils/user';
 
@@ -53,6 +54,12 @@ const Actividad = ({ handleClose, show, id }) => {
     }
   };
   
+  const getImageUrl = () => {
+    if (actividad.id_foto !== undefined && actividad.id_foto >= 0 && actividad.id_foto < fotos.length) {
+      return fotos[actividad.id_foto];
+    }
+    return '/images/cuadrado.png'; // Imagen por defecto
+  };
 
 
 
@@ -184,7 +191,7 @@ const Actividad = ({ handleClose, show, id }) => {
           <div className="flex flex-col h-full">
             <div className="max-w-full mx-auto my-12">
               <div className="shadow-lg rounded-lg overflow-hidden">
-                <img src="/images/cuadrado.png" alt="Actividad" className="w-full object-cover" style={{ height: '250px' }} />
+              <img src={getImageUrl()} alt="Actividad" className="w-full object-cover" style={{ height: '250px' }} />
                 <div className="bg-white p-6 flex flex-col md:flex-row">
                   <div className="flex-grow w-2/3">
                     <h1 contenteditable="false" id="actividad_asunto" className="text-2xl font-bold mb-4 montBlack">{actividad.asunto}</h1>

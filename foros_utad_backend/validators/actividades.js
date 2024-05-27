@@ -10,6 +10,7 @@ const validatorCreateItem = [
     check("documentoDescriptivo").exists().notEmpty(),
     check("asistentesRequeridos").exists().notEmpty(),
     check("espacio").exists().optional(),
+    check("id_foto").exists().optional(),
     check("fecha").notEmpty(),
     check("hora").notEmpty(),
     (req, res, next) => validateResults(req, res, next) //captura peticion, coge la respuesta y la manda al siguiente
