@@ -53,7 +53,7 @@ function Inicio() {
   
       {/* Carrusel de fotos en la mitad derecha */}
       <div class="w-1/2 flex flex-col max-h-full">
-        <Carousel images={imageUrls} style="width" />
+        <Carousel images={imageUrls} />
       </div>
   
     </div>
