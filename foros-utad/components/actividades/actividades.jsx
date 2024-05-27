@@ -203,6 +203,7 @@ const Actividades = ({ IdUserIniciado }) => {
                     <li key={index}>{opcion}</li>
                   ))}
                 </ul>
+                
               )}
             </div>
 
