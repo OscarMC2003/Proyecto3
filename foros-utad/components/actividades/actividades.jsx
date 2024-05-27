@@ -52,12 +52,16 @@ const Actividades = ({ IdUserIniciado }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [showCrearActividadPopup, setShowCrearActividadPopup] = useState(false);
 
+
+  //Gestion aleatoria de imagenes
+
   const getImageUrl = (id_foto) => {
-    if (id_foto !== undefined && id_foto >= 0 && id_foto < fotos.length) {
-      return fotos[id_foto];
-    }
+  if (id_foto !== undefined && id_foto >= 0 && id_foto < fotos.length) {
+    return fotos[id_foto];
+  }
     return '/images/cuadrado.png'; // Imagen por defecto
-  };
+  }
+
 
   const togglePopup = (actividadId) => {
     setShowPopup(actividadId === showPopup ? null : actividadId);
@@ -102,9 +106,9 @@ const Actividades = ({ IdUserIniciado }) => {
             'Authorization': `Bearer ${token}`
           }
         }
-
+  
         const response = await fetch(window.location.origin.slice(0, -5) + ':9000/api/actividades', options);
-
+        
         console.log("response actividades" + response);
         const data = await response_to_array(response);
 
@@ -113,7 +117,7 @@ const Actividades = ({ IdUserIniciado }) => {
         console.log("Error al llamar a las actividades:", error);
       }
     };
-
+    
     fetchData();
   }, []);
 
@@ -268,7 +272,9 @@ const Actividades = ({ IdUserIniciado }) => {
                       {console.log("ID de la actividad:", actividad._id)}
                       <button onClick={() => togglePopup(actividad._id)} className="flex flex-col items-center justify-center w-full h-full">
 
-                        <img src={getImageUrl(actividad.id_foto)} alt="Actividad" className="w-full h-32 object-cover rounded-lg shadow-md" />
+
+                      <img src={getImageUrl(actividades.id_foto)} alt="Actividad" className="w-full h-32 object-cover rounded-lg shadow-md" />
+
 
                         <div className="text-center mt-2 px-2">
                           <h2 className="text-xl font-bold line-clamp-1">{actividad.asunto}</h2>
@@ -293,7 +299,9 @@ const Actividades = ({ IdUserIniciado }) => {
 
                       <button onClick={() => togglePopup(actividad._id)} className="flex flex-col items-center justify-center w-full h-full">
 
-                        <img src={getImageUrl(actividad.id_foto)} alt="Actividad" className="w-full h-32 object-cover rounded-lg shadow-md" />
+
+                      <img src={getImageUrl(actividades.id_foto)} alt="Actividad" className="w-full h-32 object-cover rounded-lg shadow-md" />
+
 
                         <div className="text-center mt-2 px-2">
                           <h2 className="text-xl font-bold line-clamp-1">{actividad.asunto}</h2>
@@ -318,7 +326,9 @@ const Actividades = ({ IdUserIniciado }) => {
 
                       <button onClick={() => togglePopup(actividad._id)} className="flex flex-col items-center justify-center w-full h-full">
 
-                        <img src={getImageUrl(actividad.id_foto)} alt="Actividad" className="w-full h-32 object-cover rounded-lg shadow-md" />
+
+                      <img src={getImageUrl(actividades.id_foto)} alt="Actividad" className="w-full h-32 object-cover rounded-lg shadow-md" />
+
 
                         <div className="text-center mt-2 px-2">
                           <h2 className="text-xl font-bold line-clamp-1">{actividad.asunto}</h2>
