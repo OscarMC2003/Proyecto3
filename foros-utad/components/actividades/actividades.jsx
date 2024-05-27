@@ -336,6 +336,7 @@ const Actividades = ({ IdUserIniciado }) => {
           </div>
         </div>
       </div>
+      
     </div>
   );
 };
