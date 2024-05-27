@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 
-const { checkUserAlreadyJoined, addActivityUserMiddleware } = require ("../middleware/actividades")
+const { checkUserAlreadyJoined } = require ("../middleware/actividades")
 const { getItems, getItem, createItem, updateItem, deleteItem, addActivityUser, addAsistentesOpcionales } = require("../controllers/actividades")
 const { validatorCreateItem, validatorAddActivity } = require("../validators/actividades")
 const authMiddleware = require("../middleware/session")
@@ -20,7 +20,7 @@ router.post("/createActivities", authMiddleware, createItem)
 router.put("/:_id", authMiddleware, updateItem)
 
 //RUTA PARA UNIRSE A UNA ACTIVIDAD
-router.patch('/joinActivity/:id', authMiddleware,checkUserAlreadyJoined,addActivityUserMiddleware, addAsistentesOpcionales )
+router.put('/joinActivity/:id', authMiddleware,checkUserAlreadyJoined, addAsistentesOpcionales )
 
 // RUTA PARA AÑADIR UNA ACTIVIDAD A UN USUARIO
 router.patch("/:_id", authMiddleware, validatorAddActivity, addActivityUser)
