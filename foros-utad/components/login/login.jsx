@@ -79,42 +79,76 @@ export default function Login() {
 
     }
 
-
     return (
-        <>
-            <div className="container mx-auto">
-                <div className="flex flex-col justify-center items-center h-screen">
-                    <div className="bg-white shadow-md rounded-lg p-8">
-                        <div className="flex justify-center mb-5">
-                            <img src="/images/Logo U-Tad Login.png" alt="Cuadrado DEFAULT" />
-                        </div>
+        // <>
+        //     <div className="container mx-auto">
+        //         <div className="flex flex-col justify-center items-center h-screen">
+        //             <div className="bg-white shadow-md rounded-lg p-8">
+        //                 <div className="flex justify-center mb-5">
+        //                     <img src="/images/Logo U-Tad Login.png" alt="Cuadrado DEFAULT" />
+        //                 </div>
 
-                        <div>
-                            <h1 className="text-2xl font-bold flex justify-center mb-10 montBlack">Iniciar sesión</h1>
-                        </div>
-                        <form onSubmit={handleSubmit}>
-                            <div className="mb-4">
-                                <label htmlFor="email" className="block mb-2 text-sm font-medium">Email de U-Tad</label>
-                                <input type="email" onChange={(e) => setEmail(e.target.value)} id="email" name="email" className="shadow-sm border-gray-300 rounded-md w-full py-2 px-4  bg-gray-100" placeholder="ejemplo@live.u-tad.com" />
-                            </div>
-                            <div className="mb-4 flex items-start">
-                                <label htmlFor="password" className="block mb-2 text-sm font-medium">Contraseña</label>
-                                <div className="ml-3">
-                                    {/* Introducir Link a sitio de recuperacion de contraseña */}
-                                    <Link href="/recu" className="montLight">¿Has olvidado tu contraseña?</Link>
-                                </div>
-                            </div>
-                            <input type="password" onChange={(e) => setPassword(e.target.value)} id="password" name="password" className="shadow-sm border-gray-300 rounded-md w-full py-2 px-4 mb-8 bg-gray-100" placeholder="••••••••" />
-                            <button type="submit" className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-md w-full">Iniciar sesión</button>
-                        </form>
-                        <div className="mt-10 flex justify-center">
-                            {/* Introducir link de sitio de ayuda */}
-                            <p className="montLight">¿Necesitas ayuda? <Link href="https://www.youtube.com/" className="text-blue-500 hover:underline letraPeque">Escríbenos</Link></p>
+        //                 <div>
+        //                     <h1 className="text-2xl font-bold flex justify-center mb-10 montBlack">Iniciar sesión</h1>
+        //                 </div>
+        //                 <form onSubmit={handleSubmit}>
+        //                     <div className="mb-4">
+        //                         <label htmlFor="email" className="block mb-2 text-sm font-medium">Email de U-Tad</label>
+        //                         <input type="email" onChange={(e) => setEmail(e.target.value)} id="email" name="email" className="shadow-sm border-gray-300 rounded-md w-full py-2 px-4  bg-gray-100" placeholder="ejemplo@live.u-tad.com" />
+        //                     </div>
+        //                     <div className="mb-4 flex items-start">
+        //                         <label htmlFor="password" className="block mb-2 text-sm font-medium">Contraseña</label>
+        //                         <div className="ml-3">
+        //                             {/* Introducir Link a sitio de recuperacion de contraseña */}
+        //                             <Link href="/recu" className="montLight">¿Has olvidado tu contraseña?</Link>
+        //                         </div>
+        //                     </div>
+        //                     <input type="password" onChange={(e) => setPassword(e.target.value)} id="password" name="password" className="shadow-sm border-gray-300 rounded-md w-full py-2 px-4 mb-8 bg-gray-100" placeholder="••••••••" />
+        //                     <button type="submit" className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-md w-full">Iniciar sesión</button>
+        //                 </form>
+        //                 <div className="mt-10 flex justify-center">
+        //                     {/* Introducir link de sitio de ayuda */}
+        //                     <p className="montLight">¿Necesitas ayuda? <Link href="https://www.youtube.com/" className="text-blue-500 hover:underline letraPeque">Escríbenos</Link></p>
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     </div>
+        // </>
+        <>
+    <div className="container mx-auto" style={{backgroundImage: 'url("/images/inicio_recuperacion.jpg")', backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh', maxWidth: '1000vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <div className="flex flex-col justify-center items-center">
+            <div className="bg-white shadow-md rounded-lg p-8">
+                <div className="flex justify-center mb-5">
+                    <img src="/images/Logo U-Tad Login.png" alt="Cuadrado DEFAULT" />
+                </div>
+
+                <div>
+                    <h1 className="text-2xl font-bold flex justify-center mb-10 montBlack">Iniciar sesión</h1>
+                </div>
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-4">
+                        <label htmlFor="email" className="block mb-2 text-sm font-medium">Email de U-Tad</label>
+                        <input type="email" onChange={(e) => setEmail(e.target.value)} id="email" name="email" className="shadow-sm border-gray-300 rounded-md w-full py-2 px-4  bg-gray-100" placeholder="ejemplo@live.u-tad.com" />
+                    </div>
+                    <div className="mb-4 flex items-start">
+                        <label htmlFor="password" className="block mb-2 text-sm font-medium">Contraseña</label>
+                        <div className="ml-3">
+                            {/* Introducir Link a sitio de recuperacion de contraseña */}
+                            <Link href="/recu" className="montLight">¿Has olvidado tu contraseña?</Link>
                         </div>
                     </div>
+                    <input type="password" onChange={(e) => setPassword(e.target.value)} id="password" name="password" className="shadow-sm border-gray-300 rounded-md w-full py-2 px-4 mb-8 bg-gray-100" placeholder="••••••••" />
+                    <button type="submit" className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-md w-full">Iniciar sesión</button>
+                </form>
+                <div className="mt-10 flex justify-center">
+                    {/* Introducir link de sitio de ayuda */}
+                    <p className="montLight">¿Necesitas ayuda? <Link href="https://www.youtube.com/" className="text-blue-500 hover:underline letraPeque">Escríbenos</Link></p>
                 </div>
             </div>
-        </>
+        </div>
+    </div>
+</>
+
     )
 
 }
