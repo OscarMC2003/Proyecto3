@@ -1,14 +1,9 @@
-const { actividadesModel, usersModel } = require("../models")
-const { handleHttpError } = require('../utils/handleError')
+const { actividadesModel } = require("../models")
+
 async function checkUserAlreadyJoined(req, res, next) {
     try {
         const { id } = req.params;
         const { userData } = req.body; // userData contiene toda la información del usuario
-
-
-        if (!userData || !userData._id) {
-            return res.status(400).json({ message: 'Información del usuario inválida' });
-        }
 
         // Extraer el _id del userData
         const userId = userData._id;
@@ -38,23 +33,7 @@ async function checkUserAlreadyJoined(req, res, next) {
 }
 
 
-const addActivityUserMiddleware = async (req, res, next) => {
-    try {
-        const { id } = req.params; // ID de la actividad
-        const { userData } = req.body; // ID del usuario desde la autenticación
-        userId = userData._id
-        await usersModel.findOneAndUpdate(
-            { _id: userId },
-            { $push: { actividades: id } },
-            { new: true }
-        );
-
-        next();
-    } catch (err) {
-        console.error('Error al agregar la actividad al perfil del usuario:', err);
-        return res.status(500).json({ message: 'Error al agregar la actividad al usuario' });
-    }
-};
 
 
-module.exports = { checkUserAlreadyJoined, addActivityUserMiddleware };
+
+module.exports = { checkUserAlreadyJoined };
