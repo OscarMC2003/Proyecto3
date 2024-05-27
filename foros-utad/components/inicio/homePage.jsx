@@ -10,9 +10,10 @@ function Inicio() {
   //const [showLogin, setShowLogin] = useState(false);
 
   const imageUrls = [
-    '/images/Inicio.png',
-    '/images/foto2.png',
-    '/images/foto3.png',
+    '/images/portada1.jpg',
+    '/images/portada2.jpg',
+    '/images/portada3.jpg',
+    '/images/portada4.jpg'
   ];
 
   return (
@@ -26,7 +27,7 @@ function Inicio() {
   
         <main className="flex-grow flex flex-col justify-center p-4 text-center">
           <h1 className="text-6xl font-bold flex justify-center mb-10 montBlack">Bienvenido a la comunidad de U-Tad</h1>
-          <p className="mb-8">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <p className="mb-8">Un espacio por y para los alumnos para compartir, participar y promover la participación en actividades durante tu vida universitaria.</p>
           <div className="flex justify-center"> {/* Contenedor para centrar el botón */}
           <Link href="/login">
                   <button className="bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300 mt-20">
@@ -51,10 +52,8 @@ function Inicio() {
       </div>
   
       {/* Carrusel de fotos en la mitad derecha */}
-      <div className="w-1/2 flex flex-col max-h-full">
-        
+      <div class="w-1/2 flex flex-col max-h-full">
         <Carousel images={imageUrls} />
-       
       </div>
   
     </div>

@@ -144,11 +144,11 @@ const Recuperacion = () => {
     return (
         <div>
             <>
-                <div className="container mx-auto">
+            <div className="container mx-auto" style={{backgroundImage: 'url("/images/inicio_recuperacion.jpg")', backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh', maxWidth: '1000vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <div className="flex flex-col justify-center items-center h-screen">
                         <div className="bg-white shadow-md rounded-lg p-8">
                             <div className="flex justify-center mb-5">
-                                <img src="/images/Logo U-Tad.png" alt="Cuadrado DEFAULT" />
+                                <img src="/images/Logo U-Tad Login.png" alt="Cuadrado DEFAULT" />
                             </div>
 
                             <div>

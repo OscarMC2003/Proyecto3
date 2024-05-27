@@ -72,10 +72,6 @@ const ActividadesScheme = new mongoose.Schema(
             type: String,
             required: true
         },
-
-        id_foto:{
-            type:Number
-        },
     },
     {
         timestamp: true, // TODO createdAt, updatedAt

@@ -4,7 +4,6 @@ import { createActivity } from '@/utils/actividades';
 import { getUserId } from '@/utils/user'
 import Select from 'react-select';
 import Portal from '@/utils/portal';
-import fotos from '@/utils/fotos';
 
 
 const agregarActividad = async (actividad, handleClose) => {
@@ -39,11 +38,6 @@ const CrearActividad = ({handleClose, show}) => {
     if (event.target === event.currentTarget) {
       handleClose();
     }
-  };
-
-  const getRandomImageIndex = () => {
-    const randomIndex = Math.floor(Math.random() * fotos.length);
-    return randomIndex;
   };
   
 
@@ -170,8 +164,7 @@ const CrearActividad = ({handleClose, show}) => {
     e.preventDefault();
     const actividad = {
       ...formData,
-      asistentesRequeridos: usuariosSeleccionados.map(user => user),
-      id_foto: getRandomImageIndex()
+      asistentesRequeridos: usuariosSeleccionados.map(user => user)
     };
     const formDataToSend = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
