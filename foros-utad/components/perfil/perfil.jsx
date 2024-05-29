@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import user from '../notoken_redirect/notoken_redirect'
 import Actividad from "@/components/actividades/actividad"; // Mantener la importación del componente Actividad
 import { useRouter } from 'next/navigation'
+import fotos from '@/utils/fotos';
 
 const Perfil = ({ IdUserIniciado }) => {
 
@@ -20,6 +21,8 @@ const Perfil = ({ IdUserIniciado }) => {
   const [user, setUser] = useState();
 
   const router = useRouter()
+
+  
 
   const filterUser = () => {
     if (user && user.actividades) {
@@ -142,6 +145,12 @@ const Perfil = ({ IdUserIniciado }) => {
     setShowPopup(actividadId === showPopup ? null : actividadId);
   };
 
+  const getImageUrl = (id_foto) => {
+    if (id_foto !== undefined && id_foto >= 0 && id_foto < fotos.length) {
+      return fotos[id_foto];
+    }
+      return '/images/cuadrado.png'; // Imagen por defecto
+    }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
@@ -190,20 +199,22 @@ const Perfil = ({ IdUserIniciado }) => {
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
             <>
               {Array.isArray(actividad) && actividad.filter(actividades => actividades.asunto.toLowerCase().includes(searchTerm.toLowerCase())).map((actividades) => (
-                <li key={actividades._id} className="list-none p-2 mb-4 bg-gray-200 rounded-lg shadow-md grid-cols-2 gap-4">
-                  <div>
-                    <button onClick={() => togglePopup(actividades._id)}>
-                      <div className="flex flex-col items-center justify-center">
-                        <img src="images/cuadrado.png" alt="Actividad 1" className="w-full h-auto max-w-md rounded-lg shadow-md col-span-2" />
-                        <div className="text-center col-span-2">
-                          <h2 className="text-xl font-bold">{actividades.asunto}</h2>
-                          <p className="text-gray-700">{actividades.objetivo}</p>
-                        </div>
-                      </div>
-                    </button>
-                    {showPopup === actividades._id && <Actividad handleClose={() => togglePopup(actividades._id)} show={showPopup} id={actividades._id} />}
+                <li key={actividades._id} className="flex flex-col justify-between list-none p-2 bg-gray-200 rounded-lg shadow-md h-auto md:h-64 mb-4">
+
+                <button onClick={() => togglePopup(actividades._id)} className="flex flex-col items-center justify-center w-full h-full">
+
+                <img src={getImageUrl(actividades.id_foto)} alt="Actividad" className="w-full h-32 object-cover rounded-lg shadow-md" />
+
+                  <div className="text-center mt-2 px-2">
+                    <h2 className="text-xl font-bold line-clamp-1">{actividades.asunto}</h2>
+                    <p className="text-gray-700 text-sm mt-3 line-clamp-3 h-14">{actividades.objetivo}</p>
                   </div>
-                </li>
+
+                </button>
+
+                {showPopup === actividades._id && <Actividad handleClose={() => togglePopup(actividades._id)} show={showPopup} id={actividades._id} />}
+
+              </li>
               ))}
             </>
           </div>

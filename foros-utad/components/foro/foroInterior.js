@@ -111,69 +111,8 @@ function ForoInterior({IDs}) {
     };
     
 
-    //const showHideClassName = show ? "fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 overflow-y-auto" : "hidden";
-    //const animationClassName = show ? "animated-fadeIn" : "animated-fadeOut";
-
-    /*const handleCloseOutside = (event) => {
-        if (event.target === event.currentTarget) {
-            handleClose();
-        }
-    };*/
+    
     return (
-        // <>
-        //     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-        //         <header style={{ position: 'fixed', top: 0, left: 0, width: '100%', background: '#0a1229', padding: '10px', textAlign: 'center', zIndex: 1000, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        //             <img src="/images/Logo U-Tad.png" alt="Imagen Izquierda" style={{ width: '75px', height: 'auto' }} />
-        //             <div style={{ flex: 1 }}></div>
-        //             <div style={{ display: 'flex', alignItems: 'center' }}>
-        //                 <button onClick={handleCambioActividades} style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Actividades</button>
-        //                 <button onClick={handleCambioAForos} style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Comunidad de Alumnos</button>
-        //             </div>
-        //         </header>
-        //         <div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
-        //             <div style={{ flex: '0 0 30%', padding: '20px', background: 'white', marginLeft: 0, position: 'fixed', left: 0, top: '60px', bottom: 0, width: '30%' }}>
-        //                 <h1 className="montExtra" style={{ textAlign: 'center', marginBottom: '20px' }}>Comunidad de alumnos</h1>
-        //                 <p className="montSEMI2" style={{ color: '#333', textAlign: 'center' }}>{foro.descripcion}</p>
-        //             </div>
-                    
-        //             <div className="bg-gray-200 rounded min-w-[300px] max-w-screen-lg w-full h-screen my-8 mx-auto flex flex-col justify-between" style={{ marginTop: '20vh', marginLeft: '30%' }}> {/* Ajustes en el contenedor principal */}
-        //                 <div style={{ position: 'sticky', top: 0, zIndex: 1 }}> {/* Hacer el título estático */}
-        //                     <h2 className="text-center text-2xl font-bold py-4 bg-white">{foro.name}</h2> {/* Título con fondo blanco */}
-        //                     <div className="border-t border-gray-400 mt-2"></div> {/* Barra separadora con margen superior */}
-        //                 </div>
-        //                 <div className="bg-white flex flex-col flex-1 overflow-y-auto rounded"> {/* Agregado redondeo a los bordes */}
-        //                     <div className="flex flex-col h-full w-full"> {/* Ajustado para ocupar todo el ancho */}
-        //                         <div className="flex-1 overflow-y-auto">
-        //                             {messages.map((message, index) => (
-        //                                 <div key={index} className="p-2">
-        //                                     <div className="bg-gray-200 p-2 rounded-lg inline-block">
-        //                                         <span className="backend-message">{message}</span>            
-        //                                     </div>
-        //                                 </div>
-        //                             ))}
-        //                         </div>
-        //                         <div className="flex p-2">
-        //                             <input
-        //                                 type="text"
-        //                                 value={newMessage}
-        //                                 onChange={(e) => setNewMessage(e.target.value)}
-        //                                 placeholder="Escribe tu mensaje..."
-        //                                 className="flex-1 border border-gray-300 rounded-l-md p-2"
-        //                             />
-        //                             <button
-        //                                 onClick={handleSendMessage}
-        //                                 className="bg-gray-800 text-white px-4 py-2 rounded-r-md"
-        //                             >
-        //                                 Enviar
-        //                             </button>
-        //                         </div>
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         </div>
-        //     </div>
-
-        // </>
         <>
   <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
     <header style={{ position: 'fixed', top: 0, left: 0, width: '100%', background: '#0a1229', padding: '10px', textAlign: 'center', zIndex: 1000, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -201,6 +140,7 @@ function ForoInterior({IDs}) {
                 {messages.map((message, index) => (
                   <div key={index} className="p-2">
                     <div className="bg-gray-200 p-2 rounded-lg inline-block">
+                   
                       <span className="backend-message">{message}</span>            
                     </div>
                   </div>

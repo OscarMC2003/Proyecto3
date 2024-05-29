@@ -9,7 +9,6 @@ const fetchUserId = async (token) => {
     try {
       const userId = await getUserId(token);
       console.log('UserID:', userId);
-      alert(userId)
 
       return userId;
 

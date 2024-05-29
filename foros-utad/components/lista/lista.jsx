@@ -12,7 +12,7 @@ function RectangleList({ foros, idUserIniciado }) { // Se agrega destructuració
   const router = useRouter()
 
   const handleClick = (foroId) => {
-    alert(foroId)
+    
     router.push(`/foroInterior?foroId=${foroId}&idUserIniciado=${idUserIniciado}`);
   }
 
