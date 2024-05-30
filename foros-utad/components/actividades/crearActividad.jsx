@@ -7,8 +7,8 @@ import Portal from '@/utils/portal';
 import fotos from '@/utils/fotos';
 
 const getRandomImageIndex = () => {
-  const randomIndex = Math.floor(Math.random() * fotos.length);
-  return randomIndex;
+  //const randomIndex = Math.floor(Math.random() * fotos.length);
+  return 8;
 };
 
 
