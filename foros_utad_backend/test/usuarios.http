@@ -8,12 +8,12 @@ Content-Type: application/json
 api_key: Api-publica-123
 
 {
-    "name": "David Gil",
-    "email": "david@gmail.com",
-    "age": "22",
+    "name": "Adrián García",
+    "email": "agarcia@live.u-tad.com",
+    "age": "21",
     "activo": true,
     "password": "123",
-    "role": "admin"
+    "role": "alumno"
 }
 ###
 
