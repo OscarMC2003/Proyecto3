@@ -168,7 +168,7 @@ const Perfil = ({ IdUserIniciado }) => {
 
       <div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
         <div style={{ flex: '0 0 30%', padding: '20px', background: 'white', marginLeft: 0, position: 'fixed', left: 0, top: '60px', bottom: 0, width: '30%' }}>
-          <img src="/images/foto de perfil 1.png" alt="Imagen Perfil" style={{ width: '45%', height: 'auto', margin: '0 auto' }} />
+          <img src="/images/userVacio.png" alt="Imagen Perfil" style={{ width: '45%', height: 'auto', margin: '0 auto' }} />
           <h1 className="montExtra" style={{ textAlign: 'center', marginBottom: '20px' }}>{nombre}</h1>
           <p className="montSEMI2" style={{ color: '#333', textAlign: 'center' }}>{texto}</p>
           <button style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginTop: '20px', width: '100%', display: 'block' }} onClick={handleEditarPerfil}>Editar perfil</button>
