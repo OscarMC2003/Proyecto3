@@ -171,8 +171,7 @@ const CrearForo = ({handleClose, show}) => {
 
           {/* Image as a visual header at the top of the content */}
           <div className=" bg-white shadow-lg rounded-lg overflow-hidden">
-            <h1>Crear Foro</h1>
-            <label className=" p-6 block mt-5 mb-2 font-bold montBlack">Imagen</label>
+            <label className=" pa-6 block mt-5 mb-2 font-bold montBlack">Imagen</label>
             {imagePreviewUrl && (
               <img src={imagePreviewUrl} alt="Vista previa del foro" className="w-full mb-4 max-h-60 object-cover" />
             )}
