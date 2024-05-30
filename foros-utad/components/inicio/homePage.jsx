@@ -11,9 +11,8 @@ function Inicio() {
 
   const imageUrls = [
     '/images/portada1.jpg',
-    '/images/portada2.jpg',
-    '/images/portada3.jpg',
-    '/images/portada4.jpg'
+    '/images/portada2.png',
+    '/images/portada3.jpg'
   ];
 
   return (
