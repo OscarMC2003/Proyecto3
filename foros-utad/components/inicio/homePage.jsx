@@ -25,8 +25,9 @@ function Inicio() {
         </header>
   
         <main className="flex-grow flex flex-col justify-center p-4 text-center">
-          <h1 className="text-6xl font-bold flex justify-center mb-10 montBlack">Bienvenido a la comunidad de U-Tad</h1>
-          <p className="mb-8">Un espacio por y para los alumnos para compartir, participar y promover la participación en actividades durante tu vida universitaria.</p>
+          <h1 className="text-xl font-bold flex mb-10 montBlack2">Bienvenido a la comunidad de U-Tad</h1>
+          <p className="mb-2 montRegular">Un espacio por y para los alumnos para compartir, participar y promover</p>
+          <p className="mb-8 montRegular">la participación en actividades durante tu vida universitaria.</p>
           <div className="flex justify-center"> {/* Contenedor para centrar el botón */}
           <Link href="/login">
                   <button className="bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300 mt-20">

@@ -119,8 +119,8 @@ function ForoInterior({IDs}) {
       <img src="/images/Logo U-Tad.png" alt="Imagen Izquierda" style={{ width: '75px', height: 'auto' }} />
       <div style={{ flex: 1 }}></div>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <button onClick={handleCambioActividades} style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Actividades</button>
-        <button onClick={handleCambioAForos} style={{ background: 'blue', color: 'white', padding: '10px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}>Comunidad de Alumnos</button>
+        <button onClick={handleCambioActividades} className="bg-transparent hover:bg-blue-500 text-white font-semibold hover:text-white py-2 px-4 border border-text-white hover:border-transparent rounded mr-3">Actividades</button>
+        <button onClick={handleCambioAForos} className="bg-blue-700 text-white px-4 py-2 rounded-md mr-2.5">Comunidad de Alumnos</button>
       </div>
     </header>
     <div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>

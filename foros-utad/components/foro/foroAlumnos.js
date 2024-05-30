@@ -91,8 +91,8 @@ const Foros = ({ IdUserIniciado, handleClose, show }) => {
 
                 {/* Botón seguido de otra imagen a la derecha */}
                 <div className="flex items-center">
-                    <button onClick={handleCambioAactividades} className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-md mr-2.5 transition duration-300 ease-in-out">Actividades</button>
-                    <button className="bg-blue-600 text-white px-4 py-2 rounded-md mr-2.5">Comunidad de Alumnos</button>
+                    <button onClick={handleCambioAactividades} className="bg-transparent hover:bg-blue-500 text-white font-semibold hover:text-white py-2 px-4 border border-text-white hover:border-transparent rounded">Actividades</button>
+                    <button className="bg-blue-600 text-white px-4 py-2 rounded-md mr-2.5 ml-3">Comunidad de Alumnos</button>
                     <button onClick={handleCambioAUsuario} className="ml-2.5">
                         <img src="/images/userVacio.png" alt="Imagen Derecha" className="w-12 h-auto rounded-full border-2 border-blue-700" />
                     </button>

@@ -3,10 +3,19 @@
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+.montBlack2 {
+  color: #000;
+  font-family: "Montserrat", sans-serif;
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+}
+
 .montBlack {
   color: #000;
   font-family: "Montserrat", sans-serif;
-  font-size: 32px;
+  font-size: 30px;
   font-style: normal;
   font-weight: 800;
   line-height: normal;
@@ -37,7 +46,7 @@
   font-family: "Montserrat", sans-serif;
   font-size: 22px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 700;
   line-height: normal;
 }
 

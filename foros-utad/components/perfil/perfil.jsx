@@ -178,10 +178,6 @@ const Perfil = ({ IdUserIniciado }) => {
                 <label htmlFor="email" className="block mb-2 text-sm font-medium">Nombre de usuario:</label>
                 <input onChange={(e) => setNombre(e.target.value)} id="email" name="email" className="shadow-sm border-gray-300 rounded-md w-full py-2 px-4  bg-gray-100" placeholder="Nuevo nombre" />
               </div>
-              <div className="flex items-start">
-                <label htmlFor="password" className="block mb-2 text-sm font-medium">Email</label>
-              </div>
-              <input type="email" onChange={(e) => setTexto(e.target.value)} id="password" name="password" className="shadow-sm border-gray-300 rounded-md w-full py-2 px-4 mb-8 bg-gray-100" placeholder="email" />
               <button type="submit" className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-md w-full">Realizar cambios</button>
             </form>
 
